@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    public float moveSpeed = 5f;
+    public float moveSpeed = 10f;
     [SerializeField]
     private Transform movePoint;
     [SerializeField]
@@ -14,16 +14,19 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        movePoint.parent = null;
     }
 
     // Update is called once per frame
     void Update()
     {
         float movementAmount = moveSpeed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, movePoint.position, movementAmount);
+        Vector3 newPos = Vector3.MoveTowards(transform.position, movePoint.position, movementAmount);
+        Vector3 diff = transform.position - newPos;
+        diff.z = 0;
+        transform.position = newPos;
+        movePoint.position += diff;
 
-        if(Vector3.Distance(transform.position, movePoint.position) <= 0.05f)
+        if (Vector3.Distance(transform.position, movePoint.position) <= 0.05f)
         {
             if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f)
             {
@@ -38,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move(Vector3 direction)
     {
-        Vector3 newPosition = movePoint.position + direction;
+        Vector3 newPosition = movePoint.position + direction * 0.845f;
         if (!Physics2D.OverlapCircle(newPosition, 0.2f, blockingLayerMask))
         {
             movePoint.position = newPosition;
