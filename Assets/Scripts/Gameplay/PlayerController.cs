@@ -10,6 +10,10 @@ public class PlayerController : MonoBehaviour
     private Transform movePoint;
     [SerializeField]
     private LayerMask blockingLayerMask;
+    [SerializeField]
+    private string horizontalInput;
+    [SerializeField]
+    private string verticalInput;
 
     // Start is called before the first frame update
     void Start()
@@ -28,13 +32,13 @@ public class PlayerController : MonoBehaviour
 
         if (Vector3.Distance(transform.position, movePoint.position) <= 0.05f)
         {
-            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f)
+            if (Mathf.Abs(Input.GetAxisRaw(horizontalInput)) == 1f)
             {
-                Move(new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0));
+                Move(new Vector3(Input.GetAxisRaw(horizontalInput), 0, 0));
             }
-            else if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1f)
+            else if (Mathf.Abs(Input.GetAxisRaw(verticalInput)) == 1f)
             {
-                Move(new Vector3(0, Input.GetAxisRaw("Vertical"), 0));
+                Move(new Vector3(0, Input.GetAxisRaw(verticalInput), 0));
             }
         }
     }
