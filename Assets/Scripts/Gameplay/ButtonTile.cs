@@ -24,10 +24,13 @@ public class ButtonTile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        foreach (GameObject tO in triggerObjects)
+            tO.GetComponent<DoorTile>().setOpen(active);
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
         active = !active;
-        spriteRenderer.sprite = sprites[active ? 1 : 0];    }
+        spriteRenderer.sprite = sprites[active ? 1 : 0];    
+    }
 }
