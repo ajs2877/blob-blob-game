@@ -11,9 +11,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private LayerMask blockingLayerMask;
     [SerializeField]
-    private string horizontalInput;
+    public string horizontalInput;
     [SerializeField]
-    private string verticalInput;
+    public string verticalInput;
+
+    private bool hasSnapped = false;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +43,18 @@ public class PlayerController : MonoBehaviour
                 Move(new Vector3(0, Input.GetAxisRaw(verticalInput), 0));
             }
         }
+
+        if (!hasSnapped && 
+            Input.GetAxisRaw(horizontalInput) == 0 && 
+            Input.GetAxisRaw(verticalInput) == 0 && 
+            Vector2.Distance(transform.position, movePoint.position) < 0.06f)
+        {
+            float xRemainder = transform.position.x % (0.845f) + 0.2f;
+            float yRemainder = transform.position.y % (0.845f) - 0.3f;
+            Vector3 gridPos = new Vector3(transform.position.x - xRemainder, transform.position.y - yRemainder, -1f);
+            transform.position = gridPos;
+            movePoint.position = transform.position;
+        }
     }
 
     private void Move(Vector3 direction)
@@ -49,6 +63,7 @@ public class PlayerController : MonoBehaviour
         if (!Physics2D.OverlapCircle(newPosition, 0.2f, blockingLayerMask))
         {
             movePoint.position = newPosition;
+            hasSnapped = false;
         }
     }
 }
