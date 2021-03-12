@@ -37,7 +37,7 @@ public class MovementSwitcher : MonoBehaviour
         {
             SwitchBlobsControls();
         }
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (!multiBlobControl && Input.GetKeyDown(KeyCode.LeftShift))
         {
             SwitchSelectedBlob();
         }
@@ -62,7 +62,7 @@ public class MovementSwitcher : MonoBehaviour
             blob2Controls.verticalInput = "VerticalAlt";
 
             controlText.text = "E to switch to controlling\n1 blob at a time";
-            movementText.text = "Singleblob controls:\nAWSD - " + (contolledSingleBlob == blob1 ? "Blue" : "Red") + " blob\nShift to switch blobs.";
+            movementText.text = "Multiblob controls:\nAWSD - Blue blob\nArrow keys - Red blob";
         }
         else
         {
@@ -72,7 +72,7 @@ public class MovementSwitcher : MonoBehaviour
             GetOtherBlob().GetComponent<PlayerController>().enabled = false;
 
             controlText.text = "E to switch to controlling both blobs at same time";
-            movementText.text = "Multiblob controls:\nAWSD - Blue blob\nArrow keys - Red blob";
+            movementText.text = "Singleblob controls:\nAWSD - " + (contolledSingleBlob == blob1 ? "Blue" : "Red") + " blob\nShift to switch blobs.";
         }
     }
 
