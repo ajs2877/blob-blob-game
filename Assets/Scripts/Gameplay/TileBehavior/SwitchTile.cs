@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwitchTile : MonoBehaviour
+public class SwitchTile : Triggerable
 {
     [SerializeField]
     private bool state;
@@ -22,11 +22,6 @@ public class SwitchTile : MonoBehaviour
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
     
-    void Update()
-    {
-
-    }
-
     void OnTriggerStay2D(Collider2D col)
     {
         if (primed)
@@ -42,11 +37,7 @@ public class SwitchTile : MonoBehaviour
                     state = !state;
                     //changes texture to match
                     spriteRenderer.sprite = sprites[state ? 1 : 0];
-
-                    if (state)
-                    {
-                        SetTriggers(state);
-                    }
+                    triggered = state;
                 }
             }
         }
@@ -55,12 +46,5 @@ public class SwitchTile : MonoBehaviour
         {
             primed = true;
         }
-    }
-
-    /**
-     * Iterate over all triggers and changes their states
-     */
-    private void SetTriggers(bool newState)
-    {
     }
 }
