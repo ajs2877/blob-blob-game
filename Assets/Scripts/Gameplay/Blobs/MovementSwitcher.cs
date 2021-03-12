@@ -13,13 +13,17 @@ public class MovementSwitcher : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown("m"))
+       // if (Input.GetKeyDown("f"))
+       // {
+       //     SwitchMovementMode();
+       // }
+        if (Input.GetKeyDown("f"))
         {
-            SwitchMode();
+           // SwitchMode();
         }
     }
 
-    public void SwitchMode()
+    public void SwitchMovementMode()
     {
         gridMovementMode = !gridMovementMode;
         SetBlob(blob1);

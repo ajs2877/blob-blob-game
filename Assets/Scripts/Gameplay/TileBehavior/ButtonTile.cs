@@ -15,7 +15,7 @@ public class ButtonTile : Triggerable
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
     
-    void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerStay2D(Collider2D col)
     {
         triggered = true;
         spriteRenderer.sprite = sprites[1];
