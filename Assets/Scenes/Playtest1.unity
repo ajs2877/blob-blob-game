@@ -3702,7 +3702,7 @@ GameObject:
   - component: {fileID: 1967770314}
   - component: {fileID: 1967770313}
   - component: {fileID: 1967770312}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: boulder (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4066,6 +4066,11 @@ PrefabInstance:
       propertyPath: blob2
       value: 
       objectReference: {fileID: 1109538702}
+    - target: {fileID: 6248729230720555083, guid: dadea63c0b657504aa3e039db8a82bb1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6518058825769468546, guid: dadea63c0b657504aa3e039db8a82bb1,
         type: 3}
       propertyPath: m_RootOrder

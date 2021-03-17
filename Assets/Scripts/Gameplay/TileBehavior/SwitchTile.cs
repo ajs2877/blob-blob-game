@@ -16,6 +16,7 @@ public class SwitchTile : Triggerable
     // To keep track when to start detection player movement
     private bool primed = false;
     private SpriteRenderer spriteRenderer;
+    private GameObject objectOn = null;
 
     void Start()
     {
@@ -24,11 +25,12 @@ public class SwitchTile : Triggerable
     
     void OnTriggerStay2D(Collider2D col)
     {
-        if (primed)
+        if (primed && objectOn == col.gameObject)
         {
             // Detects when the blob is exiting and changes state if the blob is going the right direction
             if (Vector3.Distance(gameObject.transform.position, col.gameObject.transform.position) > 0.65f)
             {
+                objectOn = null;
                 primed = false;
                 DirectionVector directionVector = col.gameObject.GetComponent<DirectionVector>();
                 Vector2 tileDirection = state ? gameObject.transform.up : gameObject.transform.up * -1;
@@ -41,9 +43,10 @@ public class SwitchTile : Triggerable
                 }
             }
         }
-        // Blob enter far enough inward. Read the switch for switching.
+        // Blob enter far enough inward. Set the switch to be ready for switching.
         else if (Vector2.Distance(gameObject.transform.position, col.gameObject.transform.position) < 0.65f)
         {
+            objectOn = col.gameObject;
             primed = true;
         }
     }
