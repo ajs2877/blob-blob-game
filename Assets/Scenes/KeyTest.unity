@@ -2711,6 +2711,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggered: 0
   speed: 4
+  triggerRange: 1
+  door: {fileID: 553637165}
 --- !u!1 &961828978
 GameObject:
   m_ObjectHideFlags: 0
