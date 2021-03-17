@@ -4,27 +4,34 @@ using UnityEngine;
 
 public class Boulder : MonoBehaviour
 {
-    public GameObject blob;
+    private Rigidbody2D rb;   
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        rb.freezeRotation = true;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "blob")
+        if(collision.gameObject.tag == "Player")
         {
-            Debug.Log("yes");
-            Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0f);
-            transform.position += movement * Time.deltaTime * blob.GetComponent<CubeMovement>().moveSpeed;
+            rb.constraints = RigidbodyConstraints2D.None;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collisions)
+    {
+        if(collisions.gameObject.tag == "Player")
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
         }
     }
 }
