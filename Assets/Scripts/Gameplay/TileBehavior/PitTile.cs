@@ -5,7 +5,7 @@ using UnityEngine;
 public class PitTile : MonoBehaviour
 {
     [SerializeField]
-    private bool state;
+    private bool filled = false;
     
     [SerializeField]
     private Sprite[] sprites;
@@ -20,29 +20,44 @@ public class PitTile : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D col)
     {
-        // Detects when the boulder is touching
-        GameObject gameObjectTouching = col.gameObject;
-        if (gameObjectTouching.tag.Equals("boulder"))
+        if(!filled)
         {
-            StartCoroutine(IgnoreCollision(col.collider, col.otherCollider));
-
-            float distance = Vector3.Distance(gameObject.transform.position, gameObjectTouching.transform.position);
-            if (distance < 0.4f)
+            // Detects when the boulder is touching
+            GameObject gameObjectTouching = col.gameObject;
+            if (gameObjectTouching.tag.Equals("boulder"))
             {
-                // Remove boulder
-                Destroy(gameObjectTouching);
-
-                // Set new texture of pit and remove collision
-                spriteRenderer.sprite = sprites[1];
-                gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                // Begin dedicated checking between pit and boulder that does not block OnCollisionStay2D
+                StartCoroutine(IgnoreCollision(col.collider, col.otherCollider));
             }
         }
     }
 
-    IEnumerator IgnoreCollision(Collider2D col1, Collider2D col2)
+    IEnumerator IgnoreCollision(Collider2D boulderCollider, Collider2D pitCollider)
     {
-        Physics2D.IgnoreCollision(col1, col2, true);
-        while (Physics2D.Distance(col1, col2).isOverlapped) yield return null;
-        Physics2D.IgnoreCollision(col1, col2, false);
+        // Turn off collision between boulder and pit so boulder can be moved over pit
+        Physics2D.IgnoreCollision(boulderCollider, pitCollider, true);
+
+        // Will keep checking between boulder and pit to know if boulder has fallen in
+        while (!filled && boulderCollider != null && Physics2D.Distance(boulderCollider, pitCollider).isOverlapped)
+        {
+            float distance = Vector3.Distance(boulderCollider.transform.position, pitCollider.transform.position);
+            if (distance < 0.4f)
+            {
+                // Remove boulder
+                Destroy(boulderCollider.gameObject);
+
+                // Set new texture of pit and remove collision
+                spriteRenderer.sprite = sprites[1];
+                pitCollider.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                filled = true;
+            }
+            yield return null;
+        }
+
+        // If boulder wasn't destroyed but moved out of pit area, turn on collisions so we can detect if it comes back
+        if(boulderCollider != null)
+        {
+            Physics2D.IgnoreCollision(boulderCollider, pitCollider, false);
+        }
     }
 }
