@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class EndTile : MonoBehaviour
 {
     private int playerCount = 0;
+    public int nextStageNumber;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +44,8 @@ public class EndTile : MonoBehaviour
     private void LoadLevel()
     {
         Debug.Log("Level Loaded!");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        StageProgress.SetCompletedLevel(nextStageNumber);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("LevelSelection");
     }
 }
