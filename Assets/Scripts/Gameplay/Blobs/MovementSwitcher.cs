@@ -58,11 +58,11 @@ public class MovementSwitcher : MonoBehaviour
             blob1.GetComponent<PlayerController>().enabled = true;
             PlayerController blob2Controls = blob2.GetComponent<PlayerController>();
             blob2Controls.enabled = true;
-            blob2Controls.horizontalInput = "HorizontalAlt";
-            blob2Controls.verticalInput = "VerticalAlt";
+            blob2Controls.horizontalInput = "HorizontalMain";
+            blob2Controls.verticalInput = "VerticalMain";
 
             controlText.text = "E to switch to controlling\n1 blob at a time";
-            movementText.text = "Multiblob controls:\nAWSD - Blue blob\nArrow keys - Red blob";
+            movementText.text = "Multiblob controls:\nAWSD - Blue and Red blob";
         }
         else
         {
