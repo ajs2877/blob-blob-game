@@ -1898,6 +1898,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4368188054268293236, guid: 46ef7948a4af1df4290ffa87112b4ea5,
         type: 3}
+      propertyPath: invertDoorState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4368188054268293236, guid: 46ef7948a4af1df4290ffa87112b4ea5,
+        type: 3}
       propertyPath: allTriggers.Array.data[0]
       value: 
       objectReference: {fileID: 389141979}
