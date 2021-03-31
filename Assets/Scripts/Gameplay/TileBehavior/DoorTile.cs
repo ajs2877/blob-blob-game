@@ -12,6 +12,8 @@ public class DoorTile : MonoBehaviour
 
     [SerializeField]
     private bool activateOnAnyTrigger = false;
+    [SerializeField]
+    private bool invertDoorState = false;
     public Triggerable[] allTriggers;
 
     // Start is called before the first frame update
@@ -24,22 +26,24 @@ public class DoorTile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool isOpen = false;
+        bool isOpen = invertDoorState;
         if (allTriggers.Length > 0)
         {
             // set the starting state for our checks
-            isOpen = !activateOnAnyTrigger; 
+            bool validTriggers = !activateOnAnyTrigger;
             foreach (Triggerable triggerObj in allTriggers)
             {
                 if (activateOnAnyTrigger)
                 {
-                    isOpen = isOpen || triggerObj.triggered;
+                    validTriggers = validTriggers || triggerObj.triggered;
                 }
                 else
                 {
-                    isOpen = isOpen && triggerObj.triggered;
+                    validTriggers = validTriggers && triggerObj.triggered;
                 }
             }
+            isOpen = validTriggers;
+            if (invertDoorState) isOpen = !isOpen;
         }
 
         bc.isTrigger = isOpen;
