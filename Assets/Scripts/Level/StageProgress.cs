@@ -4,21 +4,19 @@ using UnityEngine;
 
 public class StageProgress : MonoBehaviour
 {
-    public static void SetCompletedLevel(int latestFinishedLevel)
+    public static void SetCompletedLevel(string finishedLevel)
     {
-        if (GetCompletedLevels() < latestFinishedLevel)
-        {
-            PlayerPrefs.SetInt("completedStage", latestFinishedLevel);
-        }
+        PlayerPrefs.SetInt(finishedLevel, 1);
+        PlayerPrefs.Save();
     }
 
-    public static int GetCompletedLevels()
+    public static bool IsLevelCompleted(string level)
     {
-        return PlayerPrefs.GetInt("completedStage", 1);
+        return PlayerPrefs.GetInt(level, 0) == 1;
     }
 
     public static void ResetProgress()
     {
-        PlayerPrefs.SetInt("completedStage", 1);
+        PlayerPrefs.DeleteAll();
     }
 }

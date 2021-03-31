@@ -17,7 +17,7 @@ public class StageSelector : MonoBehaviour
             StageProgress.ResetProgress();
         }
 
-        int playerProgress = StageProgress.GetCompletedLevels();
+        bool lastLevelCompleted = true;
         for (int index = 0; index < scenes.Length; ++index)
         {
             GameObject newButton = Instantiate(stageButtonPrefab, stageHolder.transform.position, stageHolder.transform.rotation);
@@ -27,12 +27,19 @@ public class StageSelector : MonoBehaviour
             // Sets up all buttons based on scenes assigned
             newButton.GetComponent<StageButton>().stageName = scenes[index].SceneName;
             newButton.GetComponentInChildren<Text>().text = (index + 1).ToString();
-
-            // Player progress starts at 1. Not 0 like index.
-            if (index >= playerProgress)
+            
+            if (!StageProgress.IsLevelCompleted(scenes[index].SceneName))
             {
-                // Disable all stages we have not reached yet
-                newButton.GetComponent<Button>().interactable = false;
+                // Keep this stage active as we completed last stage. This new stage is avaliable.
+                if (lastLevelCompleted)
+                {
+                    lastLevelCompleted = false;
+                }
+                else
+                {
+                    // Disable all stages we have not reached yet as last stage wasn't completed
+                    newButton.GetComponent<Button>().interactable = false;
+                }
             }
         }
     }

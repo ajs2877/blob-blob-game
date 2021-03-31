@@ -6,18 +6,15 @@ using UnityEngine.SceneManagement;
 public class EndTile : MonoBehaviour
 {
     private int playerCount = 0;
-    public int nextStageNumber;
+    public int numberOfRequirePlayers = 2;
+    public Utilities.SceneField nextStage;
 
-    // Start is called before the first frame update
+    [SerializeField]
+    private Sprite[] sprites;
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        GetComponent<SpriteRenderer>().sprite = sprites[numberOfRequirePlayers - 1];
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -27,7 +24,7 @@ public class EndTile : MonoBehaviour
             playerCount++;
         }
 
-        if(playerCount == 2)
+        if(playerCount == numberOfRequirePlayers)
         {
             LoadLevel();
         }
@@ -44,8 +41,7 @@ public class EndTile : MonoBehaviour
     private void LoadLevel()
     {
         Debug.Log("Level Loaded!");
-        StageProgress.SetCompletedLevel(nextStageNumber);
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        SceneManager.LoadScene("LevelSelection");
+        StageProgress.SetCompletedLevel(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(nextStage);
     }
 }

@@ -238,6 +238,22 @@ PrefabInstance:
       propertyPath: currentStageNumber
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 632224564312164414, guid: aa5d60d246b50c2478925eee2dbf744a,
+        type: 3}
+      propertyPath: nextStage.sceneName
+      value: Scenes/Game Levels/Level3
+      objectReference: {fileID: 0}
+    - target: {fileID: 632224564312164414, guid: aa5d60d246b50c2478925eee2dbf744a,
+        type: 3}
+      propertyPath: nextStage.sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: a6b72ab065d50574c85b7cf2a5dbfebb,
+        type: 3}
+    - target: {fileID: 632224564312164414, guid: aa5d60d246b50c2478925eee2dbf744a,
+        type: 3}
+      propertyPath: numberOfRequirePlayers
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 632224564312164415, guid: aa5d60d246b50c2478925eee2dbf744a,
         type: 3}
       propertyPath: m_Name
@@ -600,7 +616,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileSpriteIndex: 5
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -771,7 +787,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 0
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -950,13 +966,12 @@ Tilemap:
   - m_RefCount: 4
     m_Data: {fileID: 11400000, guid: 1d74d27f40b2dd9499b5d77f6620b482, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 1
-    m_Data: {fileID: -1614935768883405153, guid: a4ceb93f7fdff9345ad4a3fdbb81d6c0,
-      type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 57
     m_Data: {fileID: 21300000, guid: 5921aecb82fe84f4c8355151c33aafc8, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 2805346696333396682, guid: df06f6e24a745d14f82298550a3826c0,
+    m_Data: {fileID: -1614935768883405153, guid: a4ceb93f7fdff9345ad4a3fdbb81d6c0,
       type: 3}
   - m_RefCount: 6
     m_Data: {fileID: -4295841159707228918, guid: 5d03a91e12dd3cf47b606f22cb029b6d,
@@ -964,8 +979,9 @@ Tilemap:
   - m_RefCount: 2
     m_Data: {fileID: 3501715655822647391, guid: a4ceb93f7fdff9345ad4a3fdbb81d6c0,
       type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 2805346696333396682, guid: df06f6e24a745d14f82298550a3826c0,
+      type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -2001786109015582486, guid: a4ceb93f7fdff9345ad4a3fdbb81d6c0,
       type: 3}

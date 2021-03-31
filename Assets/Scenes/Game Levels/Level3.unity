@@ -325,6 +325,22 @@ PrefabInstance:
       propertyPath: currentStageNumber
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 632224564312164414, guid: aa5d60d246b50c2478925eee2dbf744a,
+        type: 3}
+      propertyPath: nextStage.sceneName
+      value: Scenes/Game Levels/Level4
+      objectReference: {fileID: 0}
+    - target: {fileID: 632224564312164414, guid: aa5d60d246b50c2478925eee2dbf744a,
+        type: 3}
+      propertyPath: nextStage.sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 242c31255729b1b419a989a5dee14feb,
+        type: 3}
+    - target: {fileID: 632224564312164414, guid: aa5d60d246b50c2478925eee2dbf744a,
+        type: 3}
+      propertyPath: numberOfRequirePlayers
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 632224564312164415, guid: aa5d60d246b50c2478925eee2dbf744a,
         type: 3}
       propertyPath: m_Name
