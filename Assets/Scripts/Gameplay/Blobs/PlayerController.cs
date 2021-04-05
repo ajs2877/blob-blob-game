@@ -6,12 +6,16 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     public float moveSpeed = 10f;
+
     [SerializeField]
     private Transform movePoint;
+
     [SerializeField]
     private LayerMask blockingLayerMask;
+
     [SerializeField]
     public string horizontalInput;
+
     [SerializeField]
     public string verticalInput;
 
@@ -25,22 +29,23 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float movementAmount = moveSpeed * Time.deltaTime;
-        Vector3 newPos = Vector3.MoveTowards(transform.position, movePoint.position, movementAmount);
-        Vector3 diff = transform.position - newPos;
+        float movementAmount = moveSpeed * Time.deltaTime; // How far to move
+        Vector3 newPos = Vector3.MoveTowards(transform.position, movePoint.position, movementAmount); // Where it moves to
+        Vector3 diff = transform.position - newPos; // Vector distance moved
         diff.z = 0;
-        transform.position = newPos;
-        movePoint.position += diff;
+        transform.position = newPos; // Move to new position
+        movePoint.position += diff; // Move movePoint
 
-        if (Vector3.Distance(transform.position, movePoint.position) <= 0.05f)
+        if (Vector3.Distance(transform.position, movePoint.position) <= 0.05f) 
         {
-            if (Mathf.Abs(Input.GetAxisRaw(horizontalInput)) == 1f)
+            if (Mathf.Abs(Input.GetAxisRaw(horizontalInput)) == 1f) 
             {
                 Move(new Vector3(Input.GetAxisRaw(horizontalInput), 0, 0));
             }
             else if (Mathf.Abs(Input.GetAxisRaw(verticalInput)) == 1f)
             {
                 Move(new Vector3(0, Input.GetAxisRaw(verticalInput), 0));
+                Debug.Log(Input.GetAxisRaw(verticalInput));
             }
         }
 
@@ -59,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move(Vector3 direction)
     {
-        Vector3 newPosition = movePoint.position + direction * 0.845f;
+        Vector3 newPosition = movePoint.position + direction * 0.845f; // Calculate new position
         if (!Physics2D.OverlapCircle(newPosition, 0.2f, blockingLayerMask))
         {
             movePoint.position = newPosition;

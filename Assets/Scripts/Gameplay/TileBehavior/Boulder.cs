@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Boulder : MonoBehaviour
 {
-    private Rigidbody2D rb;   
+    private Rigidbody2D rb;
+    public float moveSpeed = 5f;
+    public float magnitude = 100.0f;
+    public LayerMask collideable;
 
     // Start is called before the first frame update
     void Start()
@@ -21,9 +24,15 @@ public class Boulder : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        
         if(collision.gameObject.tag == "Player")
         {
-            rb.constraints = RigidbodyConstraints2D.None;
+            rb.constraints = RigidbodyConstraints2D.None; // Unfreeze boulder tranformations
+            Vector3 movement = (collision.transform.position - transform.position).normalized;
+            if (!Physics2D.OverlapCircle(transform.position + movement, collideable))
+            {
+                transform.position = Vector3.MoveTowards(transform.position, transform.position + movement, moveSpeed * Time.deltaTime);
+            }
         }
     }
 

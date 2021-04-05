@@ -20,7 +20,16 @@ public class CubeMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 movement = new Vector3(Input.GetAxis(horizontalInput), Input.GetAxis(verticalInput), 0f);
-        transform.position += movement * Time.deltaTime * moveSpeed;
+        if(Input.GetAxis(horizontalInput) != 0)
+        {
+            Vector3 movement = new Vector3(Input.GetAxis(horizontalInput), 0f, 0f);
+            transform.position += movement * Time.deltaTime * moveSpeed;
+        }
+        else if (Input.GetAxis(verticalInput) != 0)
+        {
+            Vector3 movement = new Vector3(0f, Input.GetAxis(verticalInput), 0f);
+            transform.position += movement * Time.deltaTime * moveSpeed;
+        }
+            
     }
 }
