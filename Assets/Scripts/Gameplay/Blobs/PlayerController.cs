@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
     private LayerMask blockingLayerMask;
 
     [SerializeField]
+    private LayerMask boulderLayerMask;
+
+    [SerializeField]
     public string horizontalInput;
 
     [SerializeField]
@@ -65,10 +68,20 @@ public class PlayerController : MonoBehaviour
     private void Move(Vector3 direction)
     {
         Vector3 newPosition = movePoint.position + direction * 0.845f; // Calculate new position
-        if (!Physics2D.OverlapCircle(newPosition, 0.2f, blockingLayerMask))
+        
+        // Check if boulder is moveable when colliding
+        bool boulderCollide = !Physics2D.OverlapCircle(newPosition, 0.2f, boulderLayerMask); //False when there is a collision with a boulder
+        if (!boulderCollide)
+        {
+            boulderCollide = Physics2D.OverlapCircle(newPosition, 0.2f, boulderLayerMask).GetComponent<BoulderGrid>().CanMove(direction); //True if boulder can move in that direction
+        }
+
+        if (!Physics2D.OverlapCircle(newPosition, 0.2f, blockingLayerMask) && boulderCollide) // Check collisions with walls
         {
             movePoint.position = newPosition;
             hasSnapped = false;
         }
+
+        
     }
 }

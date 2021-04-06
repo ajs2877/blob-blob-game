@@ -24,7 +24,8 @@ public class BoulderGrid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, movePoint.position, moveSpeed * Time.deltaTime);
+        if (Vector3.Distance(transform.position, movePoint.position) >= 0.05f)
+            transform.position = Vector3.MoveTowards(transform.position, movePoint.position, moveSpeed * Time.deltaTime);
         if (moving) Move(direction);
     }
 
@@ -38,18 +39,13 @@ public class BoulderGrid : MonoBehaviour
             if (Mathf.Abs(direction.x) < 0.9f) direction.x = 0;
             if (Mathf.Abs(direction.y) < 0.9f) direction.y = 0;
             direction = direction * MOVE_DISTANCE;
-            Debug.Log(direction);
-            //if (!Physics2D.OverlapCircle(transform.position + movement, collideable))
-            //{
-            //transform.position = Vector3.MoveTowards(transform.position, transform.position + movement, moveSpeed * Time.deltaTime);
-            //}
         }
     }
 
     void OnCollisionExit2D(Collision2D collision) 
     {
-        if (collision.gameObject.tag == "Player")
-            moving = false;
+        //if (collision.gameObject.tag == "Player")
+            //moving = false;
     }
 
     void Move(Vector3 dir)
@@ -57,8 +53,23 @@ public class BoulderGrid : MonoBehaviour
         if (Vector3.Distance(transform.position, movePoint.position) <= 0.05f)
         {
             if (!HasCollisions(movePoint.position + dir, collideable) && !HasCollisions(movePoint.position + dir, boulders) && !HasCollisions(movePoint.position + dir, blobs))
+            {
                 movePoint.position += dir;
+                moving = false;
+            }
         }
+    }
+
+    public bool CanMove(Vector3 dir)
+    {
+        if (Vector3.Distance(transform.position, movePoint.position) <= 0.05f)
+        {
+            if (!HasCollisions(movePoint.position + dir, collideable) && !HasCollisions(movePoint.position + dir, boulders) && !HasCollisions(movePoint.position + dir, blobs))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     bool HasCollisions(Vector3 distance, LayerMask layer)
