@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 3782999238540756586}
   - component: {fileID: 3782999238540756587}
   - component: {fileID: 3782999238540756588}
+  - component: {fileID: 2778841457355321943}
   m_Layer: 0
   m_Name: BlueBlob
   m_TagString: Player
@@ -236,3 +237,16 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &2778841457355321943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3782999238540756591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88a777ba365ebe540b88a8c5d53802d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 0, y: 0}

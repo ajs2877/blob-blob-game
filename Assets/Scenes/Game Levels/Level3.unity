@@ -1648,11 +1648,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedBlob
       objectReference: {fileID: 0}
-    - target: {fileID: 4355818757406453466, guid: 44b2097ce6de2a141be7b589550b4bd0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44b2097ce6de2a141be7b589550b4bd0, type: 3}
 --- !u!4 &355388459 stripped
@@ -3665,11 +3660,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3782999238540756586, guid: aa92c5f28552fa343a59c27f702e2d5f,
-        type: 3}
-      propertyPath: boulderLayerMask.m_Bits
-      value: 1024
-      objectReference: {fileID: 0}
     - target: {fileID: 3782999238540756591, guid: aa92c5f28552fa343a59c27f702e2d5f,
         type: 3}
       propertyPath: m_Name
@@ -3703,7 +3693,7 @@ PrefabInstance:
     - target: {fileID: 3987396373719827386, guid: 3a41bba334a34a448a0e188d35e9f497,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.65
+      value: -1.71
       objectReference: {fileID: 0}
     - target: {fileID: 3987396373719827386, guid: 3a41bba334a34a448a0e188d35e9f497,
         type: 3}

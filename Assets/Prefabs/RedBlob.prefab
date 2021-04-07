@@ -94,13 +94,14 @@ GameObject:
   - component: {fileID: 4355818757406453447}
   - component: {fileID: 4355818757406453446}
   - component: {fileID: 4355818757406453445}
+  - component: {fileID: 8933661154295769389}
   m_Layer: 0
   m_Name: RedBlob
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4355818757406453441
 Transform:
   m_ObjectHideFlags: 0
@@ -236,3 +237,16 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &8933661154295769389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4355818757406453466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88a777ba365ebe540b88a8c5d53802d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 0, y: 0}

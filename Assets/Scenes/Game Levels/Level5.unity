@@ -325,6 +325,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 632224564312164414, guid: aa5d60d246b50c2478925eee2dbf744a,
         type: 3}
+      propertyPath: nextStage.sceneName
+      value: Scenes/LevelSelection
+      objectReference: {fileID: 0}
+    - target: {fileID: 632224564312164414, guid: aa5d60d246b50c2478925eee2dbf744a,
+        type: 3}
+      propertyPath: nextStage.sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 0748dbc2c1d26014bb83ed0f9f538105,
+        type: 3}
+    - target: {fileID: 632224564312164414, guid: aa5d60d246b50c2478925eee2dbf744a,
+        type: 3}
       propertyPath: numberOfRequirePlayers
       value: 1
       objectReference: {fileID: 0}
@@ -1290,7 +1301,7 @@ PrefabInstance:
     - target: {fileID: 3987396373719827386, guid: 3a41bba334a34a448a0e188d35e9f497,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.94
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 3987396373719827386, guid: 3a41bba334a34a448a0e188d35e9f497,
         type: 3}
