@@ -2186,7 +2186,7 @@ PrefabInstance:
     - target: {fileID: 3987396373719827386, guid: 3a41bba334a34a448a0e188d35e9f497,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.3
+      value: -2.37
       objectReference: {fileID: 0}
     - target: {fileID: 3987396373719827386, guid: 3a41bba334a34a448a0e188d35e9f497,
         type: 3}
@@ -2324,7 +2324,7 @@ PrefabInstance:
     - target: {fileID: 3987396373719827386, guid: 3a41bba334a34a448a0e188d35e9f497,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.3
+      value: -2.37
       objectReference: {fileID: 0}
     - target: {fileID: 3987396373719827386, guid: 3a41bba334a34a448a0e188d35e9f497,
         type: 3}
@@ -4046,7 +4046,7 @@ PrefabInstance:
     - target: {fileID: 3987396373719827386, guid: 3a41bba334a34a448a0e188d35e9f497,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.33
+      value: -2.38
       objectReference: {fileID: 0}
     - target: {fileID: 3987396373719827386, guid: 3a41bba334a34a448a0e188d35e9f497,
         type: 3}
@@ -4270,6 +4270,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3987396373719827390, guid: 3a41bba334a34a448a0e188d35e9f497,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3987396373719827391, guid: 3a41bba334a34a448a0e188d35e9f497,
         type: 3}
@@ -4669,6 +4674,9 @@ MonoBehaviour:
   blockingLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  boulderLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
   horizontalInput: HorizontalAlt
   verticalInput: VerticalAlt
 --- !u!4 &2005718558 stripped
