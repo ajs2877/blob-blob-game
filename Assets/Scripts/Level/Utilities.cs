@@ -49,7 +49,8 @@ namespace Utilities
                         var assetsIndex = scenePath.IndexOf("Assets", StringComparison.Ordinal) + 7;
                         var extensionIndex = scenePath.LastIndexOf(".unity", StringComparison.Ordinal);
                         scenePath = scenePath.Substring(assetsIndex, extensionIndex - assetsIndex);
-                        sceneName.stringValue = scenePath;
+                        var splitPath = scenePath.Split('/');
+                        sceneName.stringValue = splitPath[splitPath.Length - 1];
                     }
                 }
             }

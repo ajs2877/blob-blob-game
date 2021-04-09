@@ -8,7 +8,7 @@ public class StageSelector : MonoBehaviour
     public Utilities.SceneField[] scenes;
     public GameObject stageHolder;
     public GameObject stageButtonPrefab;
-    public bool resetStageProgress = false;
+    public bool resetStageProgress;
     
     void Start()
     {
