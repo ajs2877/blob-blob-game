@@ -728,16 +728,6 @@ PrefabInstance:
       propertyPath: blob2
       value: 
       objectReference: {fileID: 239281738}
-    - target: {fileID: 6248729229949139045, guid: dadea63c0b657504aa3e039db8a82bb1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6248729230483146330, guid: dadea63c0b657504aa3e039db8a82bb1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6248729230720555083, guid: dadea63c0b657504aa3e039db8a82bb1,
         type: 3}
       propertyPath: m_LocalPosition.z
