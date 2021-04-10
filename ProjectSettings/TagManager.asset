@@ -19,10 +19,10 @@ TagManager:
   - Pits
   - Boulders
   - Blobs
-  - 
-  - 
-  - 
-  - 
+  - BlockMoveables
+  - ClosedDoor
+  - FreeMovement
+  - EmptyTile
   - 
   - 
   - 

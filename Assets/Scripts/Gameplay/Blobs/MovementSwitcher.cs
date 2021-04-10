@@ -29,10 +29,6 @@ public class MovementSwitcher : MonoBehaviour
 
     public void Update()
     {
-       // if (Input.GetKeyDown("f"))
-       // {
-       //     SwitchMovementMode();
-       // }
         if (Input.GetKeyDown(KeyCode.E))
         {
             SwitchBlobsControls();
@@ -80,13 +76,4 @@ public class MovementSwitcher : MonoBehaviour
     {
         return contolledSingleBlob == blob1 ? blob2 : blob1;
     }
-
-    /*
-    public void SwitchMovementMode()
-    {
-        gridMovementMode = !gridMovementMode;
-        SetBlob(blob1);
-        SetBlob(blob2);
-    }
-    */
 }

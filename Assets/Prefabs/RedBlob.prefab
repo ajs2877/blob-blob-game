@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 4355818757406453446}
   - component: {fileID: 4355818757406453445}
   - component: {fileID: 8933661154295769389}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RedBlob
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4355818757406453466}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.65, y: 1.17, z: -1}
+  m_LocalPosition: {x: -8.65, y: 1.17, z: -1.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4355818755924867264}

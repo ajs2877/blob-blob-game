@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 632224564312164413}
   - component: {fileID: 632224564312164414}
   - component: {fileID: 632224564312164411}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: EndTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

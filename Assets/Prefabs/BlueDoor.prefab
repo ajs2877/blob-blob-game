@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4368188054268293226}
   - component: {fileID: 4368188054268293227}
   - component: {fileID: 4368188054268293236}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BlueDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
