@@ -777,6 +777,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6248729229839801462}
   - component: {fileID: 6248729229839801463}
+  - component: {fileID: 1159771873}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -816,6 +817,24 @@ MonoBehaviour:
   grid: {fileID: 0}
   controlText: {fileID: 6248729230419060737}
   movementText: {fileID: 6248729230995889478}
+--- !u!114 &1159771873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6248729229839801456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a984651a14b4f554ebaaee14ad4e91af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapScale: 12
+  tileMap: {fileID: 0}
+  GridWallStandin: {fileID: 1772553547152615662, guid: 74f0ac395bd703a45bd565b78129c5f7,
+    type: 3}
+  MovementTargetPrefab: {fileID: 8016920744961024590, guid: 73e4a1d31e6a85f4c9bbcb14302569d8,
+    type: 3}
 --- !u!1 &6248729229949139045
 GameObject:
   m_ObjectHideFlags: 0

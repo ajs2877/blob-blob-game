@@ -485,17 +485,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scenes:
   - sceneAsset: {fileID: 102900000, guid: 6c9210f927992c441953261b467bcf00, type: 3}
-    sceneName: sceneAsset
+    sceneName: Level1
   - sceneAsset: {fileID: 102900000, guid: 4911c3c1e0058bc4c947f80488a821cd, type: 3}
-    sceneName: sceneAsset
+    sceneName: Level2
   - sceneAsset: {fileID: 102900000, guid: a6b72ab065d50574c85b7cf2a5dbfebb, type: 3}
-    sceneName: sceneAsset
+    sceneName: Level3
   - sceneAsset: {fileID: 102900000, guid: 242c31255729b1b419a989a5dee14feb, type: 3}
-    sceneName: sceneAsset
+    sceneName: Level4
   - sceneAsset: {fileID: 102900000, guid: 53ea5011b3a5a044d800185da344f396, type: 3}
-    sceneName: sceneAsset
+    sceneName: Level5
   - sceneAsset: {fileID: 102900000, guid: 0013740ae968ded448173674089dda9d, type: 3}
-    sceneName: sceneAsset
+    sceneName: Level6
   stageHolder: {fileID: 1293676297}
   stageButtonPrefab: {fileID: 4663426676635569195, guid: a0838cbe0ca7a994dadd4cf249e9bf09,
     type: 3}

@@ -19,6 +19,7 @@ public class GridMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         transform.position = Vector3.MoveTowards(transform.position, movePoint.position, moveSpeed * Time.deltaTime);
 
         if(Vector3.Distance(transform.position, movePoint.position) <= 0.05f)
@@ -41,7 +42,7 @@ public class GridMovement : MonoBehaviour
                 }
             }
         }
-
+        */
     }
 
     bool HasCollisions(Vector3 distance, LayerMask layer)

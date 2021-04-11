@@ -708,28 +708,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef4e1759a190326488ded6f9c183c875, type: 3}
---- !u!1 &1159771870 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6248729229839801456, guid: dadea63c0b657504aa3e039db8a82bb1,
-    type: 3}
-  m_PrefabInstance: {fileID: 1559474885}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1159771873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1159771870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a984651a14b4f554ebaaee14ad4e91af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mapScale: 12
-  tileMap: {fileID: 1190540242}
-  WallColliderStandin: {fileID: 1772553547152615662, guid: 74f0ac395bd703a45bd565b78129c5f7,
-    type: 3}
 --- !u!1 &1172747025
 GameObject:
   m_ObjectHideFlags: 0
@@ -2503,12 +2481,12 @@ PrefabInstance:
     - target: {fileID: 3782999238540756584, guid: aa92c5f28552fa343a59c27f702e2d5f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.91
+      value: -13.36
       objectReference: {fileID: 0}
     - target: {fileID: 3782999238540756584, guid: aa92c5f28552fa343a59c27f702e2d5f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.24
+      value: 1.55
       objectReference: {fileID: 0}
     - target: {fileID: 3782999238540756584, guid: aa92c5f28552fa343a59c27f702e2d5f,
         type: 3}
@@ -2576,6 +2554,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1159771873, guid: dadea63c0b657504aa3e039db8a82bb1, type: 3}
+      propertyPath: tileMap
+      value: 
+      objectReference: {fileID: 1190540242}
     - target: {fileID: 5463945826988400576, guid: dadea63c0b657504aa3e039db8a82bb1,
         type: 3}
       propertyPath: m_Name
@@ -2596,11 +2578,6 @@ PrefabInstance:
       propertyPath: blob2
       value: 
       objectReference: {fileID: 1619357641}
-    - target: {fileID: 6248729230720555083, guid: dadea63c0b657504aa3e039db8a82bb1,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6518058825769468546, guid: dadea63c0b657504aa3e039db8a82bb1,
         type: 3}
       propertyPath: m_RootOrder
@@ -2972,12 +2949,12 @@ PrefabInstance:
     - target: {fileID: 3987396373719827386, guid: 3a41bba334a34a448a0e188d35e9f497,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.8564005
+      value: -12.84
       objectReference: {fileID: 0}
     - target: {fileID: 3987396373719827386, guid: 3a41bba334a34a448a0e188d35e9f497,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.4864516
+      value: 4.57
       objectReference: {fileID: 0}
     - target: {fileID: 3987396373719827386, guid: 3a41bba334a34a448a0e188d35e9f497,
         type: 3}
@@ -3092,11 +3069,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RedBlob
-      objectReference: {fileID: 0}
-    - target: {fileID: 4355818757406453466, guid: 44b2097ce6de2a141be7b589550b4bd0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44b2097ce6de2a141be7b589550b4bd0, type: 3}

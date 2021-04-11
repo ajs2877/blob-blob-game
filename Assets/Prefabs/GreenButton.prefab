@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7459052172040647050}
   - component: {fileID: 7459052172040647051}
   - component: {fileID: 7459052172040647044}
+  - component: {fileID: -1157287640407071663}
   m_Layer: 14
   m_Name: GreenButton
   m_TagString: Untagged
@@ -126,3 +127,15 @@ MonoBehaviour:
   sprites:
   - {fileID: -5364232791914524156, guid: c27ca51f4b8e36d4d8cbd05098cc6f3e, type: 3}
   - {fileID: 5693457487021409547, guid: c27ca51f4b8e36d4d8cbd05098cc6f3e, type: 3}
+--- !u!114 &-1157287640407071663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7459052172040647045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e83b04a19424d7f40b95f069da9ee018, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

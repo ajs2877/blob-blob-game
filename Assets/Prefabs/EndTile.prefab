@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 632224564312164413}
   - component: {fileID: 632224564312164414}
   - component: {fileID: 632224564312164411}
+  - component: {fileID: 4041939677969483010}
   m_Layer: 12
   m_Name: EndTile
   m_TagString: Untagged
@@ -129,3 +130,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4041939677969483010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632224564312164415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e83b04a19424d7f40b95f069da9ee018, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

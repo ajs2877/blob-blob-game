@@ -23,7 +23,8 @@ public class PitTile : MonoBehaviour
     {
         // Detects when the boulder is touching
         GameObject gameObjectTouching = col.gameObject;
-        if (gameObjectTouching.tag.Equals("boulder"))
+        
+        if (gameObjectTouching.tag.Equals("moveable"))
         {
             // Will check between boulder and pit to know if boulder has fallen in
             float distance = Vector3.Distance(col.transform.position, pitTriggerCollider.transform.position);

@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4355818755924867264
 Transform:
   m_ObjectHideFlags: 0
@@ -95,13 +95,14 @@ GameObject:
   - component: {fileID: 4355818757406453446}
   - component: {fileID: 4355818757406453445}
   - component: {fileID: 8933661154295769389}
+  - component: {fileID: -9204707929849019284}
   m_Layer: 11
   m_Name: RedBlob
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4355818757406453441
 Transform:
   m_ObjectHideFlags: 0
@@ -181,15 +182,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  movePoint: {fileID: 4355818755924867264}
-  blockingLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  boulderLayerMask:
-    serializedVersion: 2
-    m_Bits: 1024
   horizontalInput: HorizontalAlt
   verticalInput: VerticalAlt
+  isMoving: 0
 --- !u!61 &4355818757406453446
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -250,3 +245,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0}
+--- !u!114 &-9204707929849019284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4355818757406453466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e83b04a19424d7f40b95f069da9ee018, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

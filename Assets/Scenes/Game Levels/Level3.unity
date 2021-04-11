@@ -1590,12 +1590,12 @@ PrefabInstance:
     - target: {fileID: 4355818757406453441, guid: 44b2097ce6de2a141be7b589550b4bd0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.62
+      value: -6.08
       objectReference: {fileID: 0}
     - target: {fileID: 4355818757406453441, guid: 44b2097ce6de2a141be7b589550b4bd0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.82
+      value: -0.76
       objectReference: {fileID: 0}
     - target: {fileID: 4355818757406453441, guid: 44b2097ce6de2a141be7b589550b4bd0,
         type: 3}
@@ -1641,6 +1641,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RedBlob
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355818757406453466, guid: 44b2097ce6de2a141be7b589550b4bd0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44b2097ce6de2a141be7b589550b4bd0, type: 3}
