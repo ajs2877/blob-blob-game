@@ -85,23 +85,55 @@ public class TrueGrid : MonoBehaviour
         return (x < grid.GetLength(0) && x >= 0 && y < grid.GetLength(1) && y >= 0);
     }
 
-
-    /// <summary>
-    /// Snaps the object to the grid coordinates properly and adds to the grid if specified 
-    /// </summary>
-    /// <param name="objectToSnap"></param>
-    /// <returns>The new coordinate of the object (not made for 2x2 objects yet)</returns>
-    public Vector2Int SnapObjectToGridAndAdd(GameObject objectToSnap)
+    public void SnapObjectToGrid(GameObject objectToSnap)
     {
+        int pointCount = 0;
         Vector3Int size = tileMap.cellBounds.size;
+        Vector3 averagedWorldPoint = new Vector3();
+        List<Vector2Int> currentPositions = GetElementLocation(objectToSnap);
+        if (currentPositions.Count == 0) return;
+
+        foreach (Vector2Int position in currentPositions)
+        {
+            Vector3 worldPosition = tileMap.GetCellCenterWorld(new Vector3Int(position.x - (size.x / 2), position.y - (size.y / 2), 1));
+            
+            // Collect the points so we can average them later.
+            if (pointCount == 0)
+            {
+                averagedWorldPoint = worldPosition;
+            }
+            else
+            {
+                averagedWorldPoint += worldPosition;
+            }
+            pointCount++;
+        }
+
+        // For 2x2 objects, we need to average the points to get it to move correctly
+        averagedWorldPoint /= pointCount;
+        averagedWorldPoint.z = objectToSnap.transform.position.z;
+
         GameObject movementTargetObject = Instantiate(MovementTargetPrefab);
-        // moves the world position to cell position first to trim off decimals. Then converts it back to world position
-        Vector3Int cellPosition = tileMap.WorldToCell(new Vector3(objectToSnap.transform.position.x, objectToSnap.transform.position.y, 1));
-        Vector3 targetPosition = tileMap.GetCellCenterWorld(new Vector3Int(cellPosition.x, cellPosition.y, 1));
-        targetPosition.z = objectToSnap.transform.position.z;
-        movementTargetObject.transform.position = targetPosition;
+        movementTargetObject.transform.position = averagedWorldPoint;
         PullParentToTarget targetScript = movementTargetObject.GetComponent<PullParentToTarget>();
         targetScript.gameObjectToPull = objectToSnap;
+    }
+
+
+    /// <summary>
+    /// Returns the grid coordinate of object
+    /// </summary>
+    /// <param name="objectToSnap"></param>
+    /// <returns>The grid coordinate of the object (bottom left coordinate for 2x2 elements)</returns>
+    public Vector2Int GetGridSpace(GameObject objectToSnap, bool largeElement)
+    {
+        Vector3Int size = tileMap.cellBounds.size;
+
+        // get bottom left coordinate for 2x2 elements
+        float offset = largeElement ? 0.5f : 0;
+        
+        // moves the world position to cell position first to trim off decimals
+        Vector3Int cellPosition = tileMap.WorldToCell(new Vector3(objectToSnap.transform.position.x - offset, objectToSnap.transform.position.y - offset, 1));
 
         return new Vector2Int(cellPosition.x + (size.x/2), cellPosition.y + (size.y/2));
     }
@@ -165,7 +197,7 @@ public class TrueGrid : MonoBehaviour
         {
             for (int y = 0; y < grid.GetLength(1); y++)
             {
-                if(grid[x, y].Remove(objectToRemove))
+                if(grid[x, y].RemoveAll(gridElement => gridElement == objectToRemove) != 0)
                 {
                     wasRemoved = true;
                 }
@@ -218,19 +250,19 @@ public class TrueGrid : MonoBehaviour
         if (currentPositions.Count == 0) return false;
 
         int pointCount = 0;
-        Vector2Int averagedNewPoint = new Vector2Int(); 
+        Vector3 averagedWorldPoint = new Vector3();
+        Vector3Int size = tileMap.cellBounds.size;
 
         // remove the old positions of the object and then manually add it to the new positions
         RemoveElement(objectToMove);
         foreach (Vector2Int position in currentPositions)
         {
-            Vector2Int newPosition = GetOffset(direction) + position;
-
-            // move moveables over if in spot
+            // move moveables over if in the desired spot
+            Vector2Int newGridPosition = directionOffset + position;
             if (canPushMoveables)
             {
                 // Need list copy to avoid crashing while looping over entries in case the original list gets modified at same time
-                List<GameObject> objectsAtSpot = new List<GameObject>(GetElementsAtLocation(newPosition.x, newPosition.y));
+                List<GameObject> objectsAtSpot = new List<GameObject>(GetElementsAtLocation(newGridPosition.x, newGridPosition.y));
                 foreach (GameObject objectAtSpot in objectsAtSpot)
                 {
                     if (objectAtSpot.tag.Equals("moveable"))
@@ -240,31 +272,30 @@ public class TrueGrid : MonoBehaviour
                     }
                 }
             }
-
             // add current object to the new spot
-            AddElement(objectToMove, newPosition.x, newPosition.y);
+            AddElement(objectToMove, newGridPosition.x, newGridPosition.y);
+
 
             // Collect the points so we can average them later.
-            if(pointCount == 0)
+            Vector3 worldPosition = tileMap.GetCellCenterWorld(new Vector3Int(newGridPosition.x - (size.x / 2), newGridPosition.y - (size.y / 2), 1));
+            if (pointCount == 0)
             {
-                averagedNewPoint = newPosition;
+                averagedWorldPoint = worldPosition;
             }
             else
             {
-                averagedNewPoint += newPosition;
+                averagedWorldPoint += worldPosition;
             }
             pointCount++;
         }
 
         // For 2x2 objects, we need to average the points to get it to move correctly
-        averagedNewPoint /= pointCount;
+        averagedWorldPoint /= pointCount;
+        averagedWorldPoint.z = objectToMove.transform.position.z;
 
         // Creates the target that will pull the parent to the correct place
-        Vector3Int size = tileMap.cellBounds.size;
         GameObject movementTargetObject = Instantiate(MovementTargetPrefab);
-        Vector3 targetPosition = tileMap.GetCellCenterWorld(new Vector3Int(averagedNewPoint.x - (size.x/2), averagedNewPoint.y - (size.y/2), 1));
-        targetPosition.z = objectToMove.transform.position.z;
-        movementTargetObject.transform.position = targetPosition;
+        movementTargetObject.transform.position = averagedWorldPoint;
         PullParentToTarget targetScript = movementTargetObject.GetComponent<PullParentToTarget>();
         targetScript.gameObjectToPull = objectToMove;
 
