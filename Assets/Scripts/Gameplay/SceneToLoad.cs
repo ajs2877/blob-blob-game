@@ -5,10 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class SceneToLoad : MonoBehaviour
 {
-    public string sceneToLoad;
+    public Utilities.SceneField sceneToLoad;
+    public bool resumeTimeScaling = true;
 
     public void LoadScene()
     {
         SceneManager.LoadScene(sceneToLoad);
+        Time.timeScale = resumeTimeScaling ? 1 : 0;
     }
 }

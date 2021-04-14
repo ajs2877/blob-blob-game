@@ -812,9 +812,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   multiBlobControl: 0
-  blob1: {fileID: 0}
-  blob2: {fileID: 0}
-  grid: {fileID: 0}
   controlText: {fileID: 6248729230419060737}
   movementText: {fileID: 6248729230995889478}
 --- !u!114 &1159771873
@@ -1936,7 +1933,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 052899a134313c44da74928202443c76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: LevelSelection
+  sceneToLoad:
+    sceneAsset: {fileID: 102900000, guid: 0748dbc2c1d26014bb83ed0f9f538105, type: 3}
+    sceneName: LevelSelection
+  resumeTimeScaling: 1
 --- !u!1 &7315277949537685882
 GameObject:
   m_ObjectHideFlags: 0

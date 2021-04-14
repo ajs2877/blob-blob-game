@@ -20,7 +20,8 @@ public class PullParentToTarget : MonoBehaviour
         gameObjectToPull.transform.position = Vector3.MoveTowards(gameObjectToPull.transform.position, transform.position, moveSpeed * Time.deltaTime);
 
         // Remove target itself when GameObject is now right on it.
-        if (Vector3.Distance(transform.position, gameObjectToPull.transform.position) <= 0.001f)
+        float distance = Vector3.Distance(transform.position, gameObjectToPull.transform.position);
+        if (distance <= 0.001f)
         {
             // If we were moving player, let it know it is no longer being moved
             PlayerController component;
