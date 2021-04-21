@@ -812,6 +812,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   multiBlobControl: 0
+  blob1: {fileID: 0}
+  blob2: {fileID: 0}
+  bigBlob: {fileID: 0}
+  allowMerging: 0
   controlText: {fileID: 6248729230419060737}
   movementText: {fileID: 6248729230995889478}
 --- !u!114 &1159771873

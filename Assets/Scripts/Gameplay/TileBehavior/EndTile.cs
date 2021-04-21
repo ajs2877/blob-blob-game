@@ -25,7 +25,7 @@ public class EndTile : MonoBehaviour
             playerCount++;
         }
 
-        if(playerCount == numberOfRequirePlayers)
+        if(playerCount == numberOfRequirePlayers || col.gameObject.name.Equals("PurpleBigBlob"))
         {
             LoadLevel();
         }

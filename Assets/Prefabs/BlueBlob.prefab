@@ -184,6 +184,7 @@ MonoBehaviour:
   moveSpeed: 5
   horizontalInput: HorizontalMain
   verticalInput: VerticalMain
+  bigBlob: {fileID: 0}
   isMoving: 0
 --- !u!61 &3782999238540756587
 BoxCollider2D:
@@ -257,3 +258,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e83b04a19424d7f40b95f069da9ee018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  size: 1

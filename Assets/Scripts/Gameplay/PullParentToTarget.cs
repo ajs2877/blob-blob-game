@@ -7,6 +7,15 @@ public class PullParentToTarget : MonoBehaviour
     public GameObject gameObjectToPull;
     public float moveSpeed = 5f;
 
+    private void Start()
+    {
+        PlayerController player = gameObjectToPull.GetComponent<PlayerController>();
+        if (player)
+        {
+            player.isMoving = true;
+        }
+    }
+
     void Update()
     {
         // Destroy self if the gameObject to pull was distroyed.

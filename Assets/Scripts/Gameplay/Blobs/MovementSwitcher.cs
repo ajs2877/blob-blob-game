@@ -16,6 +16,7 @@ public class MovementSwitcher : MonoBehaviour
     private Tilemap grid = null;
     private TrueGrid gameGrid = null;
 
+    public bool allowMerging = false;
     public Text controlText;
     public Text movementText;
 
@@ -50,7 +51,7 @@ public class MovementSwitcher : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (bigBlob.activeSelf)
+            if (allowMerging && bigBlob && bigBlob.activeSelf)
             {
                 SplitBlob();
             }

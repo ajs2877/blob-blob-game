@@ -18,10 +18,12 @@ public class PlayerController : MonoBehaviour
     public bool isMoving = false;
     private GridObject gridObject;
     private GameObject otherBlob;
-
+    private MovementSwitcher movementController;
+    
     void Start()
     {
         gameGrid = GameObject.Find("GameController").GetComponent<TrueGrid>();
+        movementController = GameObject.Find("GameController").GetComponent<MovementSwitcher>();
         gridObject = GetComponent<GridObject>();
     }
 
@@ -60,7 +62,7 @@ public class PlayerController : MonoBehaviour
             Vector2Int posMovingTowards = gameGrid.GetGridCoordinate(gameObject, directionToMove);
 
             // Have to check if it is possible for blob merging to even happen
-            if (gridObject.size == 1 && bigBlob)
+            if (movementController.allowMerging && gridObject.size == 1 && bigBlob)
             {
                 List<GameObject> listOfObjects = gameGrid.GetElementsAtLocation(posMovingTowards.x, posMovingTowards.y);
                 foreach (GameObject objectAtSpot in listOfObjects)
@@ -129,6 +131,20 @@ public class PlayerController : MonoBehaviour
     /// <returns>can move to spot</returns>
     private bool AdditionalChecks(Vector2Int posMovingTowards)
     {
+        // Prevent blobs from colliding on stages where blob merging is turned off
+        if (!movementController.allowMerging)
+        {
+            List<GameObject> listOfObjects = gameGrid.GetElementsAtLocation(posMovingTowards.x, posMovingTowards.y);
+            foreach (GameObject objectAtSpot in listOfObjects)
+            {
+                // Look to see if we are moving into the other player.
+                if (objectAtSpot.GetComponent<PlayerController>() != null && objectAtSpot != gameObject)
+                {
+                    return false;
+                }
+            }
+        }
+
         return true;
     }
 
@@ -165,8 +181,11 @@ public class PlayerController : MonoBehaviour
                     // get center spot
                     newSpotAvg /= 4;
                     Vector2 worldPos = gameGrid.GetWorldSpace(newSpotAvg);
-                    bigBlob.transform.position = new Vector3(worldPos.x + 0.5f, worldPos.y + 0.5f, bigBlob.transform.position.z);
+                    bigBlob.transform.position = new Vector3(worldPos.x + 0.55f, worldPos.y + 0.55f, bigBlob.transform.position.z);
                     bigBlob.SetActive(true);
+                    PlayerController bigBlobController = bigBlob.GetComponent<PlayerController>();
+                    bigBlobController.enabled = true;
+                    bigBlobController.isMoving = true;
                     bigBlob.GetComponent<GridObject>().SnapAndAddToGrid();
 
                     otherBlob.SetActive(false);
