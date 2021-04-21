@@ -8,11 +8,16 @@ public class GridObject : MonoBehaviour
 
     void Start()
     {
+        SnapAndAddToGrid();
+    }
+
+    public void SnapAndAddToGrid()
+    {
         // Adds itself to the grid and snaps to grid coordinate
         TrueGrid gameGrid = GameObject.Find("GameController").GetComponent<TrueGrid>();
         Vector2Int gridCoordinate = gameGrid.GetGridSpace(gameObject, size == 2);
 
-        for(int x = 0; x < size; x++)
+        for (int x = 0; x < size; x++)
         {
             for (int y = 0; y < size; y++)
             {

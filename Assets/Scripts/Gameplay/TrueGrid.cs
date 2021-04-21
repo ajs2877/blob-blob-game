@@ -85,6 +85,14 @@ public class TrueGrid : MonoBehaviour
         return (x < grid.GetLength(0) && x >= 0 && y < grid.GetLength(1) && y >= 0);
     }
 
+    public Vector2Int GetGridCoordinate(GameObject origObject, DIRECTION direction)
+    {
+        Vector2Int directionOffset = GetOffset(direction);
+        List<Vector2Int> currentPositions = GetElementLocation(origObject);
+        Vector2Int newGridPosition = directionOffset + currentPositions[0];
+        return newGridPosition;
+    }
+
     public void SnapObjectToGrid(GameObject objectToSnap)
     {
         int pointCount = 0;
@@ -135,7 +143,23 @@ public class TrueGrid : MonoBehaviour
         // moves the world position to cell position first to trim off decimals
         Vector3Int cellPosition = tileMap.WorldToCell(new Vector3(objectToSnap.transform.position.x - offset, objectToSnap.transform.position.y - offset, 1));
 
-        return new Vector2Int(cellPosition.x + (size.x/2), cellPosition.y + (size.y/2));
+        return new Vector2Int(cellPosition.x + (size.x / 2), cellPosition.y + (size.y / 2));
+    }
+
+
+    /// <summary>
+    /// Returns the world coordinate of a given grid space
+    /// </summary>
+    /// <param name="objectToSnap"></param>
+    /// <returns>The world coordinate of the grid coordinate</returns>
+    public Vector2 GetWorldSpace(Vector2 position)
+    {
+        Vector3Int size = tileMap.cellBounds.size;
+
+        // moves the world position to cell position first to trim off decimals
+        Vector3 worldPosition = tileMap.CellToWorld(new Vector3Int((int)position.x - (size.x / 2), (int)position.y - (size.y / 2), 1));
+
+        return new Vector2(worldPosition.x, worldPosition.y);
     }
 
 

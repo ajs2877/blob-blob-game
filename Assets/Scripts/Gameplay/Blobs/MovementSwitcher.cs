@@ -10,9 +10,9 @@ public class MovementSwitcher : MonoBehaviour
 
     public bool multiBlobControl = false;
     private GameObject contolledSingleBlob = null;
-    private GameObject blob1 = null;
-    private GameObject blob2 = null;
-    private GameObject bigBlob = null;
+    public GameObject blob1 = null;
+    public GameObject blob2 = null;
+    public GameObject bigBlob = null;
     private Tilemap grid = null;
     private TrueGrid gameGrid = null;
 
@@ -22,11 +22,17 @@ public class MovementSwitcher : MonoBehaviour
     public void Awake()
     {
         gameGrid = GameObject.Find("GameController").GetComponent<TrueGrid>();
-        blob1 = GameObject.Find("BlueBlob");
-        blob2 = GameObject.Find("RedBlob");
-        bigBlob = GameObject.Find("PurpleBigBlob");
         grid = GameObject.Find("Tilemap").GetComponent<Tilemap>();
 
+        GameObject temp = GameObject.Find("BlueBlob");
+        if(temp) blob1 = temp;
+
+        temp = GameObject.Find("RedBlob");
+        if (temp) blob2 = temp;
+
+        temp = GameObject.Find("PurpleBigBlob");
+        if (temp) bigBlob = temp;
+        
         contolledSingleBlob = blob1;
 
         if (blob2)
@@ -44,7 +50,14 @@ public class MovementSwitcher : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            SwitchBlobsControls();
+            if (bigBlob.activeSelf)
+            {
+                SplitBlob();
+            }
+            else
+            {
+                SwitchBlobsControls();
+            }
         }
         if (!multiBlobControl && Input.GetKeyDown(KeyCode.LeftShift))
         {
@@ -122,6 +135,20 @@ public class MovementSwitcher : MonoBehaviour
             controlText.text = "E to switch to controlling both blobs at same time";
             movementText.text = "Singleblob controls:\nAWSD - " + (contolledSingleBlob == blob1 ? "Blue" : "Red") + " blob\nShift to switch blobs.";
         }
+    }
+
+    private void SplitBlob()
+    {
+        Vector3 position = bigBlob.transform.position;
+        blob1.transform.position = new Vector3(position.x - 0.35f, position.y - 0.1f, blob1.transform.position.z);
+        blob2.transform.position = new Vector3(position.x + 0.35f, position.y - 0.1f, blob2.transform.position.z);
+        blob1.SetActive(true);
+        blob2.SetActive(true);
+        blob1.GetComponent<GridObject>().SnapAndAddToGrid();
+        blob2.GetComponent<GridObject>().SnapAndAddToGrid();
+
+        gameGrid.RemoveElement(bigBlob);
+        bigBlob.SetActive(false);
     }
 
     private GameObject GetOtherBlob()
