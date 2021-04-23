@@ -14,6 +14,16 @@ public class Key : Triggerable
 
     public GameObject door;
 
+    private AudioSource[] sounds;
+    private AudioSource pickUpSound;
+    private AudioSource unlockDoorSound;
+
+    void Start()
+    {
+        sounds = GetComponents<AudioSource>();
+        pickUpSound = sounds[0];
+        unlockDoorSound = sounds[1];
+    }
 
     // Update is called once per frame
     void Update()
@@ -24,8 +34,9 @@ public class Key : Triggerable
         }
         if (Vector3.Distance(door.transform.position, transform.position) < triggerRange)
         {
+            if(!triggered) unlockDoorSound.Play();
             triggered = true;
-            Destroy(gameObject);
+            if(!unlockDoorSound.isPlaying) Destroy(gameObject);
         }
     }
 
@@ -35,6 +46,8 @@ public class Key : Triggerable
         {
             if(!isFollowing)
             {
+                pickUpSound.Play();
+
                 target = other.transform;
 
                 isFollowing = true;

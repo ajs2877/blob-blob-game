@@ -9,14 +9,19 @@ public class ButtonTile : Triggerable
     
     private SpriteRenderer spriteRenderer;
 
+    private AudioSource sound;
+
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+        sound = GetComponent<AudioSource>();
     }
     
     void OnTriggerStay2D(Collider2D col)
     {
+        if (!triggered) sound.Play();
         triggered = true;
         spriteRenderer.sprite = sprites[1];
     }

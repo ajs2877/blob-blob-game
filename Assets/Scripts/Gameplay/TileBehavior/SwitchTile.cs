@@ -18,9 +18,12 @@ public class SwitchTile : Triggerable
     private SpriteRenderer spriteRenderer;
     private GameObject objectOn = null;
 
+    private AudioSource sound;
+
     void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        sound = GetComponent<AudioSource>();
     }
     
     void OnTriggerStay2D(Collider2D col)
@@ -36,6 +39,7 @@ public class SwitchTile : Triggerable
                 Vector2 tileDirection = state ? gameObject.transform.up : gameObject.transform.up * -1;
                 if (Vector2.Angle(tileDirection, directionVector.direction) < 45)
                 {
+                    sound.Play();
                     state = !state;
                     //changes texture to match
                     spriteRenderer.sprite = sprites[state ? 1 : 0];
