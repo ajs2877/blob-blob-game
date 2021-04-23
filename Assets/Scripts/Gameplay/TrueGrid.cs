@@ -31,7 +31,8 @@ public class TrueGrid : MonoBehaviour
         tileMap = GameObject.Find("Collideable").GetComponent<Tilemap>();
 
         // Sets up the grid with the right size and fills it with lists.
-        grid = new List<GameObject>[mapScale, mapScale];
+        Vector3Int size = tileMap.cellBounds.size;
+        grid = new List<GameObject>[size.x, size.y];
         for (int x = 0; x < grid.GetLength(0); x++)
         {
             for (int y = 0; y < grid.GetLength(1); y++)
@@ -42,7 +43,6 @@ public class TrueGrid : MonoBehaviour
 
         // Fills in the grid with solid gameobjects to represent the tilemap walls 
         // because we can't stuff in the tilemap themselves into the grid.
-        Vector3Int size = tileMap.cellBounds.size;
         foreach (Vector3Int pos in tileMap.cellBounds.allPositionsWithin)
         {
             Vector3Int localPlace = new Vector3Int(pos.x, pos.y, pos.z);
