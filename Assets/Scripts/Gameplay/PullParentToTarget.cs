@@ -7,6 +7,8 @@ public class PullParentToTarget : MonoBehaviour
     public GameObject gameObjectToPull;
     public float moveSpeed = 5f;
 
+    private AudioSource sound;
+
     private void Start()
     {
         PlayerController player = gameObjectToPull.GetComponent<PlayerController>();
@@ -14,6 +16,7 @@ public class PullParentToTarget : MonoBehaviour
         {
             player.isMoving = true;
         }
+        sound = gameObjectToPull.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -31,10 +34,10 @@ public class PullParentToTarget : MonoBehaviour
         // Remove target itself when GameObject is now right on it.
         float distance = Vector3.Distance(transform.position, gameObjectToPull.transform.position);
 
-        // Play boulder sound on large distances 
+        // Play sound on large distances 
         // Protects against sound playing on start/reset
-        if(distance > 0.05f && gameObjectToPull.tag == "moveable")
-            gameObjectToPull.GetComponent<AudioSource>().Play();
+        if(distance > 0.05f && !sound.isPlaying)
+            sound.Play();
 
         if (distance <= 0.001f)
         {

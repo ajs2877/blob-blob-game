@@ -12,11 +12,14 @@ public class PitTile : MonoBehaviour
     private BoxCollider2D pitTriggerCollider;
     private SpriteRenderer spriteRenderer;
 
+    private AudioSource sound;
+
     void Start()
     {
         pitTriggerCollider = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponentInParent<SpriteRenderer>();
         spriteRenderer.sprite = sprites[0];
+        sound = GetComponentInParent<AudioSource>();
     }
 
     void OnTriggerStay2D(Collider2D col)
@@ -37,6 +40,9 @@ public class PitTile : MonoBehaviour
                 spriteRenderer.sprite = sprites[1];
                 parentCollider.enabled = false;
                 pitTriggerCollider.enabled = false;
+
+                // Play the sound clip
+                sound.Play();
             }
         }
     }
