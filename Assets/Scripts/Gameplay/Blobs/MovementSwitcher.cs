@@ -62,11 +62,14 @@ public class MovementSwitcher : MonoBehaviour
         }
         if (!multiBlobControl && Input.GetKeyDown(KeyCode.LeftShift))
         {
-            SwitchSelectedBlob();
-        }
-        if (bigBlob && Input.GetKeyDown(KeyCode.B))
-        {
-            ToggleCombinedBlob();
+            if (allowMerging && bigBlob && bigBlob.activeSelf)
+            {
+                SplitBlob();
+            }
+            else
+            {
+                SwitchSelectedBlob();
+            }
         }
     }
 
