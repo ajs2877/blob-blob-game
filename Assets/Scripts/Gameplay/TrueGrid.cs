@@ -422,6 +422,28 @@ public class TrueGrid : MonoBehaviour
         Collider2D collider1 = object1.GetComponent<Collider2D>();
         Collider2D collider2 = object2.GetComponent<Collider2D>();
 
+        // check conditional checks first on the objects in case they are specially handled
+        ConditionalBlocking condition1 = object1.GetComponent<ConditionalBlocking>();
+        ConditionalBlocking condition2 = object2.GetComponent<ConditionalBlocking>();
+        if(condition1 || condition2)
+        {
+            bool willBlock = false;
+            if(condition1 && condition1.enabled && condition1.CanBlockObject(object2))
+            {
+                willBlock = true;
+            }
+            if (condition2 && condition2.enabled && condition2.CanBlockObject(object1))
+            {
+                willBlock = true;
+            }
+
+            // overrides default blocking behavior
+            if (willBlock)
+            {
+                return true;
+            }
+        }
+
         if (collider1 && collider1.enabled && !collider1.isTrigger &&
             collider2 && collider2.enabled && !collider2.isTrigger)
         {
