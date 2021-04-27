@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7459052172040647044}
   - component: {fileID: -7899308617473988930}
   - component: {fileID: -3764977786858373703}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: RedButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4293428621830970433}
   - component: {fileID: 8677188237512266958}
   - component: {fileID: 1081442603155601605}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: BlueSwitch
   m_TagString: Untagged
   m_Icon: {fileID: 0}

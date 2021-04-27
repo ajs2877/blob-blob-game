@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4293428621830970433}
   - component: {fileID: -3765701957628143864}
   - component: {fileID: 6185833623522786462}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: RedSwitch
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4293428621830970433}
   - component: {fileID: -122232704629890574}
   - component: {fileID: 6545030941632432023}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: GreenSwitch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
