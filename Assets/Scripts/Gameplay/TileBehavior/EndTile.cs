@@ -11,21 +11,54 @@ public class EndTile : MonoBehaviour
     public Utilities.SceneField nextStage;
 
     [SerializeField]
-    private Sprite[] sprites;
+    private GameObject outlinePrefab;
 
-    void Start()
+    [SerializeField]
+    private Sprite[] blobSprites;
+
+    private List<GameObject> spawnedOutlines = new List<GameObject>();
+
+    // Spawn outlines after grid snapping script ran
+    private void Awake()
     {
-        GetComponent<SpriteRenderer>().sprite = sprites[numberOfRequirePlayers - 1];
+        if (numberOfRequirePlayers == 1)
+        {
+            SpawnOutline(0.025f);
+        }
+        else
+        {
+            SpawnOutline(-0.17f);
+            SpawnOutline(0.23f);
+        }
+    }
+
+    private void SpawnOutline(float xOffset)
+    {
+        GameObject outline = Instantiate(outlinePrefab, transform.position, transform.rotation);
+        outline.transform.Translate(new Vector3(xOffset, 0.575f, -2));
+        outline.transform.SetParent(transform);
+        spawnedOutlines.Add(outline);
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Player")
         {
             playerCount++;
+            if (numberOfRequirePlayers == 2)
+            {
+                if (col.gameObject.name.Contains("Blue"))
+                {
+                    spawnedOutlines[0].GetComponent<SpriteRenderer>().sprite = blobSprites[1];
+                }
+                else
+                {
+                    spawnedOutlines[1].GetComponent<SpriteRenderer>().sprite = blobSprites[2];
+                }
+            }
         }
 
-        if(playerCount == numberOfRequirePlayers || col.gameObject.name.Equals("PurpleBigBlob"))
+        if (playerCount == numberOfRequirePlayers || col.gameObject.name.Equals("PurpleBigBlob"))
         {
             LoadLevel();
         }
@@ -36,6 +69,17 @@ public class EndTile : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             playerCount--;
+            if (numberOfRequirePlayers == 2)
+            {
+                if (col.gameObject.name.Contains("Blue"))
+                {
+                    spawnedOutlines[0].GetComponent<SpriteRenderer>().sprite = blobSprites[0];
+                }
+                else
+                {
+                    spawnedOutlines[1].GetComponent<SpriteRenderer>().sprite = blobSprites[0];
+                }
+            }
         }
     }
 

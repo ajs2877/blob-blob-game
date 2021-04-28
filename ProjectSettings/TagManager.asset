@@ -6,6 +6,7 @@ TagManager:
   tags:
   - blob
   - moveable
+  - exit
   layers:
   - Default
   - TransparentFX

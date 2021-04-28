@@ -1,25 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     public float moveSpeed = 10f;
-    
+
     [SerializeField]
     public string horizontalInput;
 
     [SerializeField]
     public string verticalInput;
-    
+
     private TrueGrid gameGrid;
     public GameObject bigBlob;
     public bool isMoving = false;
     private GridObject gridObject;
     private GameObject otherBlob;
     private MovementSwitcher movementController;
-    
+
     void Start()
     {
         gameGrid = GameObject.Find("GameController").GetComponent<TrueGrid>();
@@ -56,7 +57,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void MovePlayer(TrueGrid.DIRECTION directionToMove)
     {
-        if(gameGrid.CanMoveElement(gameObject, true, true, directionToMove))
+        if (gameGrid.CanMoveElement(gameObject, true, true, directionToMove))
         {
             bool canMove = true;
             Vector2Int posMovingTowards = gameGrid.GetGridCoordinate(gameObject, directionToMove);
@@ -71,6 +72,14 @@ public class PlayerController : MonoBehaviour
                     if (objectAtSpot.GetComponent<PlayerController>() != null && objectAtSpot != gameObject)
                     {
                         otherBlob = objectAtSpot;
+
+                        // If other blob is on the exit goal tile, allow movement into it without merging
+                        if (listOfObjects.Find(obj => obj.tag.Equals("exit")))
+                        {
+                            canMove = true;
+                            break;
+                        }
+
                         canMove = CanCombine(posMovingTowards);
                         if (canMove)
                         {
@@ -81,7 +90,7 @@ public class PlayerController : MonoBehaviour
                     }
                 }
             }
-            
+
             if (canMove && AdditionalChecks(posMovingTowards))
             {
                 gameGrid.MoveElement(gameObject, true, directionToMove);
@@ -140,6 +149,12 @@ public class PlayerController : MonoBehaviour
                 // Look to see if we are moving into the other player.
                 if (objectAtSpot.GetComponent<PlayerController>() != null && objectAtSpot != gameObject)
                 {
+                    // If other blob is on the exit goal tile, allow movement into it without merging
+                    if (listOfObjects.Find(obj => obj.tag.Equals("exit")))
+                    {
+                        return true;
+                    }
+
                     return false;
                 }
             }

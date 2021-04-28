@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4041939677969483010}
   m_Layer: 12
   m_Name: EndTile
-  m_TagString: Untagged
+  m_TagString: exit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,9 +101,12 @@ MonoBehaviour:
   nextStage:
     sceneAsset: {fileID: 0}
     sceneName: 
-  sprites:
-  - {fileID: 6306649131623981532, guid: 455812b5ebb106e44b6a51846776d69a, type: 3}
-  - {fileID: 6306649131623981532, guid: 455812b5ebb106e44b6a51846776d69a, type: 3}
+  outlinePrefab: {fileID: 873657924851181378, guid: dcc74413067f1764c94fd24a16e6d70b,
+    type: 3}
+  blobSprites:
+  - {fileID: 21300000, guid: ccffcb95296b78c4caeef89ab33309dd, type: 3}
+  - {fileID: 5691726364137655238, guid: 695bc6de51acd3e41888ecf35a9970b2, type: 3}
+  - {fileID: -5245047635774512457, guid: 95871cb3848ba514eab6275582d64147, type: 3}
 --- !u!61 &632224564312164411
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -117,7 +120,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0019824654, y: -0.03173077}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -128,7 +131,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.38537857, y: 0.37331706}
   m_EdgeRadius: 0
 --- !u!114 &4041939677969483010
 MonoBehaviour:
@@ -142,3 +145,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e83b04a19424d7f40b95f069da9ee018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  size: 1
