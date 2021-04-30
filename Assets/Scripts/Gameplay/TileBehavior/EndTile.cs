@@ -8,7 +8,7 @@ public class EndTile : MonoBehaviour
 {
     private int playerCount = 0;
     public int numberOfRequirePlayers = 2;
-    public Utilities.SceneField nextStage;
+    private string nextStage = null;
 
     [SerializeField]
     private GameObject outlinePrefab;
@@ -87,6 +87,20 @@ public class EndTile : MonoBehaviour
     {
         Debug.Log("Level Loaded!");
         StageProgress.SetCompletedLevel(SceneManager.GetActiveScene().name);
-        SceneManager.LoadScene(nextStage);
+        if (nextStage != null)
+        {
+            // Load next scene as this field was set by StagePuppeteer for progression
+            SceneManager.LoadScene(nextStage);
+        }
+        else
+        {
+            // Reload scene as we are testing stage manually
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
+
+    public void SetNextStage(string nextStage)
+    {
+        this.nextStage = nextStage;
     }
 }

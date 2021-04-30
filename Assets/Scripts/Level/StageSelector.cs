@@ -9,7 +9,8 @@ public class StageSelector : MonoBehaviour
     public GameObject stageHolder;
     public GameObject stageButtonPrefab;
     public bool resetStageProgress;
-    
+    public bool unlockAllStages;
+
     void Start()
     {
         if (resetStageProgress)
@@ -27,7 +28,12 @@ public class StageSelector : MonoBehaviour
             // Sets up all buttons based on scenes assigned
             newButton.GetComponent<StageButton>().stageName = scenes[index].SceneName;
             newButton.GetComponentInChildren<Text>().text = (index + 1).ToString();
-            
+
+            if (unlockAllStages)
+            {
+                StageProgress.SetCompletedLevel(scenes[index].SceneName);
+            }
+
             if (!StageProgress.IsLevelCompleted(scenes[index].SceneName))
             {
                 // Keep this stage active as we completed last stage. This new stage is avaliable.
