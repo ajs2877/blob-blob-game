@@ -15,6 +15,7 @@ public class DoorTile : MonoBehaviour
     [SerializeField]
     private bool invertDoorState = false;
     public Triggerable[] allTriggers;
+    public Triggerable[] allTogglers;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +45,15 @@ public class DoorTile : MonoBehaviour
             }
             isOpen = validTriggers;
             if (invertDoorState) isOpen = !isOpen;
+        }
+
+        // Inverts the door's state always
+        foreach (Triggerable toggleObj in allTogglers)
+        {
+            if (toggleObj.triggered)
+            {
+                isOpen = !isOpen;
+            }
         }
 
         bc.isTrigger = isOpen;
