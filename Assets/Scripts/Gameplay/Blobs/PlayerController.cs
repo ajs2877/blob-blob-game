@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Move the player in the given direction if it is able to.
     /// </summary>
-    private void MovePlayer(TrueGrid.DIRECTION directionToMove)
+    public void MovePlayer(TrueGrid.DIRECTION directionToMove)
     {
         if (gameGrid.CanMoveElement(gameObject, true, true, directionToMove))
         {
