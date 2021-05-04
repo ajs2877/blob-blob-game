@@ -44,19 +44,19 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetAxisRaw(horizontalInput) == 1f)
             {
-                MovePlayer(TrueGrid.DIRECTION.RIGHT);
+                MovePlayer(TrueGrid.DIRECTION.RIGHT, false, true);
             }
             else if (Input.GetAxisRaw(horizontalInput) == -1f)
             {
-                MovePlayer(TrueGrid.DIRECTION.LEFT);
+                MovePlayer(TrueGrid.DIRECTION.LEFT, false, true);
             }
             else if (Input.GetAxisRaw(verticalInput) == 1f)
             {
-                MovePlayer(TrueGrid.DIRECTION.UP);
+                MovePlayer(TrueGrid.DIRECTION.UP, false, true);
             }
             else if (Input.GetAxisRaw(verticalInput) == -1f)
             {
-                MovePlayer(TrueGrid.DIRECTION.DOWN);
+                MovePlayer(TrueGrid.DIRECTION.DOWN, false, true);
             }
         }
     }
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Move the player in the given direction if it is able to.
     /// </summary>
-    public void MovePlayer(TrueGrid.DIRECTION directionToMove)
+    public void MovePlayer(TrueGrid.DIRECTION directionToMove, bool cancelPreviousMovement, bool canPushStuff)
     {
         if (gameGrid.CanMoveElement(gameObject, true, true, directionToMove))
         {
@@ -104,7 +104,12 @@ public class PlayerController : MonoBehaviour
             if (canMove && AdditionalChecks(posMovingTowards))
             {
                 isMoving = true;
-                gameGrid.MoveElement(gameObject, true, directionToMove);
+                if (puller && cancelPreviousMovement)
+                {
+                    // Cancel old movement so we can force our own new target.
+                    Destroy(puller.gameObject);
+                }
+                gameGrid.MoveElement(gameObject, canPushStuff, directionToMove);
             }
         }
     }

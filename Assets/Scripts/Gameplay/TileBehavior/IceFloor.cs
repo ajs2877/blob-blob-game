@@ -45,23 +45,21 @@ public class IceFloor : MonoBehaviour
     /// </summary>
     private void MoveObject(TrueGrid.DIRECTION directionToMove, GameObject gameObject)
     {
-        // Let players scripts control their own moving checks
-        if (gameObject.tag.Equals("Player"))
+        // Only size 1 objects can be moved safely with this method. 
+        // 2x2 will need to handle their own movement and checks for ice due to their multiple tile behavior
+        GridObject gridObject = gameObject.GetComponent<GridObject>();
+        if (gridObject && gridObject.size == 1)
         {
-            PlayerController player = gameObject.GetComponent<PlayerController>();
-            if (player.puller)
+            if (gameGrid.CanMoveElement(gameObject, true, false, directionToMove))
             {
-                Destroy(player.puller.gameObject); // Cancel any player movement so we can force our own direction.
-            }
-            player.MovePlayer(directionToMove);
-        }
-        // move non-player stuff if possible and the size of the object is 1 tile
-        else
-        {
-            GridObject gridObject = gameObject.GetComponent<GridObject>();
-            if (gridObject && gridObject.size == 1)
-            {
-                if (gameGrid.CanMoveElement(gameObject, true, false, directionToMove))
+                // Let players scripts control their own moving checks
+                if (gameObject.tag.Equals("Player"))
+                {
+                    PlayerController player = gameObject.GetComponent<PlayerController>();
+                    player.MovePlayer(directionToMove, true, false);
+                }
+                // move non-player stuff if possible and the size of the object is 1 tile
+                else
                 {
                     gameGrid.MoveElement(gameObject, false, directionToMove);
                 }
