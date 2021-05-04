@@ -15,6 +15,7 @@ public class PullParentToTarget : MonoBehaviour
         if (player)
         {
             player.isMoving = true;
+            player.puller = this;
         }
         sound = gameObjectToPull.GetComponent<AudioSource>();
     }
@@ -41,13 +42,18 @@ public class PullParentToTarget : MonoBehaviour
 
         if (distance <= 0.001f)
         {
-            // If we were moving player, let it know it is no longer being moved
-            PlayerController component;
-            if (gameObjectToPull.TryGetComponent(out component))
-            {
-                component.isMoving = false;
-            }
             Destroy(gameObject);
+        }
+    }
+
+
+    void OnDestroy()
+    {
+        // If we were moving player, let it know it is no longer being moved as this puller is now deleted
+        PlayerController component;
+        if (gameObjectToPull.TryGetComponent(out component))
+        {
+            component.puller = null;
         }
     }
 }

@@ -17,21 +17,30 @@ public class PlayerController : MonoBehaviour
     private TrueGrid gameGrid;
     public GameObject bigBlob;
     public bool isMoving = false;
+    public PullParentToTarget puller = null;
     private GridObject gridObject;
     private GameObject otherBlob;
     private MovementSwitcher movementController;
+    private DirectionVector direction;
 
     void Start()
     {
         gameGrid = GameObject.Find("GameController").GetComponent<TrueGrid>();
         movementController = GameObject.Find("GameController").GetComponent<MovementSwitcher>();
         gridObject = GetComponent<GridObject>();
+        direction = GetComponent<DirectionVector>();
     }
 
     void Update()
     {
-        // Only allow controls when we are not moving
-        if (!isMoving)
+        // Determines if blob has truly stopped moving
+        if(direction.direction.magnitude == 0)
+        {
+            isMoving = false;
+        }
+
+        // Only allow controls when we are not moving and has no puller
+        if (!isMoving && puller == null)
         {
             if (Input.GetAxisRaw(horizontalInput) == 1f)
             {
@@ -83,6 +92,7 @@ public class PlayerController : MonoBehaviour
                         canMove = CanCombine(posMovingTowards);
                         if (canMove)
                         {
+                            isMoving = true;
                             // Merge the blobs without blocking the code or thread
                             StartCoroutine(MergeBlobs(posMovingTowards));
                         }
@@ -93,6 +103,7 @@ public class PlayerController : MonoBehaviour
 
             if (canMove && AdditionalChecks(posMovingTowards))
             {
+                isMoving = true;
                 gameGrid.MoveElement(gameObject, true, directionToMove);
             }
         }

@@ -19,25 +19,23 @@ public class IceFloor : MonoBehaviour
     {
         DirectionVector direction = col.gameObject.GetComponent<DirectionVector>();
 
-        if (direction)
+        if (direction && direction.direction.magnitude != 0)
         {
             Vector2 dirVec = direction.direction;
 
-            if (dirVec.x > 0)
+            // Allows the correct direction movement even if the blob is slightly off in direction
+            // Source: http://answers.unity.com/answers/760408/view.html
+            if (Mathf.Abs(dirVec.y) > Mathf.Abs(dirVec.x))
             {
-                MoveObject(TrueGrid.DIRECTION.RIGHT, col.gameObject);
+                // North or south
+                if (dirVec.y > 0) MoveObject(TrueGrid.DIRECTION.UP, col.gameObject);
+                else MoveObject(TrueGrid.DIRECTION.DOWN, col.gameObject);
             }
-            else if (dirVec.x < 0)
+            else
             {
-                MoveObject(TrueGrid.DIRECTION.LEFT, col.gameObject);
-            }
-            else if (dirVec.y > 0)
-            {
-                MoveObject(TrueGrid.DIRECTION.UP, col.gameObject);
-            }
-            else if (dirVec.y < 0)
-            {
-                MoveObject(TrueGrid.DIRECTION.DOWN, col.gameObject);
+                // East or West:
+                if (dirVec.x > 0) MoveObject(TrueGrid.DIRECTION.RIGHT, col.gameObject);
+                else MoveObject(TrueGrid.DIRECTION.LEFT, col.gameObject);
             }
         }
     }
@@ -50,7 +48,12 @@ public class IceFloor : MonoBehaviour
         // Let players scripts control their own moving checks
         if (gameObject.tag.Equals("Player"))
         {
-            gameObject.GetComponent<PlayerController>().MovePlayer(directionToMove);
+            PlayerController player = gameObject.GetComponent<PlayerController>();
+            if (player.puller)
+            {
+                Destroy(player.puller.gameObject); // Cancel any player movement so we can force our own direction.
+            }
+            player.MovePlayer(directionToMove);
         }
         // move non-player stuff if possible and the size of the object is 1 tile
         else
