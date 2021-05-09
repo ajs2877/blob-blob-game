@@ -133,9 +133,9 @@ public class TrueGrid : MonoBehaviour
     /// <summary>
     /// Returns the grid coordinate of object
     /// </summary>
-    /// <param name="objectToSnap"></param>
+    /// <param name="objectToCheck"></param>
     /// <returns>The grid coordinate of the object (bottom left coordinate for 2x2 elements)</returns>
-    public Vector2Int GetGridSpace(GameObject objectToSnap, bool largeElement)
+    public Vector2Int GetGridSpace(GameObject objectToCheck, bool largeElement)
     {
         Vector3Int size = tileMap.cellBounds.size;
         Vector3 center = tileMap.cellBounds.center;
@@ -144,7 +144,7 @@ public class TrueGrid : MonoBehaviour
         float offset = largeElement ? 0.5f : 0;
         
         // moves the world position to cell position first to trim off decimals
-        Vector3Int cellPosition = tileMap.WorldToCell(new Vector3(objectToSnap.transform.position.x - offset, objectToSnap.transform.position.y - offset, 1));
+        Vector3Int cellPosition = tileMap.WorldToCell(new Vector3(objectToCheck.transform.position.x - offset, objectToCheck.transform.position.y - offset, 1));
 
         return new Vector2Int(cellPosition.x + (size.x / 2) - (int)center.x, cellPosition.y + (size.y / 2) - (int)center.y);
     }

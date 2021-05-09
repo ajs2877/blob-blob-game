@@ -9,6 +9,7 @@ public class DoorTile : MonoBehaviour
 
     private BoxCollider2D bc;
     private SpriteRenderer sr;
+    private TrueGrid gameGrid;
 
     [SerializeField]
     private bool activateOnAnyTrigger = false;
@@ -20,6 +21,7 @@ public class DoorTile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameGrid = GameObject.Find("GameController").GetComponent<TrueGrid>();
         bc = gameObject.GetComponent<BoxCollider2D>();
         sr = gameObject.GetComponent<SpriteRenderer>();
     }
@@ -53,6 +55,19 @@ public class DoorTile : MonoBehaviour
             if (toggleObj.triggered)
             {
                 isOpen = !isOpen;
+            }
+        }
+
+        // Do not close door if there is an object blocking the door
+        if(!isOpen && bc.isTrigger)
+        {
+            Vector2Int doorCoordinate = gameGrid.GetGridSpace(gameObject, false);
+            List<GameObject> objectsAtSpot = gameGrid.GetElementsAtLocation(doorCoordinate.x, doorCoordinate.y);
+
+            // Door counts towards this so if it is greater than 1, another object is here at same spot.
+            if(objectsAtSpot.Count > 1)
+            {
+                return;
             }
         }
 

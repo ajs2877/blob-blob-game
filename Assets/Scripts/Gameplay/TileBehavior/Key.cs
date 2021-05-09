@@ -7,7 +7,7 @@ public class Key : Triggerable
     [SerializeField]
     float speed = 4f;
     [SerializeField]
-    float triggerRange = .5f;
+    float triggerRange = .65f;
 
     private bool isFollowing;
     private Transform target;
@@ -30,6 +30,21 @@ public class Key : Triggerable
     {
         if (isFollowing)
         {
+            // make key continue to follow blobs between blob merging/splitting
+            if (!target.gameObject.activeSelf)
+            {
+                GameObject blueBlob = GameObject.Find("BlueBlob");
+                GameObject bigBlob = GameObject.Find("PurpleBigBlob");
+                if (blueBlob && blueBlob.activeSelf)
+                {
+                    target = blueBlob.transform;
+                }
+                else if (bigBlob && bigBlob.activeSelf)
+                {
+                    target = bigBlob.transform;
+                }
+            }
+
             transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
         }
         if (Vector3.Distance(door.transform.position, transform.position) < triggerRange)
@@ -51,7 +66,6 @@ public class Key : Triggerable
                 target = other.transform;
 
                 isFollowing = true;
-                
             }
         }
     }
