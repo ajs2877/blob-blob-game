@@ -51,7 +51,7 @@ public class PullParentToTarget : MonoBehaviour
     {
         // If we were moving player, let it know it is no longer being moved as this puller is now deleted
         PlayerController component;
-        if (gameObjectToPull.TryGetComponent(out component))
+        if (gameObjectToPull && gameObjectToPull.TryGetComponent(out component))
         {
             component.puller = null;
         }

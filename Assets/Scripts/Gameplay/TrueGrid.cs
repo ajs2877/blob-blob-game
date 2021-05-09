@@ -87,6 +87,7 @@ public class TrueGrid : MonoBehaviour
 
     public Vector2Int GetGridCoordinate(GameObject origObject, DIRECTION direction)
     {
+        Vector3 center = tileMap.cellBounds.center;
         Vector2Int directionOffset = GetOffset(direction);
         List<Vector2Int> currentPositions = GetElementLocation(origObject);
         Vector2Int newGridPosition = directionOffset + currentPositions[0];
@@ -97,13 +98,14 @@ public class TrueGrid : MonoBehaviour
     {
         int pointCount = 0;
         Vector3Int size = tileMap.cellBounds.size;
+        Vector3 center = tileMap.cellBounds.center;
         Vector3 averagedWorldPoint = new Vector3();
         List<Vector2Int> currentPositions = GetElementLocation(objectToSnap);
         if (currentPositions.Count == 0) return;
 
         foreach (Vector2Int position in currentPositions)
         {
-            Vector3 worldPosition = tileMap.GetCellCenterWorld(new Vector3Int(position.x - (size.x / 2), position.y - (size.y / 2), 1));
+            Vector3 worldPosition = tileMap.GetCellCenterWorld(new Vector3Int(position.x - (size.x / 2) + (int)center.x, position.y - (size.y / 2) + (int)center.y, 1));
             
             // Collect the points so we can average them later.
             if (pointCount == 0)
@@ -136,6 +138,7 @@ public class TrueGrid : MonoBehaviour
     public Vector2Int GetGridSpace(GameObject objectToSnap, bool largeElement)
     {
         Vector3Int size = tileMap.cellBounds.size;
+        Vector3 center = tileMap.cellBounds.center;
 
         // get bottom left coordinate for 2x2 elements
         float offset = largeElement ? 0.5f : 0;
@@ -143,7 +146,7 @@ public class TrueGrid : MonoBehaviour
         // moves the world position to cell position first to trim off decimals
         Vector3Int cellPosition = tileMap.WorldToCell(new Vector3(objectToSnap.transform.position.x - offset, objectToSnap.transform.position.y - offset, 1));
 
-        return new Vector2Int(cellPosition.x + (size.x / 2), cellPosition.y + (size.y / 2));
+        return new Vector2Int(cellPosition.x + (size.x / 2) - (int)center.x, cellPosition.y + (size.y / 2) - (int)center.y);
     }
 
 
@@ -155,9 +158,10 @@ public class TrueGrid : MonoBehaviour
     public Vector2 GetWorldSpace(Vector2 position)
     {
         Vector3Int size = tileMap.cellBounds.size;
+        Vector3 center = tileMap.cellBounds.center;
 
         // moves the world position to cell position first to trim off decimals
-        Vector3 worldPosition = tileMap.CellToWorld(new Vector3Int((int)position.x - (size.x / 2), (int)position.y - (size.y / 2), 1));
+        Vector3 worldPosition = tileMap.CellToWorld(new Vector3Int((int)position.x - (size.x / 2) + (int)center.x, (int)position.y - (size.y / 2) + (int)center.y, 1));
 
         return new Vector2(worldPosition.x, worldPosition.y);
     }
@@ -301,7 +305,8 @@ public class TrueGrid : MonoBehaviour
 
 
             // Collect the points so we can average them later.
-            Vector3 worldPosition = tileMap.GetCellCenterWorld(new Vector3Int(newGridPosition.x - (size.x / 2), newGridPosition.y - (size.y / 2), 1));
+            Vector3 center = tileMap.cellBounds.center;
+            Vector3 worldPosition = tileMap.GetCellCenterWorld(new Vector3Int(newGridPosition.x - (size.x / 2) + (int)center.x, newGridPosition.y - (size.y / 2) + (int)center.y, 1));
             if (pointCount == 0)
             {
                 averagedWorldPoint = worldPosition;

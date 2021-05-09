@@ -14,6 +14,10 @@ public class GridObject : MonoBehaviour
     public void SnapAndAddToGrid()
     {
         // Adds itself to the grid and snaps to grid coordinate
+        if (this.gameObject.name.Contains("RedBlob"))
+        {
+            int t = 5;
+        }
         TrueGrid gameGrid = GameObject.Find("GameController").GetComponent<TrueGrid>();
         Vector2Int gridCoordinate = gameGrid.GetGridSpace(gameObject, size == 2);
 
