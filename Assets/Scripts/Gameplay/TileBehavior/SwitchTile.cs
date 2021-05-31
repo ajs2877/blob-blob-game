@@ -20,12 +20,35 @@ public class SwitchTile : Triggerable
 
     private AudioSource sound;
 
+    private bool defaultState;
+    public float timeTillDeactivation;
+    private float internalTimer;
+    public GameObject timerIcon;
+
     void Start()
     {
+        defaultState = state;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         sound = GetComponent<AudioSource>();
     }
-    
+
+    void FixedUpdate()
+    {
+        if (defaultState != state && timeTillDeactivation > 0 && internalTimer > 0)
+        {
+            float rotationAngle = (Time.fixedDeltaTime / timeTillDeactivation) * -360; // negative so it goes clockwise
+            timerIcon.transform.RotateAround(timerIcon.transform.position, timerIcon.transform.forward, rotationAngle);
+
+            internalTimer -= Time.fixedDeltaTime;
+            if (internalTimer <= 0)
+            {
+                triggered = false;
+                spriteRenderer.sprite = sprites[0];
+                timerIcon.SetActive(false);
+            }
+        }
+    }
+
     void OnTriggerStay2D(Collider2D col)
     {
         if (primed && objectOn == col.gameObject)
@@ -41,9 +64,24 @@ public class SwitchTile : Triggerable
                 {
                     sound.Play();
                     state = !state;
+
                     //changes texture to match
                     spriteRenderer.sprite = sprites[state ? 1 : 0];
                     triggered = state;
+
+                    if (defaultState == state)
+                    {
+                        timerIcon.SetActive(false);
+                    }
+                    else
+                    {
+                        if (timeTillDeactivation > 0)
+                        {
+                            internalTimer = timeTillDeactivation;
+                            timerIcon.SetActive(true);
+                            timerIcon.transform.rotation = new Quaternion(0, 0, 0, 0);
+                        }
+                    }
                 }
             }
         }
