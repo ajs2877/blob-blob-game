@@ -249,6 +249,7 @@ GameObject:
   - component: {fileID: 627444679}
   - component: {fileID: 627444678}
   - component: {fileID: 627444677}
+  - component: {fileID: 627444680}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -319,8 +320,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 603900053}
-        m_MethodName: LoadLevelSelect
+      - m_Target: {fileID: 627444680}
+        m_MethodName: LoadScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -367,6 +368,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 627444675}
   m_CullTransparentMesh: 0
+--- !u!114 &627444680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627444675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdc2ae5f319aa5e4398fdac5c073df9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageName: LevelSelection
 --- !u!1 &841598136
 GameObject:
   m_ObjectHideFlags: 0
@@ -1062,6 +1076,7 @@ GameObject:
   - component: {fileID: 2061321595}
   - component: {fileID: 2061321594}
   - component: {fileID: 2061321593}
+  - component: {fileID: 2061321596}
   m_Layer: 5
   m_Name: CreditsButton
   m_TagString: Untagged
@@ -1132,8 +1147,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 603900053}
-        m_MethodName: LoadCredits
+      - m_Target: {fileID: 2061321596}
+        m_MethodName: LoadScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1180,3 +1195,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2061321591}
   m_CullTransparentMesh: 0
+--- !u!114 &2061321596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061321591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdc2ae5f319aa5e4398fdac5c073df9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageName: Credits
