@@ -5,6 +5,7 @@ using UnityEngine;
 public class CrackedFloor : MonoBehaviour
 {
     public GameObject pitObject;
+    public GameObject LargePitObject;
 
     [SerializeField]
     private BoxCollider2D floorTriggerCollider;
@@ -27,7 +28,14 @@ public class CrackedFloor : MonoBehaviour
 
         if (gameObjectTouching.tag.Equals("Player"))
         {
-            GameObject newPit = Instantiate(pitObject, transform.position, transform.rotation);
+            if (transform.parent.GetComponent<GridObject>().size == 2)
+            {
+                Instantiate(LargePitObject, transform.position, transform.rotation);
+            }
+            else
+            {
+                Instantiate(pitObject, transform.position, transform.rotation);
+            }
 
             // Play the sound clip
             sound.Play();
@@ -43,13 +51,20 @@ public class CrackedFloor : MonoBehaviour
         // Detects when the boulder is touching
         GameObject gameObjectTouching = col.gameObject;
 
-        if (gameObjectTouching.tag.Equals("moveable"))
+        if (gameObjectTouching.tag.Equals("moveable") && gameObjectTouching.name.Contains("Boulder"))
         {
             // Will check between boulder and pit to know if boulder has fallen in
             float distance = Vector3.Distance(col.transform.position, floorTriggerCollider.transform.position);
             if (distance < 0.4f)
             {
-                GameObject newPit = Instantiate(pitObject, transform.position, transform.rotation);
+                if(transform.parent.GetComponent<GridObject>().size == 2)
+                {
+                    Instantiate(LargePitObject, transform.position, transform.rotation);
+                }
+                else
+                {
+                    Instantiate(pitObject, transform.position, transform.rotation);
+                }
 
                 // Play the sound clip
                 sound.Play();

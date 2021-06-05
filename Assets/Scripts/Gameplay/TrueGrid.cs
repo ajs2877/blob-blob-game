@@ -293,7 +293,7 @@ public class TrueGrid : MonoBehaviour
                 List<GameObject> objectsAtSpot = new List<GameObject>(GetElementsAtLocation(newGridPosition.x, newGridPosition.y));
                 foreach (GameObject objectAtSpot in objectsAtSpot)
                 {
-                    if (objectAtSpot.tag.Equals("moveable"))
+                    if (objectAtSpot.tag.Equals("moveable") && objectToMove.GetComponent<GridObject>().size >= objectAtSpot.GetComponent<GridObject>().size)
                     {
                         // boulders cannot push boulders 
                         MoveElement(objectAtSpot, false, direction);
@@ -369,7 +369,7 @@ public class TrueGrid : MonoBehaviour
                         List<GameObject> objectsAtSpot = new List<GameObject>(GetElementsAtLocation(newPosition.x, newPosition.y));
                         foreach (GameObject objectAtSpot in objectsAtSpot)
                         {
-                            if (objectAtSpot.tag.Equals("moveable"))
+                            if (objectAtSpot.tag.Equals("moveable") && objectToMove.GetComponent<GridObject>().size >= objectAtSpot.GetComponent<GridObject>().size)
                             {
                                 // boulders cannot push boulders 
                                 if (!CanMoveElement(objectAtSpot, true, false, direction))
