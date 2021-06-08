@@ -61,17 +61,36 @@ public class DoorTile : MonoBehaviour
         // Do not close door if there is an object blocking the door
         if(!isOpen && bc.isTrigger)
         {
-            Vector2Int doorCoordinate = gameGrid.GetGridSpace(gameObject, false);
-            List<GameObject> objectsAtSpot = gameGrid.GetElementsAtLocation(doorCoordinate.x, doorCoordinate.y);
+            List<Vector2Int> doorCoordinates = gameGrid.GetElementLocation(gameObject);
+            List<GameObject> objectsAtSpot = new List<GameObject>();
+            foreach (Vector2Int doorCoordinate in doorCoordinates)
+            {
+                objectsAtSpot.AddRange(gameGrid.GetElementsAtLocation(doorCoordinate.x, doorCoordinate.y));
+            }
+            objectsAtSpot.RemoveAll(element => element == gameObject);
 
             // Door counts towards this so if it is greater than 1, another object is here at same spot.
-            if(objectsAtSpot.Count > 1)
+            if (objectsAtSpot.Count > 0)
             {
                 return;
             }
-        }
 
+            StartCoroutine(ChangeDoorState(isOpen));
+        }
+        else
+        {
+            bc.isTrigger = isOpen;
+            sr.sprite = sprites[isOpen ? 1 : 0];
+        }
+    }
+
+    private IEnumerator ChangeDoorState(bool isOpen)
+    {
+        // Delay coroutine to allow element to move out of door space
+        yield return new WaitForSeconds(0.2f);
         bc.isTrigger = isOpen;
         sr.sprite = sprites[isOpen ? 1 : 0];
+
+        yield break;
     }
 }
