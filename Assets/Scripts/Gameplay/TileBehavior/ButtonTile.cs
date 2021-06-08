@@ -43,25 +43,31 @@ public class ButtonTile : Triggerable
 
     void OnTriggerStay2D(Collider2D col)
     {
-        if (!triggered) sound.Play();
-        triggered = true;
-        pressed = true;
-        spriteRenderer.sprite = sprites[1];
-        if (timeTillDeactivation > 0)
+        if(col.GetComponent<GridObject>().size >= GetComponent<GridObject>().size)
         {
-            internalTimer = timeTillDeactivation;
-            timerIcon.SetActive(true);
-            timerIcon.transform.rotation = new Quaternion(0, 0, 0, 0);
+            if (!triggered) sound.Play();
+            triggered = true;
+            pressed = true;
+            spriteRenderer.sprite = sprites[1];
+            if (timeTillDeactivation > 0)
+            {
+                internalTimer = timeTillDeactivation;
+                timerIcon.SetActive(true);
+                timerIcon.transform.rotation = new Quaternion(0, 0, 0, 0);
+            }
         }
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
-        pressed = false;
-        if (timeTillDeactivation == 0)
+        if (col.GetComponent<GridObject>().size >= GetComponent<GridObject>().size)
         {
-            triggered = false;
-            spriteRenderer.sprite = sprites[0];
+            pressed = false;
+            if (timeTillDeactivation == 0)
+            {
+                triggered = false;
+                spriteRenderer.sprite = sprites[0];
+            }
         }
     }
 }
