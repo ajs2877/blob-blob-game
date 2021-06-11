@@ -3430,7 +3430,7 @@ PrefabInstance:
     - target: {fileID: 93228248387177434, guid: 3d8f1659bece09e4a867a02c160fabe7,
         type: 3}
       propertyPath: allowMerging
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 93228249133813734, guid: 3d8f1659bece09e4a867a02c160fabe7,
         type: 3}
