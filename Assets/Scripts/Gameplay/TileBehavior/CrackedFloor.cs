@@ -55,9 +55,10 @@ public class CrackedFloor : MonoBehaviour
         {
             // Will check between boulder and pit to know if boulder has fallen in
             float distance = Vector3.Distance(col.transform.position, floorTriggerCollider.transform.position);
-            if (distance < 0.4f)
+            bool isLarge = transform.parent.GetComponent<GridObject>().size == 2;
+            if (distance < (isLarge ? 0.8f : 0.4f))
             {
-                if(transform.parent.GetComponent<GridObject>().size == 2)
+                if(isLarge)
                 {
                     Instantiate(LargePitObject, transform.position, transform.rotation);
                 }
