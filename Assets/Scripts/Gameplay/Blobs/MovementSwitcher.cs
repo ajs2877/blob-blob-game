@@ -7,8 +7,7 @@ using UnityEngine.UI;
 public class MovementSwitcher : MonoBehaviour
 {
     //public bool gridMovementMode = false;
-
-    public bool multiBlobControl = false;
+    
     private GameObject contolledSingleBlob = null;
     public GameObject blob1 = null;
     public GameObject blob2 = null;
@@ -17,7 +16,6 @@ public class MovementSwitcher : MonoBehaviour
     private TrueGrid gameGrid = null;
 
     public bool allowMerging = false;
-    public Text controlText;
     public Text movementText;
 
     public void Awake()
@@ -42,25 +40,13 @@ public class MovementSwitcher : MonoBehaviour
             blob2Controls.horizontalInput = "HorizontalMain";
             blob2Controls.verticalInput = "VerticalMain";
         }
-
-        controlText.text = "E to switch to controlling both blobs at same time";
-        movementText.text = "Singleblob controls:\nAWSD - " + (contolledSingleBlob == blob1 ? "Blue" : "Red") + " blob\nShift to switch blobs.";
+        
+        movementText.text = "Controls:\nAWSD - " + (contolledSingleBlob == blob1 ? "Blue" : "Red") + " blob\nShift to switch blobs.";
     }
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (allowMerging && bigBlob && bigBlob.activeSelf)
-            {
-                SplitBlob();
-            }
-            else
-            {
-                SwitchBlobsControls();
-            }
-        }
-        if (!multiBlobControl && Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             if (allowMerging && bigBlob && bigBlob.activeSelf)
             {
@@ -110,35 +96,8 @@ public class MovementSwitcher : MonoBehaviour
         contolledSingleBlob.GetComponent<PlayerController>().enabled = false; // disable deselected blob
         contolledSingleBlob = GetOtherBlob();
         contolledSingleBlob.GetComponent<PlayerController>().enabled = true; // enable new blob
-        movementText.text = "Singleblob controls:\nAWSD - "+ (contolledSingleBlob == blob1 ? "Blue" : "Red")  + " blob\nShift to switch blobs.";
-    }
 
-    public void SwitchBlobsControls()
-    {
-        if (!blob2) return;
-
-        multiBlobControl = !multiBlobControl;
-        if (multiBlobControl)
-        {
-            blob1.GetComponent<PlayerController>().enabled = true;
-            PlayerController blob2Controls = blob2.GetComponent<PlayerController>();
-            blob2Controls.enabled = true;
-            blob2Controls.horizontalInput = "HorizontalMain";
-            blob2Controls.verticalInput = "VerticalMain";
-
-            controlText.text = "E to switch to controlling\n1 blob at a time";
-            movementText.text = "Multiblob controls:\nAWSD - Blue and Red blob";
-        }
-        else
-        {
-            PlayerController blob2Controls = blob2.GetComponent<PlayerController>();
-            blob2Controls.horizontalInput = "HorizontalMain";
-            blob2Controls.verticalInput = "VerticalMain";
-            GetOtherBlob().GetComponent<PlayerController>().enabled = false;
-
-            controlText.text = "E to switch to controlling both blobs at same time";
-            movementText.text = "Singleblob controls:\nAWSD - " + (contolledSingleBlob == blob1 ? "Blue" : "Red") + " blob\nShift to switch blobs.";
-        }
+        movementText.text = "Controls:\nAWSD - "+ (contolledSingleBlob == blob1 ? "Blue" : "Red")  + " blob\nShift to switch blobs.";
     }
 
     private void SplitBlob()
