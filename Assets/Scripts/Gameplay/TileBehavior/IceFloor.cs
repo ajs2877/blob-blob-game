@@ -26,7 +26,9 @@ public class IceFloor : MonoBehaviour
         if (direction)
         {
             sliders.Add(col.gameObject, direction.direction);
-            col.gameObject.GetComponent<GridObject>().slidersTilesTouching.Add(icyParentTile);
+            GridObject sliderGridObject = col.gameObject.GetComponent<GridObject>();
+            sliderGridObject.slidersTilesTouching.Add(icyParentTile);
+            sliderGridObject.isSliding = true;
         }
     }
 
