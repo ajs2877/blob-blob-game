@@ -5,6 +5,7 @@ using UnityEngine;
 public class GridObject : MonoBehaviour
 {
     public int size = 1;
+    public GameObject currentMovementTargetObject;
 
     void Start()
     {

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class IceFloor : MonoBehaviour
@@ -43,25 +44,30 @@ public class IceFloor : MonoBehaviour
     /// <summary>
     /// Move the object in the previous direction if it is able to.
     /// </summary>
-    private void MoveObject(TrueGrid.DIRECTION directionToMove, GameObject gameObject)
+    private void MoveObject(TrueGrid.DIRECTION directionToMove, GameObject slidingObject)
     {
         // Only size 1 objects can be moved safely with this method. 
         // 2x2 will need to handle their own movement and checks for ice due to their multiple tile behavior
-        GridObject gridObject = gameObject.GetComponent<GridObject>();
-        if (gridObject && gridObject.size == 1)
+        GridObject gridObject = slidingObject.GetComponent<GridObject>();
+        List<Vector2Int> icePositions = gameGrid.GetElementLocation(gameObject.transform.parent.gameObject); // Ice tile parent of floor detector child
+        List<Vector2Int> sliderPositions = gameGrid.GetElementLocation(slidingObject);
+
+        // Only slide if the slider is on the ice tile in the true grid.
+        // This fixes 2x2 objects sliding many tiles beyond the ice tiles.
+        if (gridObject && icePositions.Any(icePosition => sliderPositions.Any(sliderPosition => sliderPosition == icePosition)))
         {
-            if (gameGrid.CanMoveElement(gameObject, true, false, directionToMove))
+            if (gameGrid.CanMoveElement(slidingObject, true, false, directionToMove))
             {
                 // Let players scripts control their own moving checks
-                if (gameObject.tag.Equals("Player"))
+                if (slidingObject.tag.Equals("Player"))
                 {
-                    PlayerController player = gameObject.GetComponent<PlayerController>();
+                    PlayerController player = slidingObject.GetComponent<PlayerController>();
                     player.MovePlayer(directionToMove, true, false);
                 }
                 // move non-player stuff if possible and the size of the object is 1 tile
                 else
                 {
-                    gameGrid.MoveElement(gameObject, false, directionToMove);
+                    gameGrid.MoveElement(slidingObject, false, directionToMove);
                 }
             }
         }

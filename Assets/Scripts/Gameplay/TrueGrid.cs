@@ -322,11 +322,16 @@ public class TrueGrid : MonoBehaviour
         averagedWorldPoint /= pointCount;
         averagedWorldPoint.z = objectToMove.transform.position.z;
 
+        // Remove the current puller for the object as we are assigning a new one
+        GridObject gridObject = objectToMove.GetComponent<GridObject>();
+        if (gridObject.currentMovementTargetObject != null) Destroy(gridObject.currentMovementTargetObject);
+
         // Creates the target that will pull the parent to the correct place
         GameObject movementTargetObject = Instantiate(MovementTargetPrefab);
         movementTargetObject.transform.position = averagedWorldPoint;
         PullParentToTarget targetScript = movementTargetObject.GetComponent<PullParentToTarget>();
         targetScript.gameObjectToPull = objectToMove;
+        gridObject.currentMovementTargetObject = movementTargetObject;
 
         // If we are moving player, let it know it is being moved
         PlayerController component;
