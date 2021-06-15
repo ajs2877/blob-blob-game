@@ -21,26 +21,26 @@ public class PlayerController : MonoBehaviour
     private GridObject gridObject;
     private GameObject otherBlob;
     private MovementSwitcher movementController;
-    private DirectionVector direction;
+    private DirectionVector directionVector;
 
     void Start()
     {
         gameGrid = GameObject.Find("GameController").GetComponent<TrueGrid>();
         movementController = GameObject.Find("GameController").GetComponent<MovementSwitcher>();
         gridObject = GetComponent<GridObject>();
-        direction = GetComponent<DirectionVector>();
+        directionVector = GetComponent<DirectionVector>();
     }
 
     void Update()
     {
         // Determines if blob has truly stopped moving
-        if(direction.direction.magnitude == 0)
+        if(directionVector.direction.magnitude == 0)
         {
             isMoving = false;
         }
 
         // Only allow controls when we are not moving and has no puller
-        if (!isMoving && puller == null)
+        if (!isMoving && puller == null && !gridObject.isSliding)
         {
             if (Input.GetAxisRaw(horizontalInput) == 1f)
             {
