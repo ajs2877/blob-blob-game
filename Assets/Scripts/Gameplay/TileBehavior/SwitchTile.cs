@@ -6,10 +6,7 @@ public class SwitchTile : Triggerable
 {
     [SerializeField]
     private bool state;
-
-    [SerializeField]
-    private GameObject[] triggerObjects;
-
+    
     [SerializeField]
     private Sprite[] sprites;
 

@@ -7,5 +7,7 @@ using UnityEngine;
  */
 public class Triggerable : MonoBehaviour
 {
+    public List<GameObject> triggerRecievers;
+
     public bool triggered = false;
 }

@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 2838247534786762667}
   - component: {fileID: 8630395070654486728}
   - component: {fileID: -6171141359456574383}
+  - component: {fileID: 5715292831213643404}
   m_Layer: 11
   m_Name: BlueBlob
   m_TagString: Player
@@ -114,7 +115,7 @@ Transform:
   m_GameObject: {fileID: 3782999238540756591}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -11.15, y: 1.13, z: -1.12}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95, y: 1, z: 1}
   m_Children:
   - {fileID: 3782999238095897703}
   m_Father: {fileID: 0}
@@ -262,6 +263,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 1
+  currentMovementTargetObject: {fileID: 0}
+  isSliding: 0
 --- !u!82 &8630395070654486728
 AudioSource:
   m_ObjectHideFlags: 0
@@ -377,3 +380,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5715292831213643404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3782999238540756591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b03cd3a8326a04ba541b2ba55e1142, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightPrefab: {fileID: 8406439538047050193, guid: 80472d3cf41866549abeaa10b67620fa,
+    type: 3}

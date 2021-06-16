@@ -24,6 +24,16 @@ public class DoorTile : MonoBehaviour
         gameGrid = GameObject.Find("GameController").GetComponent<TrueGrid>();
         bc = gameObject.GetComponent<BoxCollider2D>();
         sr = gameObject.GetComponent<SpriteRenderer>();
+
+        foreach (Triggerable triggerObj in allTriggers)
+        {
+            triggerObj.triggerRecievers.Add(gameObject);
+        }
+
+        foreach (Triggerable togglerObj in allTogglers)
+        {
+            togglerObj.triggerRecievers.Add(gameObject);
+        }
     }
 
     // Update is called once per frame

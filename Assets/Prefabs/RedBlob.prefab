@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: -9204707929849019284}
   - component: {fileID: 5688965406536826642}
   - component: {fileID: 6845919215545368537}
+  - component: {fileID: 2001011565278204402}
   m_Layer: 11
   m_Name: RedBlob
   m_TagString: Player
@@ -114,7 +115,7 @@ Transform:
   m_GameObject: {fileID: 4355818757406453466}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.65, y: 1.17, z: -1.13}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.979, y: 0.979, z: 1}
   m_Children:
   - {fileID: 4355818755924867264}
   m_Father: {fileID: 0}
@@ -188,6 +189,7 @@ MonoBehaviour:
   verticalInput: VerticalAlt
   bigBlob: {fileID: 0}
   isMoving: 0
+  puller: {fileID: 0}
 --- !u!61 &4355818757406453446
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -261,6 +263,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 1
+  currentMovementTargetObject: {fileID: 0}
+  isSliding: 0
 --- !u!82 &5688965406536826642
 AudioSource:
   m_ObjectHideFlags: 0
@@ -376,3 +380,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2001011565278204402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4355818757406453466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b03cd3a8326a04ba541b2ba55e1142, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightPrefab: {fileID: 8406439538047050193, guid: 80472d3cf41866549abeaa10b67620fa,
+    type: 3}
