@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,6 @@ public class IceFloor : MonoBehaviour
 {
     private AudioSource sound;
     private TrueGrid gameGrid;
-    private Dictionary<GameObject, Vector2> sliders = new Dictionary<GameObject, Vector2>();
     private GameObject icyParentTile;
 
     // Start is called before the first frame update
@@ -19,61 +19,29 @@ public class IceFloor : MonoBehaviour
         icyParentTile = gameObject.transform.parent.gameObject; // Ice tile parent of floor detector child
     }
 
-
-    void OnTriggerEnter2D(Collider2D col)
+    internal void TrySlidingObject(GameObject slider)
     {
-        DirectionVector direction = col.gameObject.GetComponent<DirectionVector>();
-        if (direction)
+        GridObject sliderGridObject = slider.GetComponent<GridObject>();
+
+        // Edge case check to not slide a bug blob when two blobs merge together
+        PlayerController playerController = sliderGridObject.GetComponent<PlayerController>();
+        if (playerController && playerController.isMerging)
         {
-            sliders.Add(col.gameObject, direction.direction);
-            GridObject sliderGridObject = col.gameObject.GetComponent<GridObject>();
-            sliderGridObject.slidersTilesTouching.Add(icyParentTile);
-            sliderGridObject.isSliding = true;
+            return;
         }
-    }
 
-    void OnTriggerExit2D(Collider2D col)
-    {
-        sliders.Remove(col.gameObject);
 
-        GridObject sliderGridObject = col.gameObject.GetComponent<GridObject>();
-        sliderGridObject.slidersTilesTouching.Remove(icyParentTile);
-        if(sliderGridObject.slidersTilesTouching.Count == 0)
+        DirectionVector directionVector = slider.GetComponent<DirectionVector>();
+        if (!directionVector)
         {
-            sliderGridObject.isSliding = false;
+            return;
         }
-    }
 
-    void Update()
-    {
-        var loopSafeSliders = sliders.ToArray();
-        foreach (var slider in loopSafeSliders)
+        TrueGrid.DIRECTION sliderDirection = GetDirection(directionVector.previousDirection);
+        // Only slide if the object is not already being pulled by something else.
+        if(slider.GetComponent<GridObject>().currentMovementTargetObject == null)
         {
-            GridObject sliderGridObject = slider.Key.GetComponent<GridObject>();
-            DirectionVector directionVector = slider.Key.GetComponent<DirectionVector>();
-            if (!directionVector) continue;
-
-            TrueGrid.DIRECTION originalDirection = GetDirection(slider.Value);
-
-            // Update old direction with new current sliding direction
-            if (directionVector.direction.magnitude != 0)
-            {
-                TrueGrid.DIRECTION sliderDirection = GetDirection(directionVector.direction);
-                if (sliderDirection != originalDirection)
-                {
-                    // update direction only if key hasn't been removed
-                    if (sliders.TryGetValue(slider.Key, out Vector2 oldVal))
-                    {
-                        // key exist
-                        sliders[slider.Key] = directionVector.direction;
-                    }
-                }
-            }
-            // Slider stopped on tile. Make it keep sliding
-            else if (sliderGridObject.currentMovementTargetObject == null)
-            {
-                MoveObject(originalDirection, slider.Key);
-            } 
+            MoveObject(sliderDirection, slider, directionVector);
         }
     }
 
@@ -98,7 +66,7 @@ public class IceFloor : MonoBehaviour
     /// <summary>
     /// Move the object in the previous direction if it is able to.
     /// </summary>
-    private void MoveObject(TrueGrid.DIRECTION directionToMove, GameObject slidingObject)
+    private void MoveObject(TrueGrid.DIRECTION directionToMove, GameObject slidingObject, DirectionVector directionVector)
     {
         // Only size 1 objects can be moved safely with this method. 
         // 2x2 will need to handle their own movement and checks for ice due to their multiple tile behavior
@@ -117,18 +85,18 @@ public class IceFloor : MonoBehaviour
                 {
                     PlayerController player = slidingObject.GetComponent<PlayerController>();
                     player.MovePlayer(directionToMove, true, false);
-                    slidingObject.GetComponent<GridObject>().isSliding = true;
+                    directionVector.isSliding = true;
                 }
                 // move non-player stuff if possible and the size of the object is 1 tile
                 else
                 {
                     gameGrid.MoveElement(slidingObject, false, directionToMove);
-                    slidingObject.GetComponent<GridObject>().isSliding = true;
+                    directionVector.isSliding = true;
                 }
             }
             else
             {
-                slidingObject.GetComponent<GridObject>().isSliding = false;
+                directionVector.isSliding = false;
             }
         }
     }

@@ -12,7 +12,6 @@ public class MovementSwitcher : MonoBehaviour
     public GameObject blob1 = null;
     public GameObject blob2 = null;
     public GameObject bigBlob = null;
-    private Tilemap grid = null;
     private TrueGrid gameGrid = null;
 
     public bool allowMerging = false;
@@ -21,7 +20,6 @@ public class MovementSwitcher : MonoBehaviour
     public void Awake()
     {
         gameGrid = GameObject.Find("GameController").GetComponent<TrueGrid>();
-        grid = GameObject.Find("Tilemap").GetComponent<Tilemap>();
 
         GameObject temp = GameObject.Find("BlueBlob");
         if(temp) blob1 = temp;
@@ -40,7 +38,7 @@ public class MovementSwitcher : MonoBehaviour
             blob2Controls.horizontalInput = "HorizontalMain";
             blob2Controls.verticalInput = "VerticalMain";
         }
-        
+        contolledSingleBlob.GetComponent<PlayerController>().isBeingControlled = true;
         movementText.text = "Controls:\nAWSD - " + (contolledSingleBlob == blob1 ? "Blue" : "Red") + " blob\nShift to switch blobs.";
     }
 
@@ -50,7 +48,13 @@ public class MovementSwitcher : MonoBehaviour
         {
             if (allowMerging && bigBlob && bigBlob.activeSelf)
             {
-                SplitBlob();
+                // Only allow splitting if not sliding or moving
+                DirectionVector directionVec = bigBlob.GetComponent<DirectionVector>();
+                PlayerController playerController = bigBlob.GetComponent<PlayerController>();
+                if (!directionVec.isSliding && !playerController.isMoving)
+                {
+                    SplitBlob();
+                }
             }
             else
             {
@@ -64,6 +68,7 @@ public class MovementSwitcher : MonoBehaviour
         UpdateGridStatus(blob1, bigBlob.activeSelf);
         UpdateGridStatus(blob2, bigBlob.activeSelf);
         UpdateGridStatus(bigBlob, !bigBlob.activeSelf);
+        movementText.text = "Controls:\nAWSD - Purple blob\nShift to switch blobs.";
     }
 
     public void UpdateGridStatus(GameObject gridObject, bool shouldExistOnGrid)
@@ -93,9 +98,9 @@ public class MovementSwitcher : MonoBehaviour
 
     public void SwitchSelectedBlob()
     {
-        contolledSingleBlob.GetComponent<PlayerController>().enabled = false; // disable deselected blob
+        contolledSingleBlob.GetComponent<PlayerController>().isBeingControlled = false; // disable deselected blob
         contolledSingleBlob = GetOtherBlob();
-        contolledSingleBlob.GetComponent<PlayerController>().enabled = true; // enable new blob
+        contolledSingleBlob.GetComponent<PlayerController>().isBeingControlled = true; // enable new blob
 
         movementText.text = "Controls:\nAWSD - "+ (contolledSingleBlob == blob1 ? "Blue" : "Red")  + " blob\nShift to switch blobs.";
     }
@@ -112,6 +117,8 @@ public class MovementSwitcher : MonoBehaviour
 
         gameGrid.RemoveElement(bigBlob);
         bigBlob.SetActive(false);
+
+        movementText.text = "Controls:\nAWSD - " + (contolledSingleBlob == blob1 ? "Blue" : "Red") + " blob\nShift to switch blobs.";
     }
 
     private GameObject GetOtherBlob()

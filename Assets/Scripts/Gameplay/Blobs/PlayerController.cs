@@ -14,14 +14,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     public string verticalInput;
 
+    public bool isBeingControlled = false;
     private TrueGrid gameGrid;
     public GameObject bigBlob;
+    public bool wasMoving = false;
     public bool isMoving = false;
     public PullParentToTarget puller = null;
     private GridObject gridObject;
     private GameObject otherBlob;
     private MovementSwitcher movementController;
     private DirectionVector directionVector;
+    public bool isMerging;
 
     void Start()
     {
@@ -33,14 +36,41 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // Determines if blob has truly stopped moving
-        if(directionVector.direction.magnitude == 0)
+
+        // Determines if blob has truly stopped moving. Do this first
+        if(directionVector.direction.magnitude == 0 && puller == null)
         {
             isMoving = false;
         }
 
+        // For ice tiles to work properly.
+        // This will tell whatever ice tile we are on that we stopped and now the ice tile can let us know to keep moving or not.
+        if(!isMoving && wasMoving)
+        {
+            List<Vector2Int> playerPositions = gameGrid.GetElementLocation(gameObject);
+            foreach(Vector2Int pos in playerPositions)
+            {
+                // make copy of list so we do not get a concurrent modification exception if elements are removed or added to the spot
+                List<GameObject> objectsAtSpot = new List<GameObject>(gameGrid.GetElementsAtLocation(pos.x, pos.y));
+                foreach(GameObject occupyingObject in objectsAtSpot)
+                {
+                    IceFloor iceTile = occupyingObject.GetComponentInChildren<IceFloor>();
+                    if (iceTile) iceTile.TrySlidingObject(gameObject);
+                }
+            }
+
+        }
+
+        // If we merged to big blob, we are moving to new spot during the merging.
+        // But when stopped, that means the merging is finished.
+        // We do this after notifying ice tiles so they don't slide the big blob after merger
+        if (directionVector.direction.magnitude == 0 && isMerging && puller == null)
+        {
+            isMerging = false;
+        }
+
         // Only allow controls when we are not moving and has no puller
-        if (!isMoving && puller == null && !gridObject.isSliding)
+        if (isBeingControlled && !isMoving && puller == null && !directionVector.isSliding)
         {
             if (Input.GetAxisRaw(horizontalInput) == 1f)
             {
@@ -59,6 +89,8 @@ public class PlayerController : MonoBehaviour
                 MovePlayer(TrueGrid.DIRECTION.DOWN, false, true);
             }
         }
+
+        wasMoving = isMoving;
     }
 
     /// <summary>
@@ -83,7 +115,7 @@ public class PlayerController : MonoBehaviour
                         otherBlob = objectAtSpot;
 
                         // If other blob is on the exit goal tile, allow movement into it without merging
-                        if (listOfObjects.Find(obj => obj.tag.Equals("exit")))
+                        if (listOfObjects.Find(obj => obj.CompareTag("exit")))
                         {
                             canMove = true;
                             break;
@@ -166,7 +198,7 @@ public class PlayerController : MonoBehaviour
                 if (objectAtSpot.GetComponent<PlayerController>() != null && objectAtSpot != gameObject)
                 {
                     // If other blob is on the exit goal tile, allow movement into it without merging
-                    if (listOfObjects.Find(obj => obj.tag.Equals("exit")))
+                    if (listOfObjects.Find(obj => obj.CompareTag("exit")))
                     {
                         return true;
                     }
@@ -215,7 +247,7 @@ public class PlayerController : MonoBehaviour
                     bigBlob.transform.position = new Vector3(worldPos.x + 0.55f, worldPos.y + 0.55f, bigBlob.transform.position.z);
                     bigBlob.SetActive(true);
                     PlayerController bigBlobController = bigBlob.GetComponent<PlayerController>();
-                    bigBlobController.enabled = true;
+                    bigBlobController.isBeingControlled = true;
                     bigBlobController.isMoving = true;
                     bigBlob.GetComponent<GridObject>().SnapAndAddToGrid();
 
@@ -224,6 +256,7 @@ public class PlayerController : MonoBehaviour
                     gameGrid.RemoveElement(otherBlob);
                     gameGrid.RemoveElement(gameObject);
 
+                    bigBlob.GetComponent<PlayerController>().isMerging = true;
                     yield break;
                 }
             }

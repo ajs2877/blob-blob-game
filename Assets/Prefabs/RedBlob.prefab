@@ -179,7 +179,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4355818757406453466}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82946be1c7ee5bd40b8f5e52f26c1e21, type: 3}
   m_Name: 
@@ -187,9 +187,12 @@ MonoBehaviour:
   moveSpeed: 5
   horizontalInput: HorizontalAlt
   verticalInput: VerticalAlt
+  isBeingControlled: 0
   bigBlob: {fileID: 0}
+  wasMoving: 0
   isMoving: 0
   puller: {fileID: 0}
+  isMerging: 0
 --- !u!61 &4355818757406453446
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -249,7 +252,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88a777ba365ebe540b88a8c5d53802d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  previousDirection: {x: 0, y: 0}
   direction: {x: 0, y: 0}
+  isSliding: 0
 --- !u!114 &-9204707929849019284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,7 +269,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: 1
   currentMovementTargetObject: {fileID: 0}
-  isSliding: 0
 --- !u!82 &5688965406536826642
 AudioSource:
   m_ObjectHideFlags: 0

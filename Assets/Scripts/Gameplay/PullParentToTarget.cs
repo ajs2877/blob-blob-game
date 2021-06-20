@@ -37,7 +37,7 @@ public class PullParentToTarget : MonoBehaviour
 
         // Play sound on large distances 
         // Protects against sound playing on start/reset
-        if(sound && distance > 0.05f && !sound.isPlaying)
+        if(sound && distance > 0.05f && sound.isActiveAndEnabled && !sound.isPlaying)
             sound.Play();
 
         if (distance <= 0.001f)

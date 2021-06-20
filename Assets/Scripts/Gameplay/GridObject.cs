@@ -6,8 +6,6 @@ public class GridObject : MonoBehaviour
 {
     public int size = 1;
     public GameObject currentMovementTargetObject;
-    public HashSet<GameObject> slidersTilesTouching = new HashSet<GameObject>();
-    public bool isSliding = false;
 
     void Start()
     {
