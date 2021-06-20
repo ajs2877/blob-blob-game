@@ -25,7 +25,7 @@ public class IceFloor : MonoBehaviour
 
         // Edge case check to not slide a bug blob when two blobs merge together
         PlayerController playerController = sliderGridObject.GetComponent<PlayerController>();
-        if (playerController && playerController.isMerging)
+        if (playerController && playerController.isMergingOrSplitting)
         {
             return;
         }
@@ -39,7 +39,7 @@ public class IceFloor : MonoBehaviour
 
         TrueGrid.DIRECTION sliderDirection = GetDirection(directionVector.previousDirection);
         // Only slide if the object is not already being pulled by something else.
-        if(slider.GetComponent<GridObject>().currentMovementTargetObject == null)
+        if(sliderDirection != TrueGrid.DIRECTION.NONE && slider.GetComponent<GridObject>().currentMovementTargetObject == null)
         {
             MoveObject(sliderDirection, slider, directionVector);
         }
@@ -47,6 +47,8 @@ public class IceFloor : MonoBehaviour
 
     private TrueGrid.DIRECTION GetDirection(Vector2 direction)
     {
+        if (direction.magnitude == 0) return TrueGrid.DIRECTION.NONE;
+
         // Allows the correct direction movement even if the blob is slightly off in direction
         // Source: http://answers.unity.com/answers/760408/view.html
         if (Mathf.Abs(direction.y) > Mathf.Abs(direction.x))

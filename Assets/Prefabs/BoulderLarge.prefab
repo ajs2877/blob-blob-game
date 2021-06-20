@@ -15,8 +15,9 @@ GameObject:
   - component: {fileID: 1013752442664562497}
   - component: {fileID: 9046023934464185117}
   - component: {fileID: 8773915355692160342}
+  - component: {fileID: -8058017126600162190}
   m_Layer: 10
-  m_Name: LargeBoulder
+  m_Name: BoulderLarge
   m_TagString: moveable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,6 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 2
+  currentMovementTargetObject: {fileID: 0}
 --- !u!82 &9046023934464185117
 AudioSource:
   m_ObjectHideFlags: 0
@@ -255,7 +257,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88a777ba365ebe540b88a8c5d53802d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  previousDirection: {x: 0, y: 0}
   direction: {x: 0, y: 0}
+  isSliding: 0
+--- !u!114 &-8058017126600162190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2039125794464380297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5c198401fab8f043a09cb5dc3fff8b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wasMoving: 0
+  isMoving: 0
+  puller: {fileID: 0}
 --- !u!1 &7492937996264947327
 GameObject:
   m_ObjectHideFlags: 0

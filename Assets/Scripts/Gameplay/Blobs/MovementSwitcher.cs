@@ -118,6 +118,9 @@ public class MovementSwitcher : MonoBehaviour
         gameGrid.RemoveElement(bigBlob);
         bigBlob.SetActive(false);
 
+        blob1.GetComponent<PlayerController>().isMergingOrSplitting = true;
+        blob2.GetComponent<PlayerController>().isMergingOrSplitting = true;
+
         movementText.text = "Controls:\nAWSD - " + (contolledSingleBlob == blob1 ? "Blue" : "Red") + " blob\nShift to switch blobs.";
     }
 

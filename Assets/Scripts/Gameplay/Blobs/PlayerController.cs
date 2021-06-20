@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Moveables
 {
     [SerializeField]
     public float moveSpeed = 10f;
@@ -15,58 +15,28 @@ public class PlayerController : MonoBehaviour
     public string verticalInput;
 
     public bool isBeingControlled = false;
-    private TrueGrid gameGrid;
     public GameObject bigBlob;
-    public bool wasMoving = false;
-    public bool isMoving = false;
-    public PullParentToTarget puller = null;
-    private GridObject gridObject;
     private GameObject otherBlob;
     private MovementSwitcher movementController;
-    private DirectionVector directionVector;
-    public bool isMerging;
+    public bool isMergingOrSplitting;
 
-    void Start()
+    protected override void Start()
     {
-        gameGrid = GameObject.Find("GameController").GetComponent<TrueGrid>();
         movementController = GameObject.Find("GameController").GetComponent<MovementSwitcher>();
-        gridObject = GetComponent<GridObject>();
-        directionVector = GetComponent<DirectionVector>();
+        base.Start();
     }
 
     void Update()
     {
-
-        // Determines if blob has truly stopped moving. Do this first
-        if(directionVector.direction.magnitude == 0 && puller == null)
-        {
-            isMoving = false;
-        }
-
-        // For ice tiles to work properly.
-        // This will tell whatever ice tile we are on that we stopped and now the ice tile can let us know to keep moving or not.
-        if(!isMoving && wasMoving)
-        {
-            List<Vector2Int> playerPositions = gameGrid.GetElementLocation(gameObject);
-            foreach(Vector2Int pos in playerPositions)
-            {
-                // make copy of list so we do not get a concurrent modification exception if elements are removed or added to the spot
-                List<GameObject> objectsAtSpot = new List<GameObject>(gameGrid.GetElementsAtLocation(pos.x, pos.y));
-                foreach(GameObject occupyingObject in objectsAtSpot)
-                {
-                    IceFloor iceTile = occupyingObject.GetComponentInChildren<IceFloor>();
-                    if (iceTile) iceTile.TrySlidingObject(gameObject);
-                }
-            }
-
-        }
+        UpdateIsMoving();
+        NotifyOccupiedTiles();
 
         // If we merged to big blob, we are moving to new spot during the merging.
         // But when stopped, that means the merging is finished.
         // We do this after notifying ice tiles so they don't slide the big blob after merger
-        if (directionVector.direction.magnitude == 0 && isMerging && puller == null)
+        if (directionVector.direction.magnitude == 0 && isMergingOrSplitting && puller == null)
         {
-            isMerging = false;
+            isMergingOrSplitting = false;
         }
 
         // Only allow controls when we are not moving and has no puller
@@ -90,7 +60,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        wasMoving = isMoving;
+        UpdateWasMoving();
     }
 
     /// <summary>
@@ -256,7 +226,7 @@ public class PlayerController : MonoBehaviour
                     gameGrid.RemoveElement(otherBlob);
                     gameGrid.RemoveElement(gameObject);
 
-                    bigBlob.GetComponent<PlayerController>().isMerging = true;
+                    bigBlob.GetComponent<PlayerController>().isMergingOrSplitting = true;
                     yield break;
                 }
             }

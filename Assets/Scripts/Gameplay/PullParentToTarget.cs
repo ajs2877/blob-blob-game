@@ -11,11 +11,11 @@ public class PullParentToTarget : MonoBehaviour
 
     private void Start()
     {
-        PlayerController player = gameObjectToPull.GetComponent<PlayerController>();
-        if (player)
+        Moveables moveable = gameObjectToPull.GetComponent<Moveables>();
+        if (moveable)
         {
-            player.isMoving = true;
-            player.puller = this;
+            moveable.isMoving = true;
+            moveable.puller = this;
         }
         sound = gameObjectToPull.GetComponent<AudioSource>();
     }
