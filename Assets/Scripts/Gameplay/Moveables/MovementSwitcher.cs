@@ -8,7 +8,7 @@ public class MovementSwitcher : MonoBehaviour
 {
     //public bool gridMovementMode = false;
     
-    private GameObject contolledSingleBlob = null;
+    private GameObject controlledSingleBlob = null;
     public GameObject blob1 = null;
     public GameObject blob2 = null;
     public GameObject bigBlob = null;
@@ -30,7 +30,7 @@ public class MovementSwitcher : MonoBehaviour
         temp = GameObject.Find("PurpleBigBlob");
         if (temp) bigBlob = temp;
         
-        contolledSingleBlob = blob1;
+        controlledSingleBlob = blob1;
 
         if (blob2)
         {
@@ -38,8 +38,8 @@ public class MovementSwitcher : MonoBehaviour
             blob2Controls.horizontalInput = "HorizontalMain";
             blob2Controls.verticalInput = "VerticalMain";
         }
-        contolledSingleBlob.GetComponent<PlayerController>().isBeingControlled = true;
-        movementText.text = "Controls:\nAWSD - " + (contolledSingleBlob == blob1 ? "Blue" : "Red") + " blob\nShift to switch blobs.";
+        controlledSingleBlob.GetComponent<PlayerController>().isBeingControlled = true;
+        movementText.text = "Controls:\nAWSD - " + (controlledSingleBlob == blob1 ? "Blue" : "Red") + " blob\nShift to switch blobs.";
     }
 
     public void Update()
@@ -61,14 +61,11 @@ public class MovementSwitcher : MonoBehaviour
                 SwitchSelectedBlob();
             }
         }
-    }
 
-    public void ToggleCombinedBlob()
-    {
-        UpdateGridStatus(blob1, bigBlob.activeSelf);
-        UpdateGridStatus(blob2, bigBlob.activeSelf);
-        UpdateGridStatus(bigBlob, !bigBlob.activeSelf);
-        movementText.text = "Controls:\nAWSD - Purple blob\nShift to switch blobs.";
+        if (bigBlob.GetComponent<PlayerController>().isBeingControlled)
+        {
+            movementText.text = "Controls:\nAWSD - Purple blob\nShift to switch blobs.";
+        }
     }
 
     public void UpdateGridStatus(GameObject gridObject, bool shouldExistOnGrid)
@@ -98,11 +95,11 @@ public class MovementSwitcher : MonoBehaviour
 
     public void SwitchSelectedBlob()
     {
-        contolledSingleBlob.GetComponent<PlayerController>().isBeingControlled = false; // disable deselected blob
-        contolledSingleBlob = GetOtherBlob();
-        contolledSingleBlob.GetComponent<PlayerController>().isBeingControlled = true; // enable new blob
+        controlledSingleBlob.GetComponent<PlayerController>().isBeingControlled = false; // disable deselected blob
+        controlledSingleBlob = GetOtherBlob();
+        controlledSingleBlob.GetComponent<PlayerController>().isBeingControlled = true; // enable new blob
 
-        movementText.text = "Controls:\nAWSD - "+ (contolledSingleBlob == blob1 ? "Blue" : "Red")  + " blob\nShift to switch blobs.";
+        movementText.text = "Controls:\nAWSD - "+ (controlledSingleBlob == blob1 ? "Blue" : "Red")  + " blob\nShift to switch blobs.";
     }
 
     private void SplitBlob()
@@ -116,16 +113,17 @@ public class MovementSwitcher : MonoBehaviour
         blob2.GetComponent<GridObject>().SnapAndAddToGrid();
 
         gameGrid.RemoveElement(bigBlob);
+        bigBlob.GetComponent<PlayerController>().isBeingControlled = false;
         bigBlob.SetActive(false);
 
         blob1.GetComponent<PlayerController>().isMergingOrSplitting = true;
         blob2.GetComponent<PlayerController>().isMergingOrSplitting = true;
 
-        movementText.text = "Controls:\nAWSD - " + (contolledSingleBlob == blob1 ? "Blue" : "Red") + " blob\nShift to switch blobs.";
+        movementText.text = "Controls:\nAWSD - " + (controlledSingleBlob == blob1 ? "Blue" : "Red") + " blob\nShift to switch blobs.";
     }
 
     private GameObject GetOtherBlob()
     {
-        return contolledSingleBlob == blob1 && blob2 ? blob2 : blob1;
+        return controlledSingleBlob == blob1 && blob2 ? blob2 : blob1;
     }
 }
