@@ -1,0 +1,39 @@
+Blob-Blob Game | 6/19/2021
+
+The movement system is crucial to our game but it is quite messy when delve into. There are a lot of edge cases.
+
+But in the end, everything is handled by the TrueGrid script in GameController gameobject. 
+The TrueGrid script has many method but there are a few you will use most often. They are:
+
+ CanMoveElement - With a given object and direction, this will check if the object can be move into this spot safely. 
+                  It has two params for if it should check for blocking object or if it should take into account pushable objects.
+                  If pushable objects is being checked, it will call this method on them to see if your passed in object can push
+                  the pushable object out of the way to make room.
+                  NO ACTUAL MOVEMENT IS BEING DONE WITH THIS METHOD. Call this before calling MoveElement for best results.
+
+ MoveElement - This method is like CanMoveElement except this will actually move the object to the spot. 
+               It will also handle moving pushable objects for you as well. 
+
+ GetElementsAtLocation - Returns all elements at a given coordinate. This includes blobs, tiles, walls, etc
+ 
+ GetElementLocation - Returns all positions that an element occupies in the grid. This is a list of coordinates.
+ 
+ CanElementFit - Basically like CanMoveElement except it only tests if a given object can be placed at a spot without colliding with another element.
+
+
+Now with this in mind, moving a player works by calling CanMoveElement on itself to see if it can move in a direction. 
+Then calls MoveElement on itself to actually move and push boulders aside.
+
+Ice Tiles are very tricky. Blobs and Boulders has a script (PlayerControlelr and Boulder) that extends Moveable class and hooks up its methods into their Start and Update method.
+This Moveable class works by having the Blobs and boulders keep track of when they stop moving. 
+Then once they stop, Moveable will check if they are on an Ice Tile and then call the Ice Tile's TrySlidingObject method.
+The Ice Tile will now call MoveElement on the objects if the object's previous direction given to CanMoveElement returns true.
+Thus the Ice Tile gives the impression of sliding by having the moving objects trigger the tile every time they stop at the next spot.
+
+All elements that can move to new spaces are given the DirectionVector script at top level gameobject.
+DirectionVector will keep track if the element is moving, sliding, and what direction they are moving in (in up, down, left, right directions only)
+This script is referenced quite a bit in IceTiles, PlayerController, Moveable, SwitchTile, and in the TrueGrid script as well as it provides very useful info.
+
+ConditionalBlocking script is designed to be overriden by other scripts to add special filtering that may be too difficult to do with tags or layers.
+The AllowOnlyBigBlobIn script implements ConditionalBlocking to prevent movement into a tile by any other moveable objects.
+The TrueGrid system looks into the gameobject for any component that implements the ConditionalBlocking script to be used for its CanMoveElement and MoveElement method.

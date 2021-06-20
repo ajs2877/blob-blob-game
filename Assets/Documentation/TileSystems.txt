@@ -1,0 +1,63 @@
+Blob-Blob Game | 6/19/2021
+
+There are many tiles and some of them uses a child GameObject for collision detection with certain objects. 
+This doc will attempt to give an overview on how each tile and script works.
+
+Triggerable Script
+  - Special class to be implemented by the scripts of triggerable tiles.
+    Holds list of GameObjects that is hooked onto this tile. This will be set by the Door Tile and is needed for higlighting tiles to work.
+	Has triggered field that you need to set to true or false based on some sort of condition in the child class.
+
+ButtonTile Prefab - 2 GameObjects
+  - Parent object hold ButtonTile script that implements Triggerable and checks if the player steps on it. 
+    The script will then set triggered to be true and then set triggered to be false when stepped off or timer is finished.
+	The child gameobject is a pointer for the timer in order to show how much time is left.
+	
+SwitchTile Prefab - 2 GameObjects
+  - Parent object hold SwitchTile script that implements Triggerable and checks if the player walks past it in certain directions. 
+    The script will then switch triggered between true or false based on direction or when timer is finished.
+	The child gameobject is a pointer for the timer in order to show how much time is left.
+	
+DoorTile Prefab - 1 GameObject
+  - Holds all triggers and toggle tiles connected to it. 
+    The door and all of its triggers will be highlighted if the player steps on a triggerable tile (handled in Highlighting Controller on Player)
+    Door does a check to make sure the player is not occupying its space so it does not close on top of the player.
+	It currently uses a coroutine (think of it like a separate non-blocking method to run) that changes the door state so objects can move out of its space cleanly.
+	
+PitTile - 2 GameObjects (Can only be 1x1)
+  - The parent gameobject is used for blocking blob movement but allows for boulders to pass through it.
+    The child gameobject is the one with the PitTile script and collision that detects boulders on it and changes state to a filled pit.
+	PitTile can only be filled by small boulders by checking if the boulder is the same size as tile.
+
+LargePitTile - 10 GameObjects (Can only be 2x2)
+  - The parent gameobject is just a container that holds 4 small pit tiles within itself.
+    The child pitDetector gameobject is the one with the LargePitTile script that handles the logic.
+	By using 4 small pits, the small pits handle blocking blob movement and can be filled individually.
+	The LargePitTile's job is to automatically fill all 4 pits if they are unfilled and a large boulder is pushed on.
+	LargePitTile will also keep track of each small pit and will enable a filledSprite gameobject when a pit is filled.
+	Neat system but can be tricky to understand at first. LargePitTile handles the big boulders. The 4 pits handle the small boulders and movement blocking.
+	
+CrackedFloorTile - 2 GameObjects
+  - The parent gameobject is just for the sprite and allowing movement across itself.
+    The child gameobject has CrackedFloor script which will detect if a player moved off of the tile.
+	When a player gets off, the CrackedFloor will destroy itself and spawn a PitTile in its place.
+	It will destroy itself if a boulder of the same size is pushed onto it and the PitTile spawned will be filled with the boulder.
+	This tile can be 1x1 or 2x2 unlike the Pit Tiles and this script will spawn the correct pit tile for its size.
+
+IceFloorTile - 2 GameObjects (Can only be 1x1)
+  - The parent gameobject is just for the sprite and holds the FloorDetector gameobject that holds the IceFloor script.
+    Blobs and Boulders has a script (PlayerControlelr and Boulder) that extends Moveable class and hooks up its methods into their Start and Update method.
+    This Moveable class works by having the Blobs and boulders keep track of when they stop moving. 
+    Then once they stop, Moveable will check if they are on an Ice Tile and then call the Ice Tile's TrySlidingObject method.
+    The Ice Tile will now call MoveElement on the objects if the object's previous direction given to CanMoveElement returns true.
+    Thus the Ice Tile gives the impression of sliding by having the moving objects trigger the tile every time they stop at the next spot.
+	
+CrackedWall - 2 GameObjects
+  - The parent gameobject has a script called AllowOnlyBigBlobIn that will block all elements except for big blobs. 
+    The child gameobject holds the CrackedWall script and when the big blob enter the wall, the wall changes state and disables AllowOnlyBigBlobIn script.
+
+
+ConditionalBlocking script 
+  - Designed to be overriden by other scripts to add special filtering that may be too difficult to do with tags or layers.
+    The AllowOnlyBigBlobIn script implements ConditionalBlocking to prevent movement into a tile by any other moveable objects.
+    The TrueGrid system looks into the gameobject for any component that implements the ConditionalBlocking script to be used for its CanMoveElement and MoveElement method.

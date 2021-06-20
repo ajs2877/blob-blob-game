@@ -1,0 +1,11 @@
+Blob-Blob Game | 6/19/2021
+
+All tiles, blobs, everything that exists in the game space is given the GridObject script at the topmost gameobject.
+This script is what snaps and adds the gameobject to the TrueGrid script that exists for every stage.
+The GridObject also holds how big the element is and this should always be made sure to be correct as it is heavily used in movement/grid systems.
+
+Highlighting triggerables and doors works by having the player hold the HighlightingController script.
+Then when a player enters a triggable tile, the class will look into the tile's Triggerable script and grab its list of reciever gameobjects.
+Then it will spawn a highlight for every one of those receivers and to all of the triggerables that the recievers hold (doors has all buttons attached to it)
+The HighlightingController script will hold onto the instance of all those new highlights and destroys them when the player exits the triggerable tile.
+To work with 2x2 blobs on multiple buttons, it uses a dictionary of the triggable the blob is on and all the highlights spawned by it so it destroys the correct ones when exiting.

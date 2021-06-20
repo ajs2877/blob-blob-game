@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class AllowOnlyBigBlobIn : ConditionalBlocking
 {
-    public override bool CanBlockObject(GameObject objectTotestAgainst)
+    public override bool CanBlockObject(GameObject objectToTestAgainst)
     {
-        return !objectTotestAgainst.name.Equals("PurpleBigBlob");
+        return !objectToTestAgainst.name.Equals("PurpleBigBlob");
     }
 }

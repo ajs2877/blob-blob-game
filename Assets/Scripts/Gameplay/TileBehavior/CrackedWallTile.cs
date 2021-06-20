@@ -11,6 +11,7 @@ public class CrackedWallTile : MonoBehaviour
     private BoxCollider2D parentCollider; // Set with inspector. GetComponentInParent isn't working.
     private BoxCollider2D wallTriggerCollider;
     private SpriteRenderer spriteRenderer;
+    private int size;
 
     private AudioSource sound;
     
@@ -20,6 +21,7 @@ public class CrackedWallTile : MonoBehaviour
         spriteRenderer = GetComponentInParent<SpriteRenderer>();
         spriteRenderer.sprite = sprites[0];
         sound = GetComponentInParent<AudioSource>();
+        size = GetComponentInParent<GridObject>().size;
     }
 
 
@@ -32,7 +34,7 @@ public class CrackedWallTile : MonoBehaviour
         {
             // Will check between wall and big blob to know if smashed
             float distance = Vector3.Distance(col.transform.position, wallTriggerCollider.transform.position);
-            if (distance < 0.7f)
+            if (distance < 0.7f * size)
             {
                 DestroyWall();
             }
