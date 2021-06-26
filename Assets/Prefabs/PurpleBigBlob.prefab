@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 678916641131480141}
   - component: {fileID: 935977852830337622}
   - component: {fileID: 2949568436284598822}
+  - component: {fileID: 5819945235302460270}
   m_Layer: 11
   m_Name: PurpleBigBlob
   m_TagString: Player
@@ -183,12 +184,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82946be1c7ee5bd40b8f5e52f26c1e21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wasMoving: 0
+  isMoving: 0
+  puller: {fileID: 0}
   moveSpeed: 5
   horizontalInput: HorizontalAlt
   verticalInput: VerticalAlt
+  isBeingControlled: 0
   bigBlob: {fileID: 0}
-  isMoving: 0
-  puller: {fileID: 0}
+  isMergingOrSplitting: 0
 --- !u!61 &3844750177091940071
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -248,7 +252,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88a777ba365ebe540b88a8c5d53802d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  previousDirection: {x: 0, y: 0}
   direction: {x: 0, y: 0}
+  isSliding: 0
 --- !u!114 &678916641131480141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,7 +269,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: 2
   currentMovementTargetObject: {fileID: 0}
-  isSliding: 0
 --- !u!95 &935977852830337622
 Animator:
   serializedVersion: 3
@@ -297,3 +302,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightPrefab: {fileID: 8406439538047050193, guid: 80472d3cf41866549abeaa10b67620fa,
     type: 3}
+--- !u!114 &5819945235302460270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3844750177091940091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449f4930a47faf543a15f47c888b14a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -80,7 +80,7 @@ public class PlayerController : Moveables
                 foreach (GameObject objectAtSpot in listOfObjects)
                 {
                     // Look to see if we are moving into the other player.
-                    if (objectAtSpot.GetComponent<PlayerController>() != null && objectAtSpot != gameObject)
+                    if (objectAtSpot.GetComponent<PlayerController>() != null && objectAtSpot != gameObject && objectAtSpot.GetComponent<GridObject>().size == 1)
                     {
                         otherBlob = objectAtSpot;
 

@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 8630395070654486728}
   - component: {fileID: -6171141359456574383}
   - component: {fileID: 5715292831213643404}
+  - component: {fileID: -4885114865786530190}
   m_Layer: 11
   m_Name: BlueBlob
   m_TagString: Player
@@ -184,12 +185,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82946be1c7ee5bd40b8f5e52f26c1e21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wasMoving: 0
+  isMoving: 0
+  puller: {fileID: 0}
   moveSpeed: 5
   horizontalInput: HorizontalMain
   verticalInput: VerticalMain
+  isBeingControlled: 0
   bigBlob: {fileID: 0}
-  isMoving: 0
-  puller: {fileID: 0}
+  isMergingOrSplitting: 0
 --- !u!61 &3782999238540756587
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -249,7 +253,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88a777ba365ebe540b88a8c5d53802d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  previousDirection: {x: 0, y: 0}
   direction: {x: 0, y: 0}
+  isSliding: 0
 --- !u!114 &2838247534786762667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,7 +270,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: 1
   currentMovementTargetObject: {fileID: 0}
-  isSliding: 0
 --- !u!82 &8630395070654486728
 AudioSource:
   m_ObjectHideFlags: 0
@@ -394,3 +399,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightPrefab: {fileID: 8406439538047050193, guid: 80472d3cf41866549abeaa10b67620fa,
     type: 3}
+--- !u!114 &-4885114865786530190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3782999238540756591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449f4930a47faf543a15f47c888b14a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
