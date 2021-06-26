@@ -9,6 +9,7 @@ public class CrackedFloor : MonoBehaviour
 
     [SerializeField]
     private BoxCollider2D floorTriggerCollider;
+    private LoadBar resetBar;
     private TrueGrid gameGrid;
     private AudioSource sound;
 
@@ -16,6 +17,7 @@ public class CrackedFloor : MonoBehaviour
     void Start()
     {
         gameGrid = GameObject.Find("GameController").GetComponent<TrueGrid>();
+        resetBar = GameObject.Find("GameManager").GetComponent<LoadBar>();
         floorTriggerCollider = GetComponent<BoxCollider2D>();
         sound = GetComponentInParent<AudioSource>();
     }
@@ -30,6 +32,8 @@ public class CrackedFloor : MonoBehaviour
         {
             if (transform.parent.GetComponent<GridObject>().size == 2)
             {
+                // If a player is still on tile when it turns to pit, restart level due to blob death
+                CheckIfBlobFellIntoPit();
                 Instantiate(LargePitObject, transform.position, transform.rotation);
             }
             else
@@ -58,7 +62,7 @@ public class CrackedFloor : MonoBehaviour
             bool isLarge = transform.parent.GetComponent<GridObject>().size == 2;
             if (distance < (isLarge ? 0.8f : 0.4f))
             {
-                if(isLarge)
+                if (isLarge)
                 {
                     Instantiate(LargePitObject, transform.position, transform.rotation);
                 }
@@ -74,6 +78,25 @@ public class CrackedFloor : MonoBehaviour
                 gameGrid.RemoveElement(transform.parent.gameObject);
                 Destroy(transform.parent.gameObject);
             }
+        }
+    }
+
+    // If a player is still on tile when it turns to pit, restart level due to blob death
+    void CheckIfBlobFellIntoPit()
+    {
+        List<Vector2Int> crackedFloorCoordinates = gameGrid.GetElementLocation(gameObject.transform.parent.gameObject);
+        bool blobDied = false;
+        foreach (Vector2Int newPitCoordinate in crackedFloorCoordinates)
+        {
+            GameObject killedBlob = gameGrid.GetElementsAtLocation(newPitCoordinate.x, newPitCoordinate.y).Find(element => element.CompareTag("Player"));
+            blobDied = blobDied || killedBlob;
+            Destroy(killedBlob);
+        }
+
+        if (blobDied)
+        {
+            resetBar.blobKilled = true;
+            return;
         }
     }
 }

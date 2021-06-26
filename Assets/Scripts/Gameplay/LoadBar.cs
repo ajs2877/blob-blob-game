@@ -8,40 +8,66 @@ public class LoadBar : MonoBehaviour
 {
     public GameObject sliderObj;
     private Slider slider;
+    public Image deathBackground;
+    public Text deathText;
 
     private float targetProgress = 1;
     public float fillSpeed = .7f;
+    public bool blobKilled = false;
+    private bool shouldRunUpdate = true;
 
     private void Awake()
     {
         slider = sliderObj.GetComponent<Slider>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        // increase the load bar
-        if (slider.value < targetProgress && Input.GetKey(KeyCode.R))
+        if (shouldRunUpdate)
         {
-            sliderObj.SetActive(true);
-            slider.value += fillSpeed * Time.deltaTime;
-
-            if (slider.value == 1f)
+            // increase the load bar
+            if (slider.value < targetProgress && (Input.GetKey(KeyCode.R) || blobKilled))
             {
-                RestartProgress();
+                ProgressBar(blobKilled);
+            }
+            // if R key is released, load bar resets to 0
+            if (Input.GetKeyUp(KeyCode.R))
+            {
+                sliderObj.SetActive(false);
+                slider.value = 0;
             }
         }
-        // if R key is released, load bar resets to 0
-        if (Input.GetKeyUp(KeyCode.R))
+    }
+
+    public void ProgressBar(bool shouldShowDeathScreen)
+    {
+        sliderObj.SetActive(true);
+        if (shouldShowDeathScreen)
         {
-            sliderObj.SetActive(false);
-            slider.value = 0;
+            slider.value += fillSpeed * Time.deltaTime * 0.3f;
+        }
+        else
+        {
+            slider.value += fillSpeed * Time.deltaTime;
+        }
+
+        if (shouldShowDeathScreen)
+        {
+            Color color = deathBackground.color; 
+            color.a += 0.0006f;
+            deathBackground.color = color;
+
+            color = deathText.color;
+            color.a += 0.0006f;
+            deathText.color = color;
+        }
+
+        if (slider.value == 1f)
+        {
+            ColorBlock seleCol = slider.colors;
+            deathBackground.color = new Color(0, 0, 0, 0);
+            deathText.color = new Color(255, 255, 255, 0);
+            RestartProgress();
         }
     }
 
