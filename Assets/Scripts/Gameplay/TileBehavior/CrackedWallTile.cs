@@ -30,7 +30,7 @@ public class CrackedWallTile : MonoBehaviour
         // Detects when the big blob is touching
         GameObject gameObjectTouching = col.gameObject;
 
-        if (gameObjectTouching.name.Equals("PurpleBigBlob"))
+        if (gameObjectTouching.CompareTag("Player") && gameObjectTouching.GetComponent<GridObject>().size == 2)
         {
             // Will check between wall and big blob to know if smashed
             float distance = Vector3.Distance(col.transform.position, wallTriggerCollider.transform.position);

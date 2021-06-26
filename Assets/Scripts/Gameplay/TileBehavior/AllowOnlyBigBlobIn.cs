@@ -6,6 +6,6 @@ public class AllowOnlyBigBlobIn : ConditionalBlocking
 {
     public override bool CanBlockObject(GameObject objectToTestAgainst)
     {
-        return !objectToTestAgainst.name.Equals("PurpleBigBlob");
+        return objectToTestAgainst.CompareTag("Player") && objectToTestAgainst.GetComponent<GridObject>().size == 2;
     }
 }
