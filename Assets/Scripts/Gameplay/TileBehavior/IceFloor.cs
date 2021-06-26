@@ -75,10 +75,11 @@ public class IceFloor : MonoBehaviour
         GridObject gridObject = slidingObject.GetComponent<GridObject>();
         List<Vector2Int> icePositions = gameGrid.GetElementLocation(icyParentTile); 
         List<Vector2Int> sliderPositions = gameGrid.GetElementLocation(slidingObject);
+        Moveables moveable = slidingObject.GetComponent<Moveables>();
 
         // Only slide if the slider is on the ice tile in the true grid.
         // This fixes 2x2 objects sliding many tiles beyond the ice tiles.
-        if (gridObject && icePositions.Any(icePosition => sliderPositions.Any(sliderPosition => sliderPosition == icePosition)))
+        if (moveable && gridObject && icePositions.Any(icePosition => sliderPositions.Any(sliderPosition => sliderPosition == icePosition)))
         {
             if (gameGrid.CanMoveElement(slidingObject, true, false, directionToMove))
             {
@@ -87,18 +88,18 @@ public class IceFloor : MonoBehaviour
                 {
                     PlayerController player = slidingObject.GetComponent<PlayerController>();
                     player.MovePlayer(directionToMove, true, false);
-                    directionVector.isSliding = true;
+                    moveable.isSliding = true;
                 }
                 // move non-player stuff if possible and the size of the object is 1 tile
                 else
                 {
                     gameGrid.MoveElement(slidingObject, false, directionToMove);
-                    directionVector.isSliding = true;
+                    moveable.isSliding = true;
                 }
             }
             else
             {
-                directionVector.isSliding = false;
+                moveable.isSliding = false;
             }
         }
     }

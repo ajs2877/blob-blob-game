@@ -51,7 +51,7 @@ public class MovementSwitcher : MonoBehaviour
                 // Only allow splitting if not sliding or moving
                 DirectionVector directionVec = bigBlob.GetComponent<DirectionVector>();
                 PlayerController playerController = bigBlob.GetComponent<PlayerController>();
-                if (!directionVec.isSliding && !playerController.isMoving)
+                if (!playerController.isSliding && !playerController.isMoving)
                 {
                     SplitBlob();
                 }

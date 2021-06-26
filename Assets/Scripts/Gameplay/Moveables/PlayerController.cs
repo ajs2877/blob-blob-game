@@ -26,7 +26,7 @@ public class PlayerController : Moveables
         base.Start();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         UpdateIsMoving();
         NotifyOccupiedTiles();
@@ -40,7 +40,7 @@ public class PlayerController : Moveables
         }
 
         // Only allow controls when we are not moving and has no puller
-        if (isBeingControlled && !isMoving && puller == null && !directionVector.isSliding)
+        if (isBeingControlled && !isMoving && puller == null && !isSliding)
         {
             if (Input.GetAxisRaw(horizontalInput) == 1f)
             {

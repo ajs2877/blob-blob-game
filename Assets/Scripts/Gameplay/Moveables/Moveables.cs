@@ -8,6 +8,7 @@ public class Moveables : MonoBehaviour
     protected GridObject gridObject;
     public bool wasMoving = false;
     public bool isMoving;
+    public bool isSliding = false;
     protected DirectionVector directionVector;
     public PullParentToTarget puller = null;
 
@@ -31,6 +32,7 @@ public class Moveables : MonoBehaviour
         if (directionVector.direction.magnitude == 0 && puller == null)
         {
             isMoving = false;
+            isSliding = false;
         }
     }
 
@@ -44,8 +46,8 @@ public class Moveables : MonoBehaviour
         // This will tell whatever ice tile we are on that we stopped and now the ice tile can let us know to keep moving or not.
         if (!isMoving && wasMoving)
         {
-            List<Vector2Int> boulderPositions = gameGrid.GetElementLocation(gameObject);
-            foreach (Vector2Int pos in boulderPositions)
+            List<Vector2Int> moveablePositions = gameGrid.GetElementLocation(gameObject);
+            foreach (Vector2Int pos in moveablePositions)
             {
                 // make copy of list so we do not get a concurrent modification exception if elements are removed or added to the spot
                 List<GameObject> objectsAtSpot = new List<GameObject>(gameGrid.GetElementsAtLocation(pos.x, pos.y));
