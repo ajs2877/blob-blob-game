@@ -96,10 +96,19 @@ public class DoorTile : MonoBehaviour
 
     private IEnumerator ChangeDoorState(bool isOpen)
     {
-        // Delay coroutine to allow element to move out of door space
-        yield return new WaitForSeconds(0.2f);
+        // Turn on collider to prevent blobs and stuff from moving in and getting stuck
         bc.isTrigger = isOpen;
+        
+        // make collider itself have no hitbox to make sure blobs and stuff can move out of closing door space without teleporting pushed out.
+        Vector2 bcOriginalSize = bc.size;
+        bc.size = new Vector2(0, 0);
+
+        // Delay coroutine to make visual change look nicer and some time for exiting blob to leave space cleanly
+        yield return new WaitForSeconds(0.2f);
         sr.sprite = sprites[isOpen ? 1 : 0];
+
+        // Give full collider size back
+        bc.size = bcOriginalSize; 
 
         yield break;
     }
