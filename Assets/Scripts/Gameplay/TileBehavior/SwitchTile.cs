@@ -42,6 +42,7 @@ public class SwitchTile : Triggerable
                 triggered = false;
                 spriteRenderer.sprite = sprites[0];
                 timerIcon.SetActive(false);
+                state = !state;
             }
         }
     }
