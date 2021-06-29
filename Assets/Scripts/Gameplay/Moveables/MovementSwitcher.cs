@@ -44,27 +44,31 @@ public class MovementSwitcher : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        // Check to make sure no blob was killed before allowing user controls
+        if (bigBlob && blob1 && blob2)
         {
-            if (allowMerging && bigBlob && bigBlob.activeSelf)
+            if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                // Only allow splitting if not sliding or moving
-                DirectionVector directionVec = bigBlob.GetComponent<DirectionVector>();
-                PlayerController playerController = bigBlob.GetComponent<PlayerController>();
-                if (!playerController.isSliding && !playerController.isMoving)
+                if (allowMerging && bigBlob && bigBlob.activeSelf)
                 {
-                    SplitBlob();
+                    // Only allow splitting if not sliding or moving
+                    DirectionVector directionVec = bigBlob.GetComponent<DirectionVector>();
+                    PlayerController playerController = bigBlob.GetComponent<PlayerController>();
+                    if (!playerController.isSliding && !playerController.isMoving)
+                    {
+                        SplitBlob();
+                    }
+                }
+                else
+                {
+                    SwitchSelectedBlob();
                 }
             }
-            else
-            {
-                SwitchSelectedBlob();
-            }
-        }
 
-        if (bigBlob.GetComponent<PlayerController>().isBeingControlled)
-        {
-            movementText.text = "Controls:\nAWSD - Purple blob\nShift to switch blobs.";
+            if (bigBlob.GetComponent<PlayerController>().isBeingControlled)
+            {
+                movementText.text = "Controls:\nAWSD - Purple blob\nShift to switch blobs.";
+            }
         }
     }
 
@@ -116,8 +120,8 @@ public class MovementSwitcher : MonoBehaviour
         bigBlob.GetComponent<PlayerController>().isBeingControlled = false;
         bigBlob.SetActive(false);
 
-        blob1.GetComponent<PlayerController>().isMergingOrSplitting = true;
-        blob2.GetComponent<PlayerController>().isMergingOrSplitting = true;
+        blob1.GetComponent<PlayerController>().isChangingSize = true;
+        blob2.GetComponent<PlayerController>().isChangingSize = true;
 
         movementText.text = "Controls:\nAWSD - " + (controlledSingleBlob == blob1 ? "Blue" : "Red") + " blob\nShift to switch blobs.";
     }

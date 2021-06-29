@@ -25,7 +25,7 @@ public class IceFloor : MonoBehaviour
 
         // Edge case check to not slide a bug blob when two blobs merge together
         PlayerController playerController = sliderGridObject.GetComponent<PlayerController>();
-        if (playerController && playerController.isMergingOrSplitting)
+        if (playerController && playerController.isChangingSize)
         {
             return;
         }

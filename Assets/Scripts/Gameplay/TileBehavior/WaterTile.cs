@@ -91,7 +91,7 @@ public class WaterTile : MonoBehaviour
                         Destroy(bigBlobController.puller.gameObject);
                         bigBlobController.puller = null;
                         playerBlob.GetComponent<GridObject>().SnapAndAddToGrid();
-                        playerBlob.GetComponent<PlayerController>().isMergingOrSplitting = true;
+                        playerBlob.GetComponent<PlayerController>().isChangingSize = true;
 
 
                         if (!infiniteSource)

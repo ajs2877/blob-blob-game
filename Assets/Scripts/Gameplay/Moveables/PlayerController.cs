@@ -18,7 +18,7 @@ public class PlayerController : Moveables
     public GameObject bigBlob;
     private GameObject otherBlob;
     private MovementSwitcher movementController;
-    public bool isMergingOrSplitting;
+    public bool isChangingSize;
 
     protected override void Start()
     {
@@ -34,9 +34,9 @@ public class PlayerController : Moveables
         // If we merged to big blob, we are moving to new spot during the merging.
         // But when stopped, that means the merging is finished.
         // We do this after notifying ice tiles so they don't slide the big blob after merger
-        if (directionVector.direction.magnitude == 0 && isMergingOrSplitting && puller == null)
+        if (directionVector.direction.magnitude == 0 && isChangingSize && puller == null)
         {
-            isMergingOrSplitting = false;
+            isChangingSize = false;
         }
 
         // Only allow controls when we are not moving and has no puller
@@ -181,6 +181,24 @@ public class PlayerController : Moveables
         return true;
     }
 
+    public void ShrinkBlob(Vector2? gridPositionToMoveTo = null)
+    {
+        transform.localScale /= 2;
+        GetComponent<GridObject>().size -= 1;
+        isMoving = true;
+        Destroy(puller.gameObject);
+        puller = null;
+        gameGrid.RemoveElement(gameObject);
+
+        if (gridPositionToMoveTo.HasValue)
+        {
+            Vector2 worldPos = gameGrid.GetWorldSpace(gridPositionToMoveTo.Value);
+            transform.position = new Vector3(worldPos.x + 0.525f, worldPos.y + 0.525f, transform.position.z);
+        }
+
+        GetComponent<GridObject>().SnapAndAddToGrid();
+        GetComponent<PlayerController>().isChangingSize = true;
+    }
 
     private IEnumerator MergeBlobs(Vector2Int posMovingTowards)
     {
@@ -226,7 +244,7 @@ public class PlayerController : Moveables
                     gameGrid.RemoveElement(otherBlob);
                     gameGrid.RemoveElement(gameObject);
 
-                    bigBlob.GetComponent<PlayerController>().isMergingOrSplitting = true;
+                    bigBlob.GetComponent<PlayerController>().isChangingSize = true;
                     yield break;
                 }
             }
