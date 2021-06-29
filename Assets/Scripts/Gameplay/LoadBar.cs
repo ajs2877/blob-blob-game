@@ -31,7 +31,7 @@ public class LoadBar : MonoBehaviour
                 ProgressBar(blobKilled);
             }
             // if R key is released, load bar resets to 0
-            if (Input.GetKeyUp(KeyCode.R))
+            if (!blobKilled && Input.GetKeyUp(KeyCode.R))
             {
                 sliderObj.SetActive(false);
                 slider.value = 0;
