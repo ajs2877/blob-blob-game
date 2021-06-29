@@ -183,21 +183,52 @@ public class PlayerController : Moveables
 
     public void ShrinkBlob(Vector2? gridPositionToMoveTo = null)
     {
+        // shrink blob size
         transform.localScale /= 2;
         GetComponent<GridObject>().size -= 1;
+        isChangingSize = true;
         isMoving = true;
+
+        // remove from grid so we can re-add with new positions
         Destroy(puller.gameObject);
         puller = null;
         gameGrid.RemoveElement(gameObject);
 
+        // Move shrinked blob to specified spot (such as 2x2 blob touches 2x2 lava tile. We want blob to shrink to lava tile spot) 
         if (gridPositionToMoveTo.HasValue)
         {
             Vector2 worldPos = gameGrid.GetWorldSpace(gridPositionToMoveTo.Value);
             transform.position = new Vector3(worldPos.x + 0.525f, worldPos.y + 0.525f, transform.position.z);
         }
 
+        // Snap object to the grid 
         GetComponent<GridObject>().SnapAndAddToGrid();
-        GetComponent<PlayerController>().isChangingSize = true;
+    }
+    public bool GrowBlobIfRoom()
+    {
+        Vector2? newPos = GetValidLargeSpaceCenter();
+        if (newPos.HasValue)
+        {
+            // grow blob size
+            transform.localScale *= 2;
+            GetComponent<GridObject>().size += 1;
+            isChangingSize = true;
+            isMoving = true;
+
+            // remove from grid so we can re-add with new positions
+            gameGrid.RemoveElement(gameObject);
+            Destroy(puller.gameObject);
+            puller = null;
+            
+            // Move blob to new position 
+            transform.position = new Vector3(newPos.Value.x + 0.525f, newPos.Value.y + 0.525f, transform.position.z);
+
+            // Snap object to the grid 
+            GetComponent<GridObject>().SnapAndAddToGrid();
+
+            return true;
+        }
+        return false;
     }
 
     private IEnumerator MergeBlobs(Vector2Int posMovingTowards)
@@ -250,4 +281,49 @@ public class PlayerController : Moveables
             }
         }
     }
-}
+
+
+    /// <summary>
+    /// Sees if we are moving into another player and check if merging is possible
+    /// </summary>
+    /// <returns>world position if can move 2x2 blob to spot. Otherwise, returns a Nullable Value Type</returns>
+    private Vector2? GetValidLargeSpaceCenter()
+    {
+        Vector2Int playerPos = gameGrid.GetGridSpace(gameObject, false);
+        Vector2 newSpotAvg;
+
+        // Check if we have room to even combine
+        for (int attemptOffsetX = 0; attemptOffsetX >= -1; attemptOffsetX--)
+        {
+            for (int attemptOffsetY = 0; attemptOffsetY >= -1; attemptOffsetY--)
+            {
+                newSpotAvg = new Vector2();
+                bool roomAvaliable = true;
+
+                // checks this 2x2 square if 2x2 blob can fit
+                for (int squareX = 1 + attemptOffsetX; squareX >= 0 + attemptOffsetX; squareX--)
+                {
+                    for (int squareY = 1 + attemptOffsetY; squareY >= 0 + attemptOffsetY; squareY--)
+                    {
+                        roomAvaliable = roomAvaliable && gameGrid.CanElementFit(gameObject, playerPos.x + squareX, playerPos.y + squareY);
+                        if (roomAvaliable)
+                        {
+                            newSpotAvg += new Vector2(playerPos.x + squareX, playerPos.y + squareY);
+                        }
+                    }
+                }
+
+                if (roomAvaliable)
+                {
+                    // get center spot
+                    newSpotAvg /= 4;
+                    Vector2 worldPos = gameGrid.GetWorldSpace(newSpotAvg);
+                    return worldPos;
+                }
+            }
+        }
+
+        // no room was found
+        return null;
+    }
+}   

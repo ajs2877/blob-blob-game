@@ -47,104 +47,15 @@ public class WaterTile : MonoBehaviour
             }
         }
     }
+
     void GrowPlayer(GameObject playerBlob)
     {
-        if (CanCombine(playerBlob))
-        {
-            playerBlob.transform.localScale *= 2;
-            playerBlob.GetComponent<GridObject>().size += 1;
-
-            Vector2Int playerPos = gameGrid.GetGridSpace(playerBlob, false);
-            Vector2 newSpotAvg;
-            for (int attemptOffsetX = 0; attemptOffsetX >= -1; attemptOffsetX--)
-            {
-                for (int attemptOffsetY = 0; attemptOffsetY >= -1; attemptOffsetY--)
-                {
-                    newSpotAvg = new Vector2();
-                    bool roomAvaliable = true;
-
-                    // checks this 2x2 square if 2x2 blob can fit
-                    // There must be a spot as this returned true before
-                    for (int squareX = 1 + attemptOffsetX; squareX >= 0 + attemptOffsetX; squareX--)
-                    {
-                        for (int squareY = 1 + attemptOffsetY; squareY >= 0 + attemptOffsetY; squareY--)
-                        {
-                            roomAvaliable = roomAvaliable && gameGrid.CanElementFit(gameObject, playerPos.x + squareX, playerPos.y + squareY);
-                            if (roomAvaliable)
-                            {
-                                newSpotAvg += new Vector2(playerPos.x + squareX, playerPos.y + squareY);
-                            }
-                        }
-                    }
-
-                    if (roomAvaliable)
-                    {
-                        // get center spot
-                        newSpotAvg /= 4;
-                        Vector2 worldPos = gameGrid.GetWorldSpace(newSpotAvg);
-
-                        gameGrid.RemoveElement(playerBlob);
-
-                        playerBlob.transform.position = new Vector3(worldPos.x + 0.55f, worldPos.y + 0.55f, playerBlob.transform.position.z);
-                        PlayerController bigBlobController = playerBlob.GetComponent<PlayerController>();
-                        bigBlobController.isMoving = true;
-                        Destroy(bigBlobController.puller.gameObject);
-                        bigBlobController.puller = null;
-                        playerBlob.GetComponent<GridObject>().SnapAndAddToGrid();
-                        playerBlob.GetComponent<PlayerController>().isChangingSize = true;
-
-
-                        if (!infiniteSource)
-                        {
-                            drained = true;
-                            spriteRenderer.sprite = sprites[1];
-                            parentCollider.enabled = false;
-                            waterTriggerCollider.enabled = false;
-                        }
-
-                        //break out of loops
-                        attemptOffsetX = -2;
-                        attemptOffsetY = -2;
-                    }
-                }
-            }
+        bool grownPlayer = playerBlob.GetComponent<PlayerController>().GrowBlobIfRoom();
+        if (grownPlayer && !infiniteSource) {
+            drained = true;
+            spriteRenderer.sprite = sprites[1];
+            parentCollider.enabled = false;
+            waterTriggerCollider.enabled = false;
         }
-    }
-
-
-    /// <summary>
-    /// Sees if we are moving into another player and check if merging is possible
-    /// </summary>
-    /// <param name="posMovingTowards">position moving to</param>
-    /// <returns>can move to spot</returns>
-    private bool CanCombine(GameObject playerBlob)
-    {
-        Vector2Int playerPos = gameGrid.GetGridSpace(playerBlob, false);
-
-        // Check if we have room to even combine
-        for (int attemptOffsetX = 0; attemptOffsetX >= -1; attemptOffsetX--)
-        {
-            for (int attemptOffsetY = 0; attemptOffsetY >= -1; attemptOffsetY--)
-            {
-                bool roomAvaliable = true;
-
-                // checks this 2x2 square if 2x2 blob can fit
-                for (int squareX = 1 + attemptOffsetX; squareX >= 0 + attemptOffsetX; squareX--)
-                {
-                    for (int squareY = 1 + attemptOffsetY; squareY >= 0 + attemptOffsetY; squareY--)
-                    {
-                        roomAvaliable = roomAvaliable && gameGrid.CanElementFit(playerBlob, playerPos.x + squareX, playerPos.y + squareY);
-                    }
-                }
-
-                if (roomAvaliable)
-                {
-                    return true;
-                }
-            }
-        }
-
-        // no room was found
-        return false;
     }
 }
