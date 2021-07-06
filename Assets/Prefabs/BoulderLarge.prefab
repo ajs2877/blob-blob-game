@@ -259,7 +259,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousDirection: {x: 0, y: 0}
   direction: {x: 0, y: 0}
-  isSliding: 0
 --- !u!114 &-8058017126600162190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,7 +273,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wasMoving: 0
   isMoving: 0
+  isSliding: 0
   puller: {fileID: 0}
+  sprites:
+  - {fileID: 21300000, guid: 020583611888f7742b55d9d2372acb03, type: 3}
+  - {fileID: 21300000, guid: 252f71ad4a554ee4aaa9fbccfb930eae, type: 3}
 --- !u!1 &7492937996264947327
 GameObject:
   m_ObjectHideFlags: 0
