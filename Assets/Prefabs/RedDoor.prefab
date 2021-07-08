@@ -97,7 +97,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 1
+  m_UsedByComposite: 0
   m_Offset: {x: 0.007286921, y: -0.007286936}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,6 +130,7 @@ MonoBehaviour:
   invertDoorState: 0
   allTriggers:
   - {fileID: 0}
+  allTogglers: []
 --- !u!114 &-2868785793291129094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,3 +143,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e83b04a19424d7f40b95f069da9ee018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  size: 1
+  currentMovementTargetObject: {fileID: 0}
