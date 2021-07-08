@@ -1810,6 +1810,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3987396373719827387, guid: 3a41bba334a34a448a0e188d35e9f497,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 020583611888f7742b55d9d2372acb03,
+        type: 3}
     - target: {fileID: 3987396373719827391, guid: 3a41bba334a34a448a0e188d35e9f497,
         type: 3}
       propertyPath: m_Name
@@ -4559,6 +4565,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 635435262359972325, guid: 694e02834f9b9a947b9b3f7d6370a478,
+        type: 3}
+      propertyPath: m_TagString
+      value: Lava
+      objectReference: {fileID: 0}
     - target: {fileID: 4567303230499215486, guid: 694e02834f9b9a947b9b3f7d6370a478,
         type: 3}
       propertyPath: m_RootOrder
