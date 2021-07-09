@@ -60,7 +60,6 @@ public class TrueGrid : MonoBehaviour
 
     public Vector2Int GetGridCoordinate(GameObject origObject, DIRECTION direction)
     {
-        Vector3 center = tileMap.cellBounds.center;
         Vector2Int directionOffset = GetOffset(direction);
         List<Vector2Int> currentPositions = GetElementLocation(origObject);
         Vector2Int newGridPosition = directionOffset + currentPositions[0];
@@ -399,7 +398,7 @@ public class TrueGrid : MonoBehaviour
         return true;
     }
 
-    private bool DoElementsCollide(GameObject object1, GameObject object2)
+    public bool DoElementsCollide(GameObject object1, GameObject object2)
     {
         // Checks to see if the objects has colliders that can block movement
         Collider2D collider1 = object1.GetComponent<Collider2D>();

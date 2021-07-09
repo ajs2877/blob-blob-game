@@ -42,7 +42,7 @@ public class DirectionVector : MonoBehaviour
             case DIRECTION.RIGHT:
                 return RIGHT;
         }
-        return UP;
+        return NONE;
     }
 
 
