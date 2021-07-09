@@ -91,6 +91,7 @@ public class DoorTile : MonoBehaviour
         {
             bc.isTrigger = isOpen;
             sr.sprite = sprites[isOpen ? 1 : 0];
+            gameObject.tag = isOpen ? "notwindblocking" : "Untagged";
         }
     }
 
@@ -106,6 +107,7 @@ public class DoorTile : MonoBehaviour
         // Delay coroutine to make visual change look nicer and some time for exiting blob to leave space cleanly
         yield return new WaitForSeconds(0.2f);
         sr.sprite = sprites[isOpen ? 1 : 0];
+        gameObject.tag = isOpen ? "notwindblocking" : "Untagged";
 
         // Give full collider size back
         bc.size = bcOriginalSize; 

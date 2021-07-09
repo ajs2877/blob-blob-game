@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 4334467435444097183}
   - component: {fileID: 281141063118415971}
   m_Layer: 14
-  m_Name: LargeCrackedFloor
-  m_TagString: Untagged
+  m_Name: CrackedLargeFloor
+  m_TagString: notwindblocking
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 2
+  currentMovementTargetObject: {fileID: 0}
 --- !u!82 &281141063118415971
 AudioSource:
   m_ObjectHideFlags: 0

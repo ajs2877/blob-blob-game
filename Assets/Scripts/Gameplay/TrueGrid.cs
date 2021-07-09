@@ -2,23 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static DirectionVector;
 
 public class TrueGrid : MonoBehaviour
 {
-    public enum DIRECTION {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT,
-        NONE
-    }
-    private Vector2Int UP = new Vector2Int(0, 1);
-    private Vector2Int DOWN = new Vector2Int(0, -1);
-    private Vector2Int LEFT = new Vector2Int(-1, 0);
-    private Vector2Int RIGHT = new Vector2Int(1, 0);
-    private Vector2Int NONE = new Vector2Int(0, 0);
-
-
     /// <summary>
     /// Should be how many tiles high the map is from top end to bottom end of screen.
     /// </summary>
@@ -59,22 +46,6 @@ public class TrueGrid : MonoBehaviour
                 wallGridObject.transform.position = wallPosition;
             }
         }
-    }
-    
-    private Vector2Int GetOffset(DIRECTION direction)
-    {
-        switch (direction)
-        {
-            case DIRECTION.UP:
-                return UP;
-            case DIRECTION.DOWN:
-                return DOWN;
-            case DIRECTION.LEFT:
-                return LEFT;
-            case DIRECTION.RIGHT:
-                return RIGHT;
-        }
-        return UP;
     }
     
     public bool PositionisWithinGrid(Vector2Int position)

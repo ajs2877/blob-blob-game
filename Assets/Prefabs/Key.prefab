@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 8092074714744684694}
   m_Layer: 12
   m_Name: Key
-  m_TagString: Untagged
+  m_TagString: notwindblocking
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a9db9da8bab8249aa6f1a50ba7f660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerRecievers: []
   triggered: 0
   speed: 4
   triggerRange: 1
@@ -161,6 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 1
+  currentMovementTargetObject: {fileID: 0}
 --- !u!82 &-7393975423485638143
 AudioSource:
   m_ObjectHideFlags: 0

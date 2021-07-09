@@ -9,6 +9,7 @@ TagManager:
   - exit
   - Puppeteer
   - Lava
+  - notwindblocking
   layers:
   - Default
   - TransparentFX

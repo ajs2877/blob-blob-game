@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static DirectionVector;
 
 public class PlayerController : Moveables
 {
@@ -26,10 +27,10 @@ public class PlayerController : Moveables
         base.Start();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         UpdateIsMoving();
-        NotifyOccupiedTiles();
+        NotifyListeningTiles();
 
         // If we merged to big blob, we are moving to new spot during the merging.
         // But when stopped, that means the merging is finished.
@@ -44,19 +45,19 @@ public class PlayerController : Moveables
         {
             if (Input.GetAxisRaw(horizontalInput) == 1f)
             {
-                MovePlayer(TrueGrid.DIRECTION.RIGHT, false, true);
+                MovePlayer(DIRECTION.RIGHT, false, true);
             }
             else if (Input.GetAxisRaw(horizontalInput) == -1f)
             {
-                MovePlayer(TrueGrid.DIRECTION.LEFT, false, true);
+                MovePlayer(DIRECTION.LEFT, false, true);
             }
             else if (Input.GetAxisRaw(verticalInput) == 1f)
             {
-                MovePlayer(TrueGrid.DIRECTION.UP, false, true);
+                MovePlayer(DIRECTION.UP, false, true);
             }
             else if (Input.GetAxisRaw(verticalInput) == -1f)
             {
-                MovePlayer(TrueGrid.DIRECTION.DOWN, false, true);
+                MovePlayer(DIRECTION.DOWN, false, true);
             }
         }
 
@@ -66,7 +67,7 @@ public class PlayerController : Moveables
     /// <summary>
     /// Move the player in the given direction if it is able to.
     /// </summary>
-    public void MovePlayer(TrueGrid.DIRECTION directionToMove, bool cancelPreviousMovement, bool canPushStuff)
+    public void MovePlayer(DIRECTION directionToMove, bool cancelPreviousMovement, bool canPushStuff)
     {
         if (gameGrid.CanMoveElement(gameObject, true, true, directionToMove))
         {

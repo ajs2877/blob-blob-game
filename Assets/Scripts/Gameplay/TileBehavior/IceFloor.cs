@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static DirectionVector;
 
 public class IceFloor : MonoBehaviour
 {
@@ -37,38 +38,18 @@ public class IceFloor : MonoBehaviour
             return;
         }
 
-        TrueGrid.DIRECTION sliderDirection = GetDirection(directionVector.previousDirection);
+        DIRECTION sliderDirection = directionVector.GetPreviousDirection();
         // Only slide if the object is not already being pulled by something else.
-        if(sliderDirection != TrueGrid.DIRECTION.NONE && slider.GetComponent<GridObject>().currentMovementTargetObject == null)
+        if(sliderDirection != DIRECTION.NONE && slider.GetComponent<GridObject>().currentMovementTargetObject == null)
         {
             MoveObject(sliderDirection, slider, directionVector);
-        }
-    }
-
-    private TrueGrid.DIRECTION GetDirection(Vector2 direction)
-    {
-        if (direction.magnitude == 0) return TrueGrid.DIRECTION.NONE;
-
-        // Allows the correct direction movement even if the blob is slightly off in direction
-        // Source: http://answers.unity.com/answers/760408/view.html
-        if (Mathf.Abs(direction.y) > Mathf.Abs(direction.x))
-        {
-            // North or south
-            if (direction.y > 0) return TrueGrid.DIRECTION.UP;
-            else return TrueGrid.DIRECTION.DOWN;
-        }
-        else
-        {
-            // East or West:
-            if (direction.x > 0) return TrueGrid.DIRECTION.RIGHT;
-            else return TrueGrid.DIRECTION.LEFT;
         }
     }
 
     /// <summary>
     /// Move the object in the previous direction if it is able to.
     /// </summary>
-    private void MoveObject(TrueGrid.DIRECTION directionToMove, GameObject slidingObject, DirectionVector directionVector)
+    private void MoveObject(DIRECTION directionToMove, GameObject slidingObject, DirectionVector directionVector)
     {
         // Only size 1 objects can be moved safely with this method. 
         // 2x2 will need to handle their own movement and checks for ice due to their multiple tile behavior

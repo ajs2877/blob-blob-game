@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7083453870664091211}
   m_Layer: 9
   m_Name: Pit
-  m_TagString: Untagged
+  m_TagString: notwindblocking
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 1
+  currentMovementTargetObject: {fileID: 0}
 --- !u!82 &7083453870664091211
 AudioSource:
   m_ObjectHideFlags: 0
@@ -269,6 +270,7 @@ MonoBehaviour:
   - {fileID: -4995715186265494072, guid: 455812b5ebb106e44b6a51846776d69a, type: 3}
   - {fileID: -4580211725830467084, guid: 455812b5ebb106e44b6a51846776d69a, type: 3}
   parentCollider: {fileID: 786991386409073916}
+  filled: 0
 --- !u!61 &3717619755493030338
 BoxCollider2D:
   m_ObjectHideFlags: 0
