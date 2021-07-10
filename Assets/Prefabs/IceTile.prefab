@@ -194,6 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 1
+  currentMovementTargetObject: {fileID: 0}
 --- !u!82 &4392120455637878338
 AudioSource:
   m_ObjectHideFlags: 0
