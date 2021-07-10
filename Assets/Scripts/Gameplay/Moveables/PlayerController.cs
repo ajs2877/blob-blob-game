@@ -109,7 +109,7 @@ public class PlayerController : Moveables
 
                         if (!otherBlob.GetComponent<PlayerController>().isInCrevice && !isInCrevice)
                         {
-                            canMove = CanCombine(posMovingTowards);
+                            canMove = CanCombine(posMovingTowards, otherBlob);
                             if (canMove)
                             {
                                 isMoving = true;
@@ -140,8 +140,14 @@ public class PlayerController : Moveables
     /// </summary>
     /// <param name="posMovingTowards">position moving to</param>
     /// <returns>can move to spot</returns>
-    private bool CanCombine(Vector2Int posMovingTowards)
+    private bool CanCombine(Vector2Int posMovingTowards, GameObject otherBlob)
     {
+        List<GameObject> elementsAtTarget = gameGrid.GetElementsAtLocation(posMovingTowards.x, posMovingTowards.y);
+        if(elementsAtTarget.Any(element => element.name.Equals("EndTile")))
+        {
+            return true;
+        }
+
         // Check if we have room to even combine
         for (int attemptOffsetX = 0; attemptOffsetX >= -1; attemptOffsetX--)
         {
