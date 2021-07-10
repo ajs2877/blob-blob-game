@@ -567,6 +567,38 @@ MonoBehaviour:
     sceneName: Level19
   - sceneAsset: {fileID: 102900000, guid: 9779d4eb7a0de2b4d98a7d591a9c37f8, type: 3}
     sceneName: Level20
+  - sceneAsset: {fileID: 102900000, guid: 68f769ed078841d44a2d4c0207df4eb2, type: 3}
+    sceneName: Level21
+  - sceneAsset: {fileID: 102900000, guid: 9e202b020fb45504a916829ef2900453, type: 3}
+    sceneName: Level22
+  - sceneAsset: {fileID: 102900000, guid: ee472a43f9b88dd46ae01184697e7534, type: 3}
+    sceneName: Level23
+  - sceneAsset: {fileID: 102900000, guid: 81c234bca01a9844b9b15d9c7f1cc8f0, type: 3}
+    sceneName: Level24
+  - sceneAsset: {fileID: 102900000, guid: 398d442d20e95344eb9c86d3916c561b, type: 3}
+    sceneName: Level25
+  - sceneAsset: {fileID: 102900000, guid: d9d10727fa4576a44830d5a43e5b1ef5, type: 3}
+    sceneName: Level26
+  - sceneAsset: {fileID: 102900000, guid: d96ea55eae2673b4c9188bb21ddaa863, type: 3}
+    sceneName: Level27
+  - sceneAsset: {fileID: 102900000, guid: d038b36d1c4b03f42b446f9274918217, type: 3}
+    sceneName: Level28
+  - sceneAsset: {fileID: 102900000, guid: 1bd2762b01913a64fb0f3e552b5b3f6c, type: 3}
+    sceneName: Level29
+  - sceneAsset: {fileID: 102900000, guid: f5e9f71ba2711e44385261d6ab9b61ee, type: 3}
+    sceneName: Level30
+  - sceneAsset: {fileID: 102900000, guid: 34b70b376324901428f4b0a4a04d6867, type: 3}
+    sceneName: Level31
+  - sceneAsset: {fileID: 102900000, guid: 760059ed91228a94795c19f949af3ac6, type: 3}
+    sceneName: Level32
+  - sceneAsset: {fileID: 102900000, guid: abdb1f4c9c0705348ae89ce1bf08ef9b, type: 3}
+    sceneName: Level33
+  - sceneAsset: {fileID: 102900000, guid: b39863487adfb2e4985ccb7e7b66a47f, type: 3}
+    sceneName: Level34
+  - sceneAsset: {fileID: 102900000, guid: 1d5d383037379674da2c942bfc50d0cb, type: 3}
+    sceneName: Level35
+  - sceneAsset: {fileID: 102900000, guid: 87ec5bc865a59b84989a97ba1289ed48, type: 3}
+    sceneName: Level36
   stageHolder: {fileID: 1293676297}
   stageButtonPrefab: {fileID: 4663426676635569195, guid: a0838cbe0ca7a994dadd4cf249e9bf09,
     type: 3}
