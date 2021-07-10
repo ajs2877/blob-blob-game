@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4041939677969483010}
   m_Layer: 12
   m_Name: EndTile
-  m_TagString: exit
+  m_TagString: notwindblocking
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,9 +98,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfRequirePlayers: 2
-  nextStage:
-    sceneAsset: {fileID: 0}
-    sceneName: 
   outlinePrefab: {fileID: 873657924851181378, guid: dcc74413067f1764c94fd24a16e6d70b,
     type: 3}
   blobSprites:
@@ -146,3 +143,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 1
+  currentMovementTargetObject: {fileID: 0}

@@ -187,13 +187,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wasMoving: 0
   isMoving: 0
+  isSliding: 0
+  windPushable: 1
+  windTiles: []
   puller: {fileID: 0}
   moveSpeed: 5
   horizontalInput: HorizontalMain
   verticalInput: VerticalMain
   isBeingControlled: 0
   bigBlob: {fileID: 0}
-  isMergingOrSplitting: 0
+  isChangingSize: 0
 --- !u!61 &3782999238540756587
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -255,7 +258,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousDirection: {x: 0, y: 0}
   direction: {x: 0, y: 0}
-  isSliding: 0
 --- !u!114 &2838247534786762667
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -20,14 +20,12 @@ public class Boulder : Moveables
     void Update()
     {
         UpdateIsMoving();
-        NotifyOccupiedTiles();
+        NotifyListeningTiles();
         UpdateWasMoving();
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        string tag = col.tag;
-        GameObject parent = col.transform.parent.gameObject;
         if (col.CompareTag("Lava"))
         {
             lavaFloorTouching++;

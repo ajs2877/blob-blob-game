@@ -48,6 +48,7 @@ public class CrackedWallTile : MonoBehaviour
         parentCollider.enabled = false;
         wallTriggerCollider.enabled = false;
         parentCollider.gameObject.GetComponent<AllowOnlyBigBlobIn>().enabled = false;
+        parentCollider.gameObject.tag = "notwindblocking";
 
         // Play the sound clip
         sound.Play();

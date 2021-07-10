@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static DirectionVector;
 
 public class PlayerController : Moveables
 {
@@ -19,6 +20,7 @@ public class PlayerController : Moveables
     private GameObject otherBlob;
     private MovementSwitcher movementController;
     public bool isChangingSize;
+    public bool isInCrevice = false;
 
     protected override void Start()
     {
@@ -26,10 +28,10 @@ public class PlayerController : Moveables
         base.Start();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         UpdateIsMoving();
-        NotifyOccupiedTiles();
+        NotifyListeningTiles();
 
         // If we merged to big blob, we are moving to new spot during the merging.
         // But when stopped, that means the merging is finished.
@@ -44,19 +46,19 @@ public class PlayerController : Moveables
         {
             if (Input.GetAxisRaw(horizontalInput) == 1f)
             {
-                MovePlayer(TrueGrid.DIRECTION.RIGHT, false, true);
+                MovePlayer(DIRECTION.RIGHT, false, true);
             }
             else if (Input.GetAxisRaw(horizontalInput) == -1f)
             {
-                MovePlayer(TrueGrid.DIRECTION.LEFT, false, true);
+                MovePlayer(DIRECTION.LEFT, false, true);
             }
             else if (Input.GetAxisRaw(verticalInput) == 1f)
             {
-                MovePlayer(TrueGrid.DIRECTION.UP, false, true);
+                MovePlayer(DIRECTION.UP, false, true);
             }
             else if (Input.GetAxisRaw(verticalInput) == -1f)
             {
-                MovePlayer(TrueGrid.DIRECTION.DOWN, false, true);
+                MovePlayer(DIRECTION.DOWN, false, true);
             }
         }
 
@@ -66,18 +68,32 @@ public class PlayerController : Moveables
     /// <summary>
     /// Move the player in the given direction if it is able to.
     /// </summary>
-    public void MovePlayer(TrueGrid.DIRECTION directionToMove, bool cancelPreviousMovement, bool canPushStuff)
+    public void MovePlayer(DIRECTION directionToMove, bool cancelPreviousMovement, bool canPushStuff)
     {
+        // Dont move player if player is in crevice and there's another object on top
+        Vector2Int posMovingTowards = gameGrid.GetGridCoordinate(gameObject, directionToMove);
+        Vector2Int currentPos = gameGrid.GetGridCoordinate(gameObject, DIRECTION.NONE);
+        List<GameObject> objectsAtTargetSpot = gameGrid.GetElementsAtLocation(posMovingTowards.x, posMovingTowards.y);
+        List<GameObject> objectsAtCurrentSpot = gameGrid.GetElementsAtLocation(currentPos.x, currentPos.y);
+        if (isInCrevice)
+        {
+            foreach(GameObject objectsInBlobSpot in objectsAtCurrentSpot)
+            {
+                if (gameObject != objectsInBlobSpot && objectsInBlobSpot.GetComponent<Moveables>())
+                {
+                    return;
+                }
+            }
+        }
+
+        // Handles the moving and if it can move
         if (gameGrid.CanMoveElement(gameObject, true, true, directionToMove))
         {
             bool canMove = true;
-            Vector2Int posMovingTowards = gameGrid.GetGridCoordinate(gameObject, directionToMove);
-
             // Have to check if it is possible for blob merging to even happen
             if (movementController.allowMerging && gridObject.size == 1 && bigBlob)
             {
-                List<GameObject> listOfObjects = gameGrid.GetElementsAtLocation(posMovingTowards.x, posMovingTowards.y);
-                foreach (GameObject objectAtSpot in listOfObjects)
+                foreach (GameObject objectAtSpot in objectsAtTargetSpot)
                 {
                     // Look to see if we are moving into the other player.
                     if (objectAtSpot.GetComponent<PlayerController>() != null && objectAtSpot != gameObject && objectAtSpot.GetComponent<GridObject>().size == 1)
@@ -85,18 +101,21 @@ public class PlayerController : Moveables
                         otherBlob = objectAtSpot;
 
                         // If other blob is on the exit goal tile, allow movement into it without merging
-                        if (listOfObjects.Find(obj => obj.CompareTag("exit")))
+                        if (objectsAtTargetSpot.Find(obj => obj.CompareTag("exit")))
                         {
                             canMove = true;
                             break;
                         }
 
-                        canMove = CanCombine(posMovingTowards);
-                        if (canMove)
+                        if (!otherBlob.GetComponent<PlayerController>().isInCrevice && !isInCrevice)
                         {
-                            isMoving = true;
-                            // Merge the blobs without blocking the code or thread
-                            StartCoroutine(MergeBlobs(posMovingTowards));
+                            canMove = CanCombine(posMovingTowards);
+                            if (canMove)
+                            {
+                                isMoving = true;
+                                // Merge the blobs without blocking the code or thread
+                                StartCoroutine(MergeBlobs(posMovingTowards));
+                            }
                         }
                         break;
                     }

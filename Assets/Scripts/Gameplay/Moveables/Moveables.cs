@@ -9,6 +9,8 @@ public class Moveables : MonoBehaviour
     public bool wasMoving = false;
     public bool isMoving;
     public bool isSliding = false;
+    public bool windPushable = false;
+    protected List<WindTile> windTiles = new List<WindTile>();
     protected DirectionVector directionVector;
     public PullParentToTarget puller = null;
 
@@ -20,6 +22,7 @@ public class Moveables : MonoBehaviour
         gameGrid = GameObject.Find("GameController").GetComponent<TrueGrid>();
         directionVector = GetComponent<DirectionVector>();
         gridObject = GetComponent<GridObject>();
+        windTiles.AddRange(FindObjectsOfType(typeof(WindTile)) as WindTile[]);
     }
 
 
@@ -40,12 +43,20 @@ public class Moveables : MonoBehaviour
     /**
      * Call whereever between UpdateIsMoving and UpdateWasMoving in child's Update method
      */
-    protected void NotifyOccupiedTiles()
+    protected void NotifyListeningTiles()
     {
         // For ice tiles to work properly.
         // This will tell whatever ice tile we are on that we stopped and now the ice tile can let us know to keep moving or not.
         if (!isMoving && wasMoving)
         {
+            if (windPushable)
+            {
+                foreach (WindTile windTile in windTiles)
+                {
+                    windTile.TryWindPushingObject(gameObject);
+                }
+            }
+
             List<Vector2Int> moveablePositions = gameGrid.GetElementLocation(gameObject);
             foreach (Vector2Int pos in moveablePositions)
             {

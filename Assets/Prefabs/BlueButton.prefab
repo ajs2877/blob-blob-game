@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6014810690369127473}
   m_Layer: 0
   m_Name: BlueButton
-  m_TagString: Untagged
+  m_TagString: notwindblocking
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c4490f803270b6468646427489c7b30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerRecievers: []
   triggered: 0
   sprites:
   - {fileID: -64964111760480436, guid: c27ca51f4b8e36d4d8cbd05098cc6f3e, type: 3}
@@ -143,6 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 1
+  currentMovementTargetObject: {fileID: 0}
 --- !u!82 &6014810690369127473
 AudioSource:
   m_ObjectHideFlags: 0
