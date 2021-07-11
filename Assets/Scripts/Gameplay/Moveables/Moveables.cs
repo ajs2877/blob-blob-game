@@ -11,6 +11,8 @@ public class Moveables : MonoBehaviour
     public bool isSliding = false;
     public bool windPushable = false;
     protected List<WindTile> windTiles = new List<WindTile>();
+    public WindTile prevWindTile = null;
+    public WindTile currentWindTile = null;
     protected DirectionVector directionVector;
     public PullParentToTarget puller = null;
 
@@ -51,9 +53,33 @@ public class Moveables : MonoBehaviour
         {
             if (windPushable)
             {
+                prevWindTile = currentWindTile;
+                currentWindTile = null;
+                bool runPrevWindTile = false;
                 foreach (WindTile windTile in windTiles)
                 {
-                    windTile.TryWindPushingObject(gameObject);
+                    if(windTile == prevWindTile)
+                    {
+                        runPrevWindTile = true;
+                    }
+                    else
+                    {
+                        bool wasPushedByWind = windTile.TryWindPushingObject(gameObject);
+                        if (wasPushedByWind)
+                        {
+                            currentWindTile = windTile;
+                        }
+                    }
+                }
+
+                // Delays prev wind tile so we can make prev wind tile stop pushing object if a new wind tile got control
+                if (runPrevWindTile && currentWindTile == null)
+                {
+                    bool wasPushedByWind = prevWindTile.TryWindPushingObject(gameObject);
+                    if (wasPushedByWind)
+                    {
+                        currentWindTile = prevWindTile;
+                    }
                 }
             }
 

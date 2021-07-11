@@ -12,15 +12,20 @@ public class WindTile : MonoBehaviour
         gameGrid = GameObject.Find("GameController").GetComponent<TrueGrid>();
     }
 
-    // Update is called once per frame
+    // Maybe for showing gust of wind?
     void Update()
     {
     }
 
-    public void TryWindPushingObject(GameObject slider)
+    /// <summary>
+    /// Will push object if it is able to and object is in path of wind and unblocked
+    /// </summary>
+    /// <returns>Whether the object was pushed by wind</returns>
+    public bool TryWindPushingObject(GameObject slider)
     {
         // Cannot push 2x2 stuff
-        if (slider.GetComponent<GridObject>().size == 2) return;
+        if (slider.GetComponent<GridObject>().size == 2) return false;
+
 
         // Detect if object is in front of wind tile and then try to push it
         DIRECTION direction = GetDirection(gameObject.transform.up);
@@ -46,15 +51,16 @@ public class WindTile : MonoBehaviour
                 {
                     if (!objectInPath.CompareTag("notwindblocking"))
                     {
-                        return;
+                        return false;
                     }
                 }
                 currentCheckPos += tileDirection;
             }
 
-            Moveables moveable = slider.GetComponent<Moveables>();
             if (gameGrid.CanMoveElement(slider, true, false, direction))
             {
+                Moveables moveable = slider.GetComponent<Moveables>();
+
                 // Let players scripts control their own moving checks
                 if (slider.tag.Equals("Player"))
                 {
@@ -68,7 +74,11 @@ public class WindTile : MonoBehaviour
                     gameGrid.MoveElement(slider, false, direction);
                     moveable.isSliding = true;
                 }
+
+                return true;
             }
         }
+
+        return false;
     }
 }
