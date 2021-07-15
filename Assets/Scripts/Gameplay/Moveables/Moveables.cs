@@ -62,7 +62,7 @@ public class Moveables : MonoBehaviour
                     {
                         runPrevWindTile = true;
                     }
-                    else
+                    else if(!currentWindTile)
                     {
                         bool wasPushedByWind = windTile.TryWindPushingObject(gameObject);
                         if (wasPushedByWind)
