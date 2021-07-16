@@ -624,7 +624,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -39, y: -8}
+  m_AnchoredPosition: {x: -13, y: -8}
   m_SizeDelta: {x: 20, y: -17}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1003518496
@@ -932,6 +932,18 @@ MonoBehaviour:
     sceneName: Level35
   - sceneAsset: {fileID: 102900000, guid: 87ec5bc865a59b84989a97ba1289ed48, type: 3}
     sceneName: Level36
+  - sceneAsset: {fileID: 102900000, guid: def73d02af614674f89d9c8744a967bd, type: 3}
+    sceneName: Level37
+  - sceneAsset: {fileID: 102900000, guid: 1c64245f7a628b549bcae76b1c0e414e, type: 3}
+    sceneName: Level41
+  - sceneAsset: {fileID: 102900000, guid: 6a9deaf2fa6bb554d94bc6a4d69c4be9, type: 3}
+    sceneName: Level42
+  - sceneAsset: {fileID: 102900000, guid: 646e49e6e3ad28e459371a41e04b6f89, type: 3}
+    sceneName: Level43
+  - sceneAsset: {fileID: 102900000, guid: 765500bcc7e10d34ca125abd967057f3, type: 3}
+    sceneName: Level44
+  - sceneAsset: {fileID: 102900000, guid: 643dc8083b57aa242a2bca211cffb774, type: 3}
+    sceneName: Level45
   stageHolder: {fileID: 1525217838}
   stageButtonPrefab: {fileID: 4663426676635569195, guid: a0838cbe0ca7a994dadd4cf249e9bf09,
     type: 3}
