@@ -87,9 +87,21 @@ public class PlayerController : Moveables
         }
 
         // Handles the moving and if it can move
-        if (gameGrid.CanMoveElement(gameObject, true, true, directionToMove))
+        bool canMove;
+        if (isInCrevice)
         {
-            bool canMove = true;
+            // Workaround so that we check if can move to a spot with collidable layer instead of disabled collision layer from crevice
+            gameObject.layer = LayerMask.NameToLayer("Blobs");
+            canMove = gameGrid.CanMoveElement(gameObject, true, true, directionToMove);
+            gameObject.layer = LayerMask.NameToLayer("FreeMovement");
+        }
+        else
+        {
+            canMove = gameGrid.CanMoveElement(gameObject, true, true, directionToMove);
+        }
+
+        if (canMove)
+        {
             // Have to check if it is possible for blob merging to even happen
             if (movementController.allowMerging && gridObject.size == 1 && bigBlob)
             {
@@ -107,7 +119,7 @@ public class PlayerController : Moveables
                             break;
                         }
 
-                        if (!otherBlob.GetComponent<PlayerController>().isInCrevice && !isInCrevice)
+                        if (!otherBlob.GetComponent<PlayerController>().isInCrevice)
                         {
                             canMove = CanCombine(posMovingTowards, otherBlob);
                             if (canMove)
