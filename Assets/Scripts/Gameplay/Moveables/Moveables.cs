@@ -45,44 +45,44 @@ public class Moveables : MonoBehaviour
     /**
      * Call whereever between UpdateIsMoving and UpdateWasMoving in child's Update method
      */
-    protected void NotifyListeningTiles()
+    public void NotifyListeningTiles(bool canSlide)
     {
         // For ice tiles to work properly.
         // This will tell whatever ice tile we are on that we stopped and now the ice tile can let us know to keep moving or not.
-        if (!isMoving && wasMoving)
+        if (windPushable)
         {
-            if (windPushable)
+            prevWindTile = currentWindTile;
+            currentWindTile = null;
+            bool runPrevWindTile = false;
+            foreach (WindTile windTile in windTiles)
             {
-                prevWindTile = currentWindTile;
-                currentWindTile = null;
-                bool runPrevWindTile = false;
-                foreach (WindTile windTile in windTiles)
+                if(windTile == prevWindTile)
                 {
-                    if(windTile == prevWindTile)
-                    {
-                        runPrevWindTile = true;
-                    }
-                    else if(!currentWindTile)
-                    {
-                        bool wasPushedByWind = windTile.TryWindPushingObject(gameObject);
-                        if (wasPushedByWind)
-                        {
-                            currentWindTile = windTile;
-                        }
-                    }
+                    runPrevWindTile = true;
                 }
-
-                // Delays prev wind tile so we can make prev wind tile stop pushing object if a new wind tile got control
-                if (runPrevWindTile && currentWindTile == null)
+                else if(!currentWindTile)
                 {
-                    bool wasPushedByWind = prevWindTile.TryWindPushingObject(gameObject);
+                    bool wasPushedByWind = windTile.TryWindPushingObject(gameObject);
                     if (wasPushedByWind)
                     {
-                        currentWindTile = prevWindTile;
+                        currentWindTile = windTile;
                     }
                 }
             }
 
+            // Delays prev wind tile so we can make prev wind tile stop pushing object if a new wind tile got control
+            if (runPrevWindTile && currentWindTile == null)
+            {
+                bool wasPushedByWind = prevWindTile.TryWindPushingObject(gameObject);
+                if (wasPushedByWind)
+                {
+                    currentWindTile = prevWindTile;
+                }
+            }
+        }
+
+        if (canSlide)
+        {
             List<Vector2Int> moveablePositions = gameGrid.GetElementLocation(gameObject);
             foreach (Vector2Int pos in moveablePositions)
             {
@@ -102,6 +102,34 @@ public class Moveables : MonoBehaviour
      */
     protected void UpdateWasMoving()
     {
+        // make surrounding tiles be updated so they can be pushed by wind in case our movement opened up a new path
+        if(isMoving && !wasMoving)
+        {
+            List<Vector2Int> positions = gameGrid.GetElementLocation(gameObject);
+            HashSet<GameObject> notifiedNeighbors = new HashSet<GameObject>();
+            foreach (Vector2Int pos in positions)
+            {
+                NotifyAnyMoveablesNotSelf(gameGrid.GetElementsAtLocation(pos.x + 1, pos.y), notifiedNeighbors);
+                NotifyAnyMoveablesNotSelf(gameGrid.GetElementsAtLocation(pos.x - 1, pos.y), notifiedNeighbors);
+                NotifyAnyMoveablesNotSelf(gameGrid.GetElementsAtLocation(pos.x, pos.y + 1), notifiedNeighbors);
+                NotifyAnyMoveablesNotSelf(gameGrid.GetElementsAtLocation(pos.x, pos.y - 1), notifiedNeighbors);
+            }
+        }
+
         wasMoving = isMoving;
+    }
+
+    private void NotifyAnyMoveablesNotSelf(List<GameObject> neighbors, HashSet<GameObject> notifiedNeighbors)
+    {
+        //make copy so we dont get collection modified exception
+        List<GameObject> modifiableNeighbors = new List<GameObject>(neighbors);
+        foreach (GameObject neighbor in modifiableNeighbors)
+        {
+            if (neighbor != gameObject && !notifiedNeighbors.Contains(neighbor) && neighbor.TryGetComponent(out Moveables moveable))
+            {
+                moveable.NotifyListeningTiles(false);
+                notifiedNeighbors.Add(neighbor);
+            }
+        }
     }
 }

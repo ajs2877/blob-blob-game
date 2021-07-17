@@ -20,7 +20,12 @@ public class Boulder : Moveables
     void Update()
     {
         UpdateIsMoving();
-        NotifyListeningTiles();
+
+        if (!isMoving && wasMoving)
+        {
+            NotifyListeningTiles(true);
+        }
+
         UpdateWasMoving();
     }
 

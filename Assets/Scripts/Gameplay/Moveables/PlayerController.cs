@@ -31,7 +31,11 @@ public class PlayerController : Moveables
     void Update()
     {
         UpdateIsMoving();
-        NotifyListeningTiles();
+
+        if (!isMoving && wasMoving)
+        {
+            NotifyListeningTiles(true);
+        }
 
         // If we merged to big blob, we are moving to new spot during the merging.
         // But when stopped, that means the merging is finished.
