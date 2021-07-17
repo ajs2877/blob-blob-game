@@ -21,6 +21,7 @@ public class CreviceTile : MonoBehaviour
             blobOccuping = col.gameObject;
 
             blobOccuping.GetComponent<PlayerController>().isInCrevice = true;
+            blobOccuping.GetComponent<PlayerController>().windPushable = false;
             blobOccuping.GetComponent<SpriteRenderer>().enabled = false;
             SpriteRenderer spriteRenderer = parentObject.GetComponent<SpriteRenderer>();
 
@@ -44,6 +45,7 @@ public class CreviceTile : MonoBehaviour
         {
             blobOccuping.layer = LayerMask.NameToLayer("Blobs");
             blobOccuping.GetComponent<PlayerController>().isInCrevice = false;
+            blobOccuping.GetComponent<PlayerController>().windPushable = true;
             blobOccuping.GetComponent<SpriteRenderer>().enabled = true;
             SpriteRenderer spriteRenderer = parentObject.GetComponent<SpriteRenderer>();
             spriteRenderer.sprite = sprites[0];
