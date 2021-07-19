@@ -6,6 +6,7 @@ using static DirectionVector;
 public class WindTile : MonoBehaviour
 {
     protected TrueGrid gameGrid;
+    public AudioSource sound;
 
     void Start()
     {
@@ -74,8 +75,7 @@ public class WindTile : MonoBehaviour
                     gameGrid.MoveElement(slider, false, direction);
                     moveable.isSliding = true;
                 }
-
-                return true;
+                sound.Play();
             }
         }
 
