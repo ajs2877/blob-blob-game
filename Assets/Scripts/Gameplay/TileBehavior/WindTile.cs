@@ -68,6 +68,8 @@ public class WindTile : MonoBehaviour
                     PlayerController player = slider.GetComponent<PlayerController>();
                     player.MovePlayer(direction, true, false);
                     moveable.isSliding = true;
+
+                    
                 }
                 // move non-player stuff if possible and the size of the object is 1 tile
                 else
@@ -75,10 +77,11 @@ public class WindTile : MonoBehaviour
                     gameGrid.MoveElement(slider, false, direction);
                     moveable.isSliding = true;
                 }
-                sound.Play();
+
+                if (!sound.isPlaying) sound.Play();
+                return true;
             }
         }
-
         return false;
     }
 }

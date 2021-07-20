@@ -9,6 +9,9 @@ public class CreviceTile : MonoBehaviour
     private GameObject blobOccuping = null;
     private GameObject parentObject;
 
+    [SerializeField]
+    private AudioSource sound;
+
     void Start()
     {
         parentObject = gameObject.transform.parent.gameObject;
@@ -36,6 +39,7 @@ public class CreviceTile : MonoBehaviour
             {
                 spriteRenderer.sprite = sprites[2];
             }
+            sound.Play();
         }
     }
 

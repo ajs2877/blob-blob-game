@@ -55,6 +55,7 @@ public class LavaTile : MonoBehaviour
                     List<Vector2Int> playerPos = gameGrid.GetElementLocation(gameObjectTouching);
                     Vector2 commonPos = lavaPos.Intersect(playerPos).FirstOrDefault();
                     gameObjectTouching.GetComponent<PlayerController>().ShrinkBlob(commonPos);
+                    sound.Play();
                 }
 
                 // Non-water blob is on. Kill the blob
@@ -62,6 +63,7 @@ public class LavaTile : MonoBehaviour
                 {
                     Destroy(gameObjectTouching);
                     resetBar.blobKilled = true;
+                    sound.Play();
                 }
             }
         }

@@ -57,5 +57,6 @@ public class WaterTile : MonoBehaviour
             parentCollider.enabled = false;
             waterTriggerCollider.enabled = false;
         }
+        sound.Play();
     }
 }
