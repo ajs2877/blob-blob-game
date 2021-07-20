@@ -127,8 +127,11 @@ public class Moveables : MonoBehaviour
         {
             if (neighbor != gameObject && !notifiedNeighbors.Contains(neighbor) && neighbor.TryGetComponent(out Moveables moveable))
             {
-                moveable.NotifyListeningTiles(false);
-                notifiedNeighbors.Add(neighbor);
+                if (!moveable.isMoving)
+                {
+                    moveable.NotifyListeningTiles(false);
+                    notifiedNeighbors.Add(neighbor);
+                }
             }
         }
     }
