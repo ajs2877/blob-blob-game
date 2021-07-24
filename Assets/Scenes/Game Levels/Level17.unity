@@ -5637,7 +5637,7 @@ PrefabInstance:
     - target: {fileID: 7494564344591469171, guid: 2b78a45e853f74d499dd3b3d4b94c3a9,
         type: 3}
       propertyPath: timeTillDeactivation
-      value: 3.5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7494564344591469182, guid: 2b78a45e853f74d499dd3b3d4b94c3a9,
         type: 3}
