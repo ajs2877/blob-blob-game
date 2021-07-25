@@ -10,6 +10,8 @@ TagManager:
   - Puppeteer
   - Lava
   - notwindblocking
+  - Music
+  - StageSystems
   layers:
   - Default
   - TransparentFX
