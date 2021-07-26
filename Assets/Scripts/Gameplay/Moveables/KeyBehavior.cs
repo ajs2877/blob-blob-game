@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Key : Triggerable
+public class KeyBehavior : Triggerable
 {
     [SerializeField]
     float speed = 4f;
@@ -28,6 +28,8 @@ public class Key : Triggerable
     // Update is called once per frame
     void Update()
     {
+        if (!transform || !target) return;
+
         if (isFollowing)
         {
             // make key continue to follow blobs between blob merging/splitting
@@ -51,7 +53,7 @@ public class Key : Triggerable
         {
             if(!triggered) unlockDoorSound.Play();
             triggered = true;
-            if(!unlockDoorSound.isPlaying) Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 
@@ -62,10 +64,11 @@ public class Key : Triggerable
             if(!isFollowing)
             {
                 pickUpSound.Play();
-
                 target = other.transform;
-
                 isFollowing = true;
+
+                // cannot be pushed by wind when picked up by blob
+                GetComponent<KeyMoveable>().windPushable = false;
             }
         }
     }

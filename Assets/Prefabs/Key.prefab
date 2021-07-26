@@ -16,6 +16,9 @@ GameObject:
   - component: {fileID: -3662569039771712719}
   - component: {fileID: -7393975423485638143}
   - component: {fileID: 8092074714744684694}
+  - component: {fileID: 317313464613671243}
+  - component: {fileID: 8394539340241644010}
+  - component: {fileID: 3971712921235618020}
   m_Layer: 12
   m_Name: Key
   m_TagString: notwindblocking
@@ -355,3 +358,48 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &317313464613671243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7266462273389834571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1d1601c62d91e048a6436b8d0545d3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wasMoving: 0
+  isMoving: 0
+  isSliding: 0
+  windPushable: 1
+  prevWindTile: {fileID: 0}
+  currentWindTile: {fileID: 0}
+  puller: {fileID: 0}
+--- !u!114 &8394539340241644010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7266462273389834571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88a777ba365ebe540b88a8c5d53802d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  previousDirection: {x: 0, y: 0}
+  direction: {x: 0, y: 0}
+--- !u!114 &3971712921235618020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7266462273389834571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4151822dcb9483948bbe1f865944c328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

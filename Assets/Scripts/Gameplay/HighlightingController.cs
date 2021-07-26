@@ -14,7 +14,7 @@ public class HighlightingController : MonoBehaviour
     {
         // Check if we entered a triggerable tile (ignore keys)
         Triggerable triggerable = col.gameObject.GetComponent<Triggerable>();
-        if (triggerable && !col.gameObject.GetComponent<Key>())
+        if (triggerable && !col.gameObject.GetComponent<KeyBehavior>())
         {
             // Grab the objects that are listening in on this triggerable
             List<GameObject> recievers = triggerable.triggerRecievers;
