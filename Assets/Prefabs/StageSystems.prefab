@@ -1119,7 +1119,7 @@ MonoBehaviour:
   sliderObj: {fileID: 6248729231468338576}
   deathBackground: {fileID: 6372024581175961791}
   deathText: {fileID: 2222080477819033817}
-  fillSpeed: 0.7
+  fillSpeed: 1.8
   blobKilled: 0
 --- !u!1 &6248729229839801456
 GameObject:

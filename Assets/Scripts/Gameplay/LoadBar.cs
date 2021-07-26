@@ -12,7 +12,7 @@ public class LoadBar : MonoBehaviour
     public Text deathText;
 
     private float targetProgress = 1;
-    public float fillSpeed = .7f;
+    public float fillSpeed = 1.8f;
     public bool blobKilled = false;
     private bool shouldRunUpdate = true;
 
@@ -44,11 +44,11 @@ public class LoadBar : MonoBehaviour
         sliderObj.SetActive(true);
         if (shouldShowDeathScreen)
         {
-            slider.value += fillSpeed * Time.deltaTime * 0.3f;
+            slider.value += (fillSpeed * Time.deltaTime * 0.3f);
         }
         else
         {
-            slider.value += fillSpeed * Time.deltaTime;
+            slider.value += (fillSpeed * Time.deltaTime);
         }
 
         if (shouldShowDeathScreen)
@@ -62,7 +62,7 @@ public class LoadBar : MonoBehaviour
             deathText.color = color;
         }
 
-        if (slider.value == 1f)
+        if (slider.value >= targetProgress)
         {
             ColorBlock seleCol = slider.colors;
             deathBackground.color = new Color(0, 0, 0, 0);
