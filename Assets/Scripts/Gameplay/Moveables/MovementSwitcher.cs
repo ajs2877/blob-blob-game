@@ -48,7 +48,7 @@ public class MovementSwitcher : MonoBehaviour
         }
         PlayerController playerController = controlledSingleBlob.GetComponent<PlayerController>();
         playerController.isBeingControlled = true;
-        playerController.indicator.SetActive(true);
+        if (blob1.activeSelf && blob2.activeSelf) playerController.indicator.SetActive(true);
         movementText.text = "Controls:\nAWSD - " + (controlledSingleBlob == blob1 ? "Blue" : "Red") + " blob\nShift to switch blobs.";
     }
 
