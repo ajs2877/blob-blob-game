@@ -131,6 +131,8 @@ MonoBehaviour:
   allTriggers:
   - {fileID: 0}
   allTogglers: []
+  dotPrefab: {fileID: 8160786401720028974, guid: 15b9fe1dd852de04195730d28a429988,
+    type: 3}
 --- !u!114 &-2868785793291129094
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -18,34 +18,69 @@ public class DoorTile : MonoBehaviour
     public Triggerable[] allTriggers;
     public Triggerable[] allTogglers;
 
+    public GameObject dotPrefab;
+    private List<GameObject> spawnedDots = new List<GameObject>();
+    private Color inactive = new Color(0.3113208f, 0.3113208f, 0.3113208f, 0.6941177f);
+    private Color active = new Color(1, 1, 1, 0.83f);
+
+
     // Start is called before the first frame update
     void Start()
     {
         gameGrid = GameObject.Find("GameController").GetComponent<TrueGrid>();
         bc = gameObject.GetComponent<BoxCollider2D>();
         sr = gameObject.GetComponent<SpriteRenderer>();
+        bool isLarge = GetComponent<GridObject>().size == 2;
 
+        int i = 0;
         foreach (Triggerable triggerObj in allTriggers)
         {
             triggerObj.triggerRecievers.Add(gameObject);
+            SpawnDot(-0.2f + (i % 2) * 0.4f, -0.2f + ((i / 2) * 0.4f), isLarge);
+            i++;
         }
 
         foreach (Triggerable togglerObj in allTogglers)
         {
             togglerObj.triggerRecievers.Add(gameObject);
+            SpawnDot(-0.2f + (i % 2) * 0.4f, ((i / 2) * 0.4f), isLarge);
+            i++;
         }
     }
+
+    private void SpawnDot(float xOffset, float yOffset, bool isLarge)
+    {
+        if (!dotPrefab) return;
+        if (isLarge)
+        {
+            xOffset *= 2;
+            yOffset *= 2;
+        }
+
+        GameObject dot = Instantiate(dotPrefab, transform.position, transform.rotation);
+        dot.transform.Translate(new Vector3(xOffset, yOffset, -0.1f));
+        if(isLarge) dot.transform.localScale *= 2;
+        dot.transform.SetParent(transform);
+        spawnedDots.Add(dot);
+    }
+
 
     // Update is called once per frame
     void Update()
     {
         bool isOpen = invertDoorState;
+        int triggeredTriggers = 0;
         if (allTriggers.Length > 0)
         {
             // set the starting state for our checks
             bool validTriggers = !activateOnAnyTrigger;
             foreach (Triggerable triggerObj in allTriggers)
             {
+                if (triggerObj.triggered)
+                {
+                    triggeredTriggers++;
+                }
+
                 if (activateOnAnyTrigger)
                 {
                     validTriggers = validTriggers || triggerObj.triggered;
@@ -65,6 +100,19 @@ public class DoorTile : MonoBehaviour
             if (toggleObj.triggered)
             {
                 isOpen = !isOpen;
+                triggeredTriggers++;
+            }
+        }
+
+        for(int index = 0; index < spawnedDots.Count; index++)
+        {
+            if(index < triggeredTriggers)
+            {
+                spawnedDots[index].GetComponent<SpriteRenderer>().color = active;
+            }
+            else
+            {
+                spawnedDots[index].GetComponent<SpriteRenderer>().color = inactive;
             }
         }
 
@@ -92,6 +140,20 @@ public class DoorTile : MonoBehaviour
             bc.isTrigger = isOpen;
             sr.sprite = sprites[isOpen ? 1 : 0];
             gameObject.tag = isOpen ? "notwindblocking" : "Untagged";
+            if (isOpen)
+            {
+                foreach (GameObject dot in spawnedDots)
+                {
+                    dot.SetActive(false);
+                }
+            }
+            else
+            {
+                foreach (GameObject dot in spawnedDots)
+                {
+                    dot.SetActive(true);
+                }
+            }
         }
     }
 
