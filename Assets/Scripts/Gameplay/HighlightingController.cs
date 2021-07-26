@@ -7,6 +7,8 @@ public class HighlightingController : MonoBehaviour
     public GameObject highlightPrefab;
     private Dictionary<GameObject, List<GameObject>> highlightedTiles = new Dictionary<GameObject, List<GameObject>>();
 
+    public bool showAllAttachedTriggers = true;
+
     /**
      * Adds highlighting for this tile and all tiles attached to this triggerable/door
      */
@@ -25,7 +27,7 @@ public class HighlightingController : MonoBehaviour
                 DoorTile door = reciever.GetComponent<DoorTile>();
 
                 // highlight all the triggers and togglers attached to this reciever
-                if (door)
+                if (showAllAttachedTriggers && door)
                 {
                     foreach(Triggerable trigger in door.allTriggers){
                         SpawnHighlight(col.gameObject, trigger.gameObject);

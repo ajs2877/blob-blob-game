@@ -1351,7 +1351,7 @@ PrefabInstance:
     - target: {fileID: 9064912207245589239, guid: 0dc67d52e03d7ea4caf3efaf14be7e6b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.917
+      value: -10.39
       objectReference: {fileID: 0}
     - target: {fileID: 9064912207245589239, guid: 0dc67d52e03d7ea4caf3efaf14be7e6b,
         type: 3}
@@ -1552,10 +1552,20 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1777804978678005887, guid: 3d8f1659bece09e4a867a02c160fabe7,
+        type: 3}
+      propertyPath: showAllAttachedTriggers
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4903520967013136768, guid: 3d8f1659bece09e4a867a02c160fabe7,
         type: 3}
       propertyPath: m_Name
       value: BlobAndStageControls
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492634333523718997, guid: 3d8f1659bece09e4a867a02c160fabe7,
+        type: 3}
+      propertyPath: showAllAttachedTriggers
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6118885225104542597, guid: 3d8f1659bece09e4a867a02c160fabe7,
         type: 3}
@@ -1635,6 +1645,11 @@ PrefabInstance:
     - target: {fileID: 7750200923181370493, guid: 3d8f1659bece09e4a867a02c160fabe7,
         type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9156447392749672305, guid: 3d8f1659bece09e4a867a02c160fabe7,
+        type: 3}
+      propertyPath: showAllAttachedTriggers
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
