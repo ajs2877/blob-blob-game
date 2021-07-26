@@ -192,11 +192,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PurpleBigBlob
       objectReference: {fileID: 0}
-    - target: {fileID: 3844750177091940091, guid: 0f75305ae5327034e89af161c8a2bd28,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f75305ae5327034e89af161c8a2bd28, type: 3}
 --- !u!1 &7108808127360308140 stripped

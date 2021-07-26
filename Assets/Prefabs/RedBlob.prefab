@@ -405,6 +405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightPrefab: {fileID: 8406439538047050193, guid: 80472d3cf41866549abeaa10b67620fa,
     type: 3}
+  showAllAttachedTriggers: 1
 --- !u!114 &-4096889979783881452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -493,11 +494,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Indicator
-      objectReference: {fileID: 0}
-    - target: {fileID: 7280386452467841841, guid: 65852d177676c09418081e2c4cb366b8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65852d177676c09418081e2c4cb366b8, type: 3}

@@ -311,7 +311,6 @@ public class PlayerController : Moveables
                     PlayerController bigBlobController = bigBlob.GetComponent<PlayerController>();
                     bigBlobController.isBeingControlled = true;
                     bigBlobController.isMoving = true;
-                    bigBlobController.indicator.SetActive(true);
                     bigBlob.GetComponent<GridObject>().SnapAndAddToGrid();
 
                     otherBlob.SetActive(false);
