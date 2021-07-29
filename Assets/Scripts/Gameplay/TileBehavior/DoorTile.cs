@@ -171,12 +171,39 @@ public class DoorTile : MonoBehaviour
                 {
                     dot.SetActive(false);
                 }
+
+                List<Vector2Int> positions = gameGrid.GetElementLocation(gameObject);
+                HashSet<GameObject> notifiedNeighbors = new HashSet<GameObject>();
+                foreach (Vector2Int pos in positions)
+                {
+                    NotifyAnyMoveablesNotSelf(gameGrid.GetElementsAtLocation(pos.x + 1, pos.y), notifiedNeighbors);
+                    NotifyAnyMoveablesNotSelf(gameGrid.GetElementsAtLocation(pos.x - 1, pos.y), notifiedNeighbors);
+                    NotifyAnyMoveablesNotSelf(gameGrid.GetElementsAtLocation(pos.x, pos.y + 1), notifiedNeighbors);
+                    NotifyAnyMoveablesNotSelf(gameGrid.GetElementsAtLocation(pos.x, pos.y - 1), notifiedNeighbors);
+                }
             }
             else
             {
                 foreach (GameObject dot in spawnedOverlays)
                 {
                     dot.SetActive(true);
+                }
+            }
+        }
+    }
+
+    private void NotifyAnyMoveablesNotSelf(List<GameObject> neighbors, HashSet<GameObject> notifiedNeighbors)
+    {
+        //make copy so we dont get collection modified exception
+        List<GameObject> modifiableNeighbors = new List<GameObject>(neighbors);
+        foreach (GameObject neighbor in modifiableNeighbors)
+        {
+            if (neighbor != gameObject && !notifiedNeighbors.Contains(neighbor) && neighbor.TryGetComponent(out Moveables moveable))
+            {
+                if (!moveable.isMoving)
+                {
+                    moveable.NotifyListeningTiles(false);
+                    notifiedNeighbors.Add(neighbor);
                 }
             }
         }
