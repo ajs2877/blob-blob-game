@@ -18,8 +18,9 @@ public class DoorTile : MonoBehaviour
     public Triggerable[] allTriggers;
     public Triggerable[] allTogglers;
 
+    public GameObject doorTextPrefab;
     public GameObject dotPrefab;
-    private List<GameObject> spawnedDots = new List<GameObject>();
+    private List<GameObject> spawnedOverlays = new List<GameObject>();
     private Color inactive = new Color(0.3113208f, 0.3113208f, 0.3113208f, 0.6941177f);
     private Color active = new Color(1, 1, 1, 0.83f);
 
@@ -32,20 +33,42 @@ public class DoorTile : MonoBehaviour
         sr = gameObject.GetComponent<SpriteRenderer>();
         bool isLarge = GetComponent<GridObject>().size == 2;
 
-        int i = 0;
+        int attachedObjs = 0;
         foreach (Triggerable triggerObj in allTriggers)
         {
             triggerObj.triggerRecievers.Add(gameObject);
-            SpawnDot(-0.2f + (i % 2) * 0.4f, -0.2f + ((i / 2) * 0.4f), isLarge);
-            i++;
+            attachedObjs++;
         }
 
         foreach (Triggerable togglerObj in allTogglers)
         {
             togglerObj.triggerRecievers.Add(gameObject);
-            SpawnDot(-0.2f + (i % 2) * 0.4f, ((i / 2) * 0.4f), isLarge);
-            i++;
+            attachedObjs++;
         }
+
+        SpawnText(0, 0, isLarge, attachedObjs.ToString());
+
+        /*
+        for(int i = 0; i < attachedObjs; i++)
+        {
+            float xOffset = attachedObjs <= 1 ? 0 : -0.2f;
+            float yOffset = attachedObjs <= 2 ? 0 : -0.2f;
+            SpawnDot(xOffset + (i % 2) * 0.4f, yOffset + ((i / 2) * 0.4f), isLarge);
+        }
+        */
+    }
+
+    private void SpawnText(float xOffset, float yOffset, bool isLarge, string text)
+    {
+        if (!doorTextPrefab) return;
+
+        GameObject textObj = Instantiate(doorTextPrefab, transform.position, new Quaternion());
+        textObj.transform.Translate(new Vector3(xOffset, yOffset, -0.1f));
+        if (!isLarge) textObj.transform.localScale /= 2;
+        textObj.transform.SetParent(transform);
+        textObj.transform.Rotate(new Quaternion().eulerAngles, Space.Self);
+        textObj.GetComponent<TMPro.TextMeshPro>().text = text;
+        spawnedOverlays.Add(textObj);
     }
 
     private void SpawnDot(float xOffset, float yOffset, bool isLarge)
@@ -61,7 +84,7 @@ public class DoorTile : MonoBehaviour
         dot.transform.Translate(new Vector3(xOffset, yOffset, -0.1f));
         if(isLarge) dot.transform.localScale *= 2;
         dot.transform.SetParent(transform);
-        spawnedDots.Add(dot);
+        spawnedOverlays.Add(dot);
     }
 
 
@@ -104,15 +127,17 @@ public class DoorTile : MonoBehaviour
             }
         }
 
-        for(int index = 0; index < spawnedDots.Count; index++)
+        for(int index = 0; index < spawnedOverlays.Count; index++)
         {
-            if(index < triggeredTriggers)
+            SpriteRenderer renderer = spawnedOverlays[index].GetComponent<SpriteRenderer>();
+            if (!renderer) continue;
+            if (index < triggeredTriggers)
             {
-                spawnedDots[index].GetComponent<SpriteRenderer>().color = active;
+                renderer.color = active;
             }
             else
             {
-                spawnedDots[index].GetComponent<SpriteRenderer>().color = inactive;
+                renderer.color = inactive;
             }
         }
 
@@ -142,14 +167,14 @@ public class DoorTile : MonoBehaviour
             gameObject.tag = isOpen ? "notwindblocking" : "Untagged";
             if (isOpen)
             {
-                foreach (GameObject dot in spawnedDots)
+                foreach (GameObject dot in spawnedOverlays)
                 {
                     dot.SetActive(false);
                 }
             }
             else
             {
-                foreach (GameObject dot in spawnedDots)
+                foreach (GameObject dot in spawnedOverlays)
                 {
                     dot.SetActive(true);
                 }

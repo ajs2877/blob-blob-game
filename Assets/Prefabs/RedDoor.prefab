@@ -131,6 +131,8 @@ MonoBehaviour:
   allTriggers:
   - {fileID: 0}
   allTogglers: []
+  doorTextPrefab: {fileID: 5437027000388692685, guid: 671a3daafb3e59942b120c308e76077f,
+    type: 3}
   dotPrefab: {fileID: 8160786401720028974, guid: 15b9fe1dd852de04195730d28a429988,
     type: 3}
 --- !u!114 &-2868785793291129094
