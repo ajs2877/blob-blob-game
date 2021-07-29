@@ -90,7 +90,15 @@ public class EndTile : MonoBehaviour
         if (nextStage != null)
         {
             // Load next scene as this field was set by StagePuppeteer for progression
-            SceneManager.LoadScene(nextStage);
+            GameObject screenfade = GameObject.Find("ScreenFade");
+            if (screenfade)
+            {
+                StartCoroutine(screenfade.GetComponent<ScreenFade>().FadeAndLoadScene(ScreenFade.FadeDirection.In, nextStage));
+            }
+            else
+            {
+                SceneManager.LoadScene(nextStage);
+            }
         }
         else
         {

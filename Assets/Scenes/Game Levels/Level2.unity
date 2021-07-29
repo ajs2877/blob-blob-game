@@ -1251,6 +1251,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 858817107350837397, guid: dadea63c0b657504aa3e039db8a82bb1,
+        type: 3}
+      propertyPath: fadeSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5463945826988400576, guid: dadea63c0b657504aa3e039db8a82bb1,
         type: 3}
       propertyPath: m_Name
@@ -1339,6 +1344,36 @@ PrefabInstance:
     - target: {fileID: 6518058825769468546, guid: dadea63c0b657504aa3e039db8a82bb1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6640664720847687676, guid: dadea63c0b657504aa3e039db8a82bb1,
+        type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6640664720847687676, guid: dadea63c0b657504aa3e039db8a82bb1,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8837846503433611103, guid: dadea63c0b657504aa3e039db8a82bb1,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8837846503433611103, guid: dadea63c0b657504aa3e039db8a82bb1,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8837846503433611103, guid: dadea63c0b657504aa3e039db8a82bb1,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8837846503433611103, guid: dadea63c0b657504aa3e039db8a82bb1,
+        type: 3}
+      propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
