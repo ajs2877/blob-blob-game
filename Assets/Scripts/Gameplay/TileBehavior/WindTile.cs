@@ -17,6 +17,53 @@ public class WindTile : MonoBehaviour
     void Update()
     {
     }
+    /// <summary>
+    /// Will notify all objects in its path so they can be attempted to be blown.
+    /// Call this when any object is moved.
+    /// </summary>
+    public void NotifyObjectsInPath(GameObject ignoreGameObject)
+    {
+        DIRECTION direction = GetDirection(gameObject.transform.up);
+        Vector2Int tileDirection = GetOffset(direction);
+        Vector2Int currentTilePos = gameGrid.GetGridSpace(gameObject, false);
+        Vector2Int currentCheckPos = currentTilePos + tileDirection;
+        HashSet<GameObject> notifiedNeighbors = new HashSet<GameObject>();
+
+        // Regular loop to prevent any possible issue of infinite loop with while loop
+        for (int i = 0; i < 100; i++)
+        {
+            List<GameObject> objectsInPath = gameGrid.GetElementsAtLocation(currentCheckPos.x, currentCheckPos.y);
+            NotifyAnyMoveablesNotSelf(objectsInPath, notifiedNeighbors, ignoreGameObject);
+            foreach (GameObject objectInPath in objectsInPath)
+            {
+                if (!objectInPath.CompareTag("notwindblocking"))
+                {
+                    return;
+                }
+            }
+            currentCheckPos += tileDirection;
+
+            // if this fires, we have a BIG problem....
+            // It means the game kept checking forever in front of wind tile and never hit a wall.
+            Debug.Assert(i != 99);
+        }
+    }
+    private void NotifyAnyMoveablesNotSelf(List<GameObject> neighbors, HashSet<GameObject> notifiedNeighbors, GameObject ignoreGameObject)
+    {
+        //make copy so we dont get collection modified exception
+        List<GameObject> modifiableNeighbors = new List<GameObject>(neighbors);
+        foreach (GameObject neighbor in modifiableNeighbors)
+        {
+            if (neighbor != ignoreGameObject && !notifiedNeighbors.Contains(neighbor) && neighbor.TryGetComponent(out Moveables moveable))
+            {
+                if (!moveable.isMoving)
+                {
+                    moveable.NotifyListeningTiles(false);
+                    notifiedNeighbors.Add(neighbor);
+                }
+            }
+        }
+    }
 
     /// <summary>
     /// Will push object if it is able to and object is in path of wind and unblocked

@@ -17,6 +17,7 @@ public class DoorTile : MonoBehaviour
     private bool invertDoorState = false;
     public Triggerable[] allTriggers;
     public Triggerable[] allTogglers;
+    private List<WindTile> windTiles = new List<WindTile>();
 
     public GameObject doorTextPrefab;
     public GameObject dotPrefab;
@@ -29,6 +30,7 @@ public class DoorTile : MonoBehaviour
     void Start()
     {
         gameGrid = GameObject.Find("GameController").GetComponent<TrueGrid>();
+        windTiles.AddRange(FindObjectsOfType(typeof(WindTile)) as WindTile[]);
         bc = gameObject.GetComponent<BoxCollider2D>();
         sr = gameObject.GetComponent<SpriteRenderer>();
         bool isLarge = GetComponent<GridObject>().size == 2;
@@ -160,9 +162,11 @@ public class DoorTile : MonoBehaviour
 
             StartCoroutine(ChangeDoorState(isOpen));
         }
-        else
+        else if (isOpen && !bc.isTrigger)
         {
             bc.isTrigger = isOpen;
+            ActivateWindTiles();
+
             sr.sprite = sprites[isOpen ? 1 : 0];
             gameObject.tag = isOpen ? "notwindblocking" : "Untagged";
             if (isOpen)
@@ -171,39 +175,12 @@ public class DoorTile : MonoBehaviour
                 {
                     dot.SetActive(false);
                 }
-
-                List<Vector2Int> positions = gameGrid.GetElementLocation(gameObject);
-                HashSet<GameObject> notifiedNeighbors = new HashSet<GameObject>();
-                foreach (Vector2Int pos in positions)
-                {
-                    NotifyAnyMoveablesNotSelf(gameGrid.GetElementsAtLocation(pos.x + 1, pos.y), notifiedNeighbors);
-                    NotifyAnyMoveablesNotSelf(gameGrid.GetElementsAtLocation(pos.x - 1, pos.y), notifiedNeighbors);
-                    NotifyAnyMoveablesNotSelf(gameGrid.GetElementsAtLocation(pos.x, pos.y + 1), notifiedNeighbors);
-                    NotifyAnyMoveablesNotSelf(gameGrid.GetElementsAtLocation(pos.x, pos.y - 1), notifiedNeighbors);
-                }
             }
             else
             {
                 foreach (GameObject dot in spawnedOverlays)
                 {
                     dot.SetActive(true);
-                }
-            }
-        }
-    }
-
-    private void NotifyAnyMoveablesNotSelf(List<GameObject> neighbors, HashSet<GameObject> notifiedNeighbors)
-    {
-        //make copy so we dont get collection modified exception
-        List<GameObject> modifiableNeighbors = new List<GameObject>(neighbors);
-        foreach (GameObject neighbor in modifiableNeighbors)
-        {
-            if (neighbor != gameObject && !notifiedNeighbors.Contains(neighbor) && neighbor.TryGetComponent(out Moveables moveable))
-            {
-                if (!moveable.isMoving)
-                {
-                    moveable.NotifyListeningTiles(false);
-                    notifiedNeighbors.Add(neighbor);
                 }
             }
         }
@@ -227,5 +204,14 @@ public class DoorTile : MonoBehaviour
         bc.size = bcOriginalSize; 
 
         yield break;
+    }
+
+    private void ActivateWindTiles()
+    {
+        // make surrounding tiles be updated so they can be pushed by wind in case our movement opened up a new path
+        foreach (WindTile windTile in windTiles)
+        {
+            windTile.NotifyObjectsInPath(gameObject);
+        }
     }
 }

@@ -15,4 +15,12 @@ public class KeyMoveable : Moveables
 
         UpdateWasMoving();
     }
+
+    public new void NotifyListeningTiles(bool canSlide)
+    {
+        if (GetComponent<GridObject>().enabled)
+        {
+            base.NotifyListeningTiles(canSlide);
+        }
+    }
 }

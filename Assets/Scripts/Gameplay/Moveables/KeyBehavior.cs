@@ -17,9 +17,11 @@ public class KeyBehavior : Triggerable
     private AudioSource[] sounds;
     private AudioSource pickUpSound;
     private AudioSource unlockDoorSound;
+    private TrueGrid gameGrid;
 
     void Start()
     {
+        gameGrid = GameObject.Find("GameController").GetComponent<TrueGrid>();
         sounds = GetComponents<AudioSource>();
         pickUpSound = sounds[0];
         unlockDoorSound = sounds[1];
@@ -69,6 +71,10 @@ public class KeyBehavior : Triggerable
 
                 // cannot be pushed by wind when picked up by blob
                 GetComponent<KeyMoveable>().windPushable = false;
+
+                // remove it from grid
+                GetComponent<GridObject>().enabled = false;
+                gameGrid.RemoveElement(gameObject);
             }
         }
     }
