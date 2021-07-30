@@ -162,12 +162,13 @@ public class DoorTile : MonoBehaviour
 
             StartCoroutine(ChangeDoorState(isOpen));
         }
-        else if(isOpen && !bc.isTrigger)
+        else
         {
+            bool activateWind = isOpen && !bc.isTrigger;
             bc.isTrigger = isOpen;
             sr.sprite = sprites[isOpen ? 1 : 0];
             gameObject.tag = isOpen ? "notwindblocking" : "Untagged";
-            ActivateWindTiles();
+            if(activateWind) ActivateWindTiles();
 
             if (isOpen)
             {
