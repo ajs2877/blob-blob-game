@@ -56,7 +56,7 @@ public class WaterTile : MonoBehaviour
             spriteRenderer.sprite = sprites[1];
             parentCollider.enabled = false;
             waterTriggerCollider.enabled = false;
+            sound.Play();
         }
-        sound.Play();
     }
 }
