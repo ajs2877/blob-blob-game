@@ -10,6 +10,13 @@ public class StageButton : MonoBehaviour
     public void LoadScene()
     {
         GameObject screenfade = GameObject.Find("ScreenFade");
-        StartCoroutine(screenfade.GetComponent<ScreenFade>().FadeAndLoadScene(ScreenFade.FadeDirection.In, stageName));
+        if (screenfade)
+        {
+            StartCoroutine(screenfade.GetComponent<ScreenFade>().FadeAndLoadScene(ScreenFade.FadeDirection.In, stageName));
+        }
+        else
+        {
+            SceneManager.LoadScene(stageName);
+        }
     }
 }
