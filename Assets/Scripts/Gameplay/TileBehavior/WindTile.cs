@@ -17,6 +17,7 @@ public class WindTile : MonoBehaviour
     void Update()
     {
     }
+
     /// <summary>
     /// Will notify all objects in its path so they can be attempted to be blown.
     /// Call this when any object is moved.
@@ -32,6 +33,8 @@ public class WindTile : MonoBehaviour
         // Regular loop to prevent any possible issue of infinite loop with while loop
         for (int i = 0; i < 100; i++)
         {
+            if (!gameGrid.PositionisWithinGrid(currentCheckPos.x, currentCheckPos.y)) return;
+
             List<GameObject> objectsInPath = gameGrid.GetElementsAtLocation(currentCheckPos.x, currentCheckPos.y);
             NotifyAnyMoveablesNotSelf(objectsInPath, notifiedNeighbors, ignoreGameObject);
             foreach (GameObject objectInPath in objectsInPath)
