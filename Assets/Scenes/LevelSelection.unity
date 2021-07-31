@@ -963,6 +963,8 @@ MonoBehaviour:
     sceneName: Level47
   - sceneAsset: {fileID: 102900000, guid: 433b9708f88ae894e91a97c597df5d6b, type: 3}
     sceneName: Level48
+  - sceneAsset: {fileID: 102900000, guid: 751bc6215ca53a648b7cb557e615a1bc, type: 3}
+    sceneName: Level49
   stageHolder: {fileID: 1525217838}
   stageButtonPrefab: {fileID: 4663426676635569195, guid: a0838cbe0ca7a994dadd4cf249e9bf09,
     type: 3}
