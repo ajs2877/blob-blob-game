@@ -3518,6 +3518,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlobAndStageControls
       objectReference: {fileID: 0}
+    - target: {fileID: 5290776977263678010, guid: 3d8f1659bece09e4a867a02c160fabe7,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.49987793
+      objectReference: {fileID: 0}
     - target: {fileID: 6118885225104542597, guid: 3d8f1659bece09e4a867a02c160fabe7,
         type: 3}
       propertyPath: m_RootOrder
@@ -5676,6 +5681,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 486493865}
     m_Modifications:
+    - target: {fileID: -7393975423485638143, guid: 2665a62502c9f01409e7f1df0fd7a8db,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7266462273389834571, guid: 2665a62502c9f01409e7f1df0fd7a8db,
         type: 3}
       propertyPath: m_Name
@@ -5741,6 +5751,11 @@ PrefabInstance:
       propertyPath: door
       value: 
       objectReference: {fileID: 1098597079}
+    - target: {fileID: 8092074714744684694, guid: 2665a62502c9f01409e7f1df0fd7a8db,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2665a62502c9f01409e7f1df0fd7a8db, type: 3}
 --- !u!1001 &1661514598

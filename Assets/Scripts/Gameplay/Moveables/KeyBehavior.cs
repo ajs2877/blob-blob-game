@@ -65,6 +65,7 @@ public class KeyBehavior : Triggerable
         {
             if(!isFollowing)
             {
+                pickUpSound.enabled = true;
                 pickUpSound.Play();
                 target = other.transform;
                 isFollowing = true;
