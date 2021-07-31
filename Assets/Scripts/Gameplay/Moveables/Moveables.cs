@@ -15,6 +15,7 @@ public class Moveables : MonoBehaviour
     public WindTile currentWindTile = null;
     protected DirectionVector directionVector;
     public PullParentToTarget puller = null;
+    public bool notified;
 
     /**
      * Call in child class's Start method.
@@ -47,6 +48,9 @@ public class Moveables : MonoBehaviour
      */
     public void NotifyListeningTiles(bool canSlide)
     {
+        if (notified) return;
+        notified = true;
+
         // For ice tiles to work properly.
         // This will tell whatever ice tile we are on that we stopped and now the ice tile can let us know to keep moving or not.
         if (windPushable)
@@ -107,6 +111,7 @@ public class Moveables : MonoBehaviour
             ActivateWindTiles();
         }
         wasMoving = isMoving;
+        notified = false;
     }
 
     private void ActivateWindTiles() { 
