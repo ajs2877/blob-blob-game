@@ -123,13 +123,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Game Levels/MergeToPass.unity
     guid: 87ec5bc865a59b84989a97ba1289ed48
   - enabled: 1
-    path: Assets/Scenes/Game Levels/Level37.unity
+    path: Assets/Scenes/Game Levels/NotAFan.unity
     guid: def73d02af614674f89d9c8744a967bd
   - enabled: 1
-    path: Assets/Scenes/Game Levels/StrongBehind.unity
+    path: Assets/Scenes/Game Levels/BoulderBehind.unity
     guid: be1c16bbd202ac6408ae4a233df8f294
   - enabled: 1
-    path: Assets/Scenes/Game Levels/Level39.unity
+    path: Assets/Scenes/Game Levels/BeelineToVictory.unity
     guid: 5a090a1999e85e247995141219c96ea4
   - enabled: 1
     path: Assets/Scenes/Game Levels/Level40.unity
