@@ -184,7 +184,10 @@ public class DoorTile : MonoBehaviour
                 }
             }
 
-            if(activateWind) ActivateWindTiles();
+            if (activateWind)
+            {
+                ActivateWindTiles();
+            }
         }
     }
 
@@ -211,9 +214,6 @@ public class DoorTile : MonoBehaviour
     private void ActivateWindTiles()
     {
         // make surrounding tiles be updated so they can be pushed by wind in case our movement opened up a new path
-        foreach (WindTile windTile in windTiles)
-        {
-            windTile.NotifyObjectsInPath(gameObject);
-        }
+        WindTile.NotifyObjectsInPath(gameObject, windTiles, gameGrid);
     }
 }

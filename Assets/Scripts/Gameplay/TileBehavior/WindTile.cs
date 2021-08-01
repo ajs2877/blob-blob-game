@@ -22,48 +22,63 @@ public class WindTile : MonoBehaviour
     /// Will notify all objects in its path so they can be attempted to be blown.
     /// Call this when any object is moved.
     /// </summary>
-    public void NotifyObjectsInPath(GameObject ignoreGameObject)
+    public static void NotifyObjectsInPath(GameObject objectOnPathToFind, List<WindTile> windTiles, TrueGrid gameGrid)
     {
-        DIRECTION direction = GetDirection(gameObject.transform.up);
-        Vector2Int tileDirection = GetOffset(direction);
-        Vector2Int currentTilePos = gameGrid.GetGridSpace(gameObject, false);
-        Vector2Int currentCheckPos = currentTilePos + tileDirection;
-        HashSet<GameObject> notifiedNeighbors = new HashSet<GameObject>();
+        HashSet<GameObject> objectsOnSameWind = new HashSet<GameObject>();
 
-        // Regular loop to prevent any possible issue of infinite loop with while loop
-        for (int i = 0; i < 100; i++)
+        foreach (WindTile windTile in windTiles)
         {
-            if (!gameGrid.PositionisWithinGrid(currentCheckPos.x, currentCheckPos.y)) return;
+            DIRECTION direction = GetDirection(windTile.gameObject.transform.up);
+            Vector2Int tileDirection = GetOffset(direction);
+            Vector2Int currentTilePos = gameGrid.GetGridSpace(windTile.gameObject, false);
+            Vector2Int currentCheckPos = currentTilePos + tileDirection;
+            HashSet<GameObject> objectsOnWind = new HashSet<GameObject>();
 
-            List<GameObject> objectsInPath = gameGrid.GetElementsAtLocation(currentCheckPos.x, currentCheckPos.y);
-            NotifyAnyMoveablesNotSelf(objectsInPath, notifiedNeighbors, ignoreGameObject);
-            foreach (GameObject objectInPath in objectsInPath)
+            // Regular loop to prevent any possible issue of infinite loop with while loop
+            for (int i = 0; i < 100; i++)
             {
-                if (!objectInPath.CompareTag("notwindblocking"))
+                if (!gameGrid.PositionisWithinGrid(currentCheckPos.x, currentCheckPos.y)) return;
+                List<GameObject> objectsInPath = gameGrid.GetElementsAtLocation(currentCheckPos.x, currentCheckPos.y);
+                foreach (GameObject objectInPath in objectsInPath)
                 {
-                    return;
+                    objectsOnWind.Add(objectInPath);
+                    if (!objectInPath.CompareTag("notwindblocking"))
+                    {
+                        i = 100;
+                        break;
+                    }
                 }
-            }
-            currentCheckPos += tileDirection;
+                currentCheckPos += tileDirection;
 
-            // if this fires, we have a BIG problem....
-            // It means the game kept checking forever in front of wind tile and never hit a wall.
-            Debug.Assert(i != 99);
+                // if this fires, we have a BIG problem....
+                // It means the game kept checking forever in front of wind tile and never hit a wall.
+                Debug.Assert(i != 99);
+            }
+
+            if (objectsOnWind.Contains(objectOnPathToFind))
+            {
+                objectsOnSameWind.UnionWith(objectsOnWind);
+            }
+        }
+
+        if (objectsOnSameWind.Contains(objectOnPathToFind))
+        {
+            HashSet<GameObject> notifiedNeighbors = new HashSet<GameObject>();
+            foreach (GameObject objectInPath in objectsOnSameWind)
+            {
+                NotifyAnyMoveables(objectInPath, notifiedNeighbors, objectOnPathToFind);
+            }
         }
     }
-    private void NotifyAnyMoveablesNotSelf(List<GameObject> neighbors, HashSet<GameObject> notifiedNeighbors, GameObject ignoreGameObject)
+
+    private static void NotifyAnyMoveables(GameObject neighbor, HashSet<GameObject> notifiedNeighbors, GameObject ignoreGameObject)
     {
-        //make copy so we dont get collection modified exception
-        List<GameObject> modifiableNeighbors = new List<GameObject>(neighbors);
-        foreach (GameObject neighbor in modifiableNeighbors)
+        if (neighbor != ignoreGameObject && !notifiedNeighbors.Contains(neighbor) && neighbor.TryGetComponent(out Moveables moveable))
         {
-            if (neighbor != ignoreGameObject && !notifiedNeighbors.Contains(neighbor) && neighbor.TryGetComponent(out Moveables moveable))
+            if (!moveable.isMoving)
             {
-                if (!moveable.isMoving)
-                {
-                    moveable.NotifyListeningTiles(false);
-                    notifiedNeighbors.Add(neighbor);
-                }
+                moveable.NotifyListeningTiles(false);
+                notifiedNeighbors.Add(neighbor);
             }
         }
     }

@@ -114,14 +114,12 @@ public class Moveables : MonoBehaviour
     private void ActivateWindTiles() {
         // make surrounding tiles be updated so they can be pushed by wind in case our movement opened up a new path
         List<Vector2Int> currentSpots = gameGrid.GetElementLocation(gameObject);
-        Vector2Int offset = DirectionVector.GetOffset(DirectionVector.GetDirection(directionVector.direction));
         foreach(Vector2Int currentSpot in currentSpots)
         {
-            Vector2Int oldSpot = currentSpot - offset;
-            NotifyElementsAtSpot(oldSpot + new Vector2Int(1, 0));
-            NotifyElementsAtSpot(oldSpot + new Vector2Int(-1, 0));
-            NotifyElementsAtSpot(oldSpot + new Vector2Int(0, 1));
-            NotifyElementsAtSpot(oldSpot + new Vector2Int(0, -1));
+            NotifyElementsAtSpot(currentSpot + new Vector2Int(1, 0));
+            NotifyElementsAtSpot(currentSpot + new Vector2Int(-1, 0));
+            NotifyElementsAtSpot(currentSpot + new Vector2Int(0, 1));
+            NotifyElementsAtSpot(currentSpot + new Vector2Int(0, -1));
         }
     }
 
