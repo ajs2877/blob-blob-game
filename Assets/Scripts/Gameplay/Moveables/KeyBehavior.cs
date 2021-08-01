@@ -48,8 +48,8 @@ public class KeyBehavior : Triggerable
                     target = bigBlob.transform;
                 }
             }
-
-            transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            Vector3 newPos = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            transform.position = new Vector3(newPos.x, newPos.y, target.position.z + 0.01f);
         }
         if (Vector3.Distance(door.transform.position, transform.position) < triggerRange)
         {
