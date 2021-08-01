@@ -15,7 +15,6 @@ public class Moveables : MonoBehaviour
     public WindTile currentWindTile = null;
     protected DirectionVector directionVector;
     public PullParentToTarget puller = null;
-    public bool notified;
 
     /**
      * Call in child class's Start method.
@@ -48,11 +47,7 @@ public class Moveables : MonoBehaviour
      */
     public void NotifyListeningTiles(bool canSlide)
     {
-        if (notified) return;
-        notified = true;
-
-        // For ice tiles to work properly.
-        // This will tell whatever ice tile we are on that we stopped and now the ice tile can let us know to keep moving or not.
+        // For being pushed by wind
         if (windPushable)
         {
             prevWindTile = currentWindTile;
@@ -85,6 +80,9 @@ public class Moveables : MonoBehaviour
             }
         }
 
+
+        // For ice tiles to work properly.
+        // This will tell whatever ice tile we are on that we stopped and now the ice tile can let us know to keep moving or not.
         if (canSlide)
         {
             List<Vector2Int> moveablePositions = gameGrid.GetElementLocation(gameObject);
@@ -111,14 +109,31 @@ public class Moveables : MonoBehaviour
             ActivateWindTiles();
         }
         wasMoving = isMoving;
-        notified = false;
     }
 
-    private void ActivateWindTiles() { 
+    private void ActivateWindTiles() {
         // make surrounding tiles be updated so they can be pushed by wind in case our movement opened up a new path
-        foreach (WindTile windTile in windTiles)
+        List<Vector2Int> currentSpots = gameGrid.GetElementLocation(gameObject);
+        Vector2Int offset = DirectionVector.GetOffset(DirectionVector.GetDirection(directionVector.direction));
+        foreach(Vector2Int currentSpot in currentSpots)
         {
-            windTile.NotifyObjectsInPath(gameObject);
+            Vector2Int oldSpot = currentSpot - offset;
+            NotifyElementsAtSpot(oldSpot + new Vector2Int(1, 0));
+            NotifyElementsAtSpot(oldSpot + new Vector2Int(-1, 0));
+            NotifyElementsAtSpot(oldSpot + new Vector2Int(0, 1));
+            NotifyElementsAtSpot(oldSpot + new Vector2Int(0, -1));
+        }
+    }
+
+    private void NotifyElementsAtSpot(Vector2Int spot)
+    {
+        List<GameObject> objectsAtSpot = new List<GameObject>(gameGrid.GetElementsAtLocation(spot.x, spot.y));
+        foreach(GameObject objectAtSpot in objectsAtSpot)
+        {
+            if(objectAtSpot != gameObject && objectAtSpot.TryGetComponent(out Moveables moveable))
+            {
+                moveable.NotifyListeningTiles(false);
+            }
         }
     }
 }

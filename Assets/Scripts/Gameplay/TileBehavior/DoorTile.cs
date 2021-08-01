@@ -168,7 +168,6 @@ public class DoorTile : MonoBehaviour
             bc.isTrigger = isOpen;
             sr.sprite = sprites[isOpen ? 1 : 0];
             gameObject.tag = isOpen ? "notwindblocking" : "Untagged";
-            if(activateWind) ActivateWindTiles();
 
             if (isOpen)
             {
@@ -184,6 +183,8 @@ public class DoorTile : MonoBehaviour
                     dot.SetActive(true);
                 }
             }
+
+            if(activateWind) ActivateWindTiles();
         }
     }
 
