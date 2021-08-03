@@ -24,6 +24,7 @@ public class Boulder : Moveables
         if (!isMoving && wasMoving)
         {
             NotifyListeningTiles(true);
+            //ActivateWindTiles();
         }
 
         UpdateWasMoving();

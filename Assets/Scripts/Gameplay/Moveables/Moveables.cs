@@ -10,6 +10,7 @@ public class Moveables : MonoBehaviour
     public bool isMoving;
     public bool isSliding = false;
     public bool windPushable = false;
+    public bool isWindPushed = false;
     protected List<WindTile> windTiles = new List<WindTile>();
     public WindTile prevWindTile = null;
     public WindTile currentWindTile = null;
@@ -33,6 +34,8 @@ public class Moveables : MonoBehaviour
      */
     protected void UpdateIsMoving()
     {
+        isWindPushed = false;
+
         // Determines if blob has truly stopped moving. Do this first
         if (directionVector.direction.magnitude == 0 && puller == null)
         {
@@ -48,7 +51,7 @@ public class Moveables : MonoBehaviour
     public void NotifyListeningTiles(bool canSlide)
     {
         // For being pushed by wind
-        if (windPushable)
+        if (windPushable && !isWindPushed)
         {
             prevWindTile = currentWindTile;
             currentWindTile = null;
@@ -77,6 +80,12 @@ public class Moveables : MonoBehaviour
                 {
                     currentWindTile = prevWindTile;
                 }
+            }
+
+            if (currentWindTile)
+            {
+                currentWindTile.WindPushObject(gameObject);
+                isWindPushed = true;
             }
         }
 
@@ -130,7 +139,7 @@ public class Moveables : MonoBehaviour
         {
             if(objectAtSpot != gameObject && objectAtSpot.TryGetComponent(out Moveables moveable))
             {
-                moveable.NotifyListeningTiles(false);
+                if(!moveable.isMoving) moveable.NotifyListeningTiles(false);
             }
         }
     }

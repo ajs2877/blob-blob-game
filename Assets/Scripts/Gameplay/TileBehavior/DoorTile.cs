@@ -24,6 +24,7 @@ public class DoorTile : MonoBehaviour
     private List<GameObject> spawnedOverlays = new List<GameObject>();
     private Color inactive = new Color(0.3113208f, 0.3113208f, 0.3113208f, 0.6941177f);
     private Color active = new Color(1, 1, 1, 0.83f);
+    private bool activateWind = false;
 
 
     // Start is called before the first frame update
@@ -93,6 +94,12 @@ public class DoorTile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (activateWind)
+        {
+            ActivateWindTiles();
+            activateWind = false;
+        }
+
         bool isOpen = invertDoorState;
         int triggeredTriggers = 0;
         if (allTriggers.Length > 0)
@@ -164,7 +171,7 @@ public class DoorTile : MonoBehaviour
         }
         else
         {
-            bool activateWind = isOpen && !bc.isTrigger;
+            if (isOpen && !bc.isTrigger) activateWind = true;
             bc.isTrigger = isOpen;
             sr.sprite = sprites[isOpen ? 1 : 0];
             gameObject.tag = isOpen ? "notwindblocking" : "Untagged";
@@ -182,11 +189,6 @@ public class DoorTile : MonoBehaviour
                 {
                     dot.SetActive(true);
                 }
-            }
-
-            if (activateWind)
-            {
-                ActivateWindTiles();
             }
         }
     }

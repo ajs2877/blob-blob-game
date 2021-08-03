@@ -37,7 +37,7 @@ public class WindTile : MonoBehaviour
             // Regular loop to prevent any possible issue of infinite loop with while loop
             for (int i = 0; i < 100; i++)
             {
-                if (!gameGrid.PositionisWithinGrid(currentCheckPos.x, currentCheckPos.y)) return;
+                if (!gameGrid.PositionisWithinGrid(currentCheckPos.x, currentCheckPos.y)) break;
                 List<GameObject> objectsInPath = gameGrid.GetElementsAtLocation(currentCheckPos.x, currentCheckPos.y);
                 foreach (GameObject objectInPath in objectsInPath)
                 {
@@ -84,7 +84,7 @@ public class WindTile : MonoBehaviour
     }
 
     /// <summary>
-    /// Will push object if it is able to and object is in path of wind and unblocked
+    /// Will check if it can push object if it is able to and object is in path of wind and unblocked
     /// </summary>
     /// <returns>Whether the object was pushed by wind</returns>
     public bool TryWindPushingObject(GameObject slider)
@@ -92,6 +92,52 @@ public class WindTile : MonoBehaviour
         // Cannot push 2x2 stuff
         if (slider.GetComponent<GridObject>().size == 2) return false;
 
+        // Detect if object is in front of wind tile and then try to push it
+        DIRECTION direction = GetDirection(gameObject.transform.up);
+        Vector2Int tileDirection = GetOffset(direction);
+        Vector2Int currentTilePos = gameGrid.GetGridSpace(gameObject, false);
+        Vector2Int sliderPos = gameGrid.GetGridSpace(slider, false);
+
+        // By checking if the spot in front of the tile at same distance is the same spot as the incoming object, we will know if they are in front
+        Vector2Int diff = sliderPos - currentTilePos;
+        int magnitude = (int)diff.magnitude;
+        Vector2Int spotInFrontOfTile = currentTilePos + (tileDirection * magnitude);
+        bool objectIsInFront = spotInFrontOfTile == sliderPos;
+
+        if (objectIsInFront)
+        {
+            // Check downward in direction to see if the wind is unblocked to the object to push
+            Vector2Int currentCheckPos = currentTilePos + tileDirection;
+            while (currentCheckPos != sliderPos)
+            {
+                List<GameObject> objectsInPath = gameGrid.GetElementsAtLocation(currentCheckPos.x, currentCheckPos.y);
+                foreach (GameObject objectInPath in objectsInPath)
+                {
+                    if (!objectInPath.CompareTag("notwindblocking"))
+                    {
+                        return false;
+                    }
+                }
+                currentCheckPos += tileDirection;
+            }
+
+            if (gameGrid.CanMoveElement(slider, true, false, direction))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /// <summary>
+    /// Will push object if it is able to and object is in path of wind and unblocked
+    /// </summary>
+    /// <returns>Whether the object was pushed by wind</returns>
+    public bool WindPushObject(GameObject slider)
+    {
+        // Cannot push 2x2 stuff
+        if (slider.GetComponent<GridObject>().size == 2) return false;
 
         // Detect if object is in front of wind tile and then try to push it
         DIRECTION direction = GetDirection(gameObject.transform.up);
@@ -113,7 +159,7 @@ public class WindTile : MonoBehaviour
             while (currentCheckPos != sliderPos)
             {
                 List<GameObject> objectsInPath = gameGrid.GetElementsAtLocation(currentCheckPos.x, currentCheckPos.y);
-                foreach(GameObject objectInPath in objectsInPath)
+                foreach (GameObject objectInPath in objectsInPath)
                 {
                     if (!objectInPath.CompareTag("notwindblocking"))
                     {
@@ -134,7 +180,7 @@ public class WindTile : MonoBehaviour
                     player.MovePlayer(direction, true, false);
                     moveable.isSliding = true;
 
-                    
+
                 }
                 // move non-player stuff if possible and the size of the object is 1 tile
                 else
