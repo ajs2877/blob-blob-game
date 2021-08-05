@@ -3033,6 +3033,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlobAndStageControls
       objectReference: {fileID: 0}
+    - target: {fileID: 5290776977263678010, guid: 3d8f1659bece09e4a867a02c160fabe7,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.49987793
+      objectReference: {fileID: 0}
     - target: {fileID: 6118885225104542597, guid: 3d8f1659bece09e4a867a02c160fabe7,
         type: 3}
       propertyPath: m_RootOrder
@@ -3858,7 +3863,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.889951
+  orthographic size: 7.711339
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3882,8 +3887,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1293478072}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.35, y: 1.18, z: -8.7319}
-  m_LocalScale: {x: 0.83757, y: 0.83757, z: 0.83757}
+  m_LocalPosition: {x: -12.59, y: -0.2, z: -14.168}
+  m_LocalScale: {x: 0.8794485, y: 0.8794485, z: 0.8794485}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -5507,22 +5512,27 @@ PrefabInstance:
     - target: {fileID: 9064912207245589239, guid: 0dc67d52e03d7ea4caf3efaf14be7e6b,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.3626542
+      value: 2.321669
       objectReference: {fileID: 0}
     - target: {fileID: 9064912207245589239, guid: 0dc67d52e03d7ea4caf3efaf14be7e6b,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.5085313
+      value: 3.4476686
+      objectReference: {fileID: 0}
+    - target: {fileID: 9064912207245589239, guid: 0dc67d52e03d7ea4caf3efaf14be7e6b,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.98265296
       objectReference: {fileID: 0}
     - target: {fileID: 9064912207245589239, guid: 0dc67d52e03d7ea4caf3efaf14be7e6b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.327
+      value: -12.566
       objectReference: {fileID: 0}
     - target: {fileID: 9064912207245589239, guid: 0dc67d52e03d7ea4caf3efaf14be7e6b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.184
+      value: -0.19579996
       objectReference: {fileID: 0}
     - target: {fileID: 9064912207245589239, guid: 0dc67d52e03d7ea4caf3efaf14be7e6b,
         type: 3}

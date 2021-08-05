@@ -74,7 +74,9 @@ public class KeyBehavior : Triggerable
                 GetComponent<KeyMoveable>().windPushable = false;
 
                 // remove it from grid
-                GetComponent<GridObject>().enabled = false;
+                GridObject gridObject = GetComponent<GridObject>();
+                Destroy(gridObject.currentMovementTargetObject);
+                gridObject.enabled = false;
                 gameGrid.RemoveElement(gameObject);
             }
         }
