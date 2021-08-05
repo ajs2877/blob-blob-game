@@ -49,7 +49,7 @@ public class DoorTile : MonoBehaviour
             attachedObjs++;
         }
 
-        SpawnText(0, 0, isLarge, attachedObjs.ToString());
+        SpawnText(0, 0, isLarge, activateOnAnyTrigger || allTriggers.Length <= 1 ? "-" : attachedObjs.ToString());
 
         /*
         for(int i = 0; i < attachedObjs; i++)
