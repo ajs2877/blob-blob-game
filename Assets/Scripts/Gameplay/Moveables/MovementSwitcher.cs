@@ -76,7 +76,7 @@ public class MovementSwitcher : MonoBehaviour
 
             if (bigBlob.GetComponent<PlayerController>().isBeingControlled)
             {
-                movementText.text = "Controls:\nAWSD - Purple blob\nShift to switch blobs.";
+                movementText.text = "Controls:\nAWSD - Purple blob\nShift to split up.";
             }
         }
     }
