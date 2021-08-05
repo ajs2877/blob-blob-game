@@ -20,6 +20,7 @@ public class DoorTile : MonoBehaviour
     private List<WindTile> windTiles = new List<WindTile>();
 
     public GameObject doorTextPrefab;
+    private TMPro.TextMeshPro doorText;
     public GameObject dotPrefab;
     private List<GameObject> spawnedOverlays = new List<GameObject>();
     private Color inactive = new Color(0.3113208f, 0.3113208f, 0.3113208f, 0.6941177f);
@@ -70,7 +71,8 @@ public class DoorTile : MonoBehaviour
         if (!isLarge) textObj.transform.localScale /= 2;
         textObj.transform.SetParent(transform);
         textObj.transform.Rotate(new Quaternion().eulerAngles, Space.Self);
-        textObj.GetComponent<TMPro.TextMeshPro>().text = text;
+        doorText = textObj.GetComponent<TMPro.TextMeshPro>();
+        doorText.text = text;
         spawnedOverlays.Add(textObj);
     }
 
@@ -136,6 +138,7 @@ public class DoorTile : MonoBehaviour
             }
         }
 
+        /*
         for(int index = 0; index < spawnedOverlays.Count; index++)
         {
             SpriteRenderer renderer = spawnedOverlays[index].GetComponent<SpriteRenderer>();
@@ -148,6 +151,12 @@ public class DoorTile : MonoBehaviour
             {
                 renderer.color = inactive;
             }
+        }
+        */
+
+        if (doorText && !doorText.text.Equals("-"))
+        {
+            doorText.text = (allTriggers.Length - triggeredTriggers).ToString();
         }
 
         // Do not close door if there is an object blocking the door
