@@ -2380,10 +2380,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlobAndStageControls
       objectReference: {fileID: 0}
+    - target: {fileID: 5290776977263678010, guid: 3d8f1659bece09e4a867a02c160fabe7,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.49987793
+      objectReference: {fileID: 0}
     - target: {fileID: 6118885225104542597, guid: 3d8f1659bece09e4a867a02c160fabe7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6118885225104542597, guid: 3d8f1659bece09e4a867a02c160fabe7,
         type: 3}
@@ -2514,7 +2519,7 @@ PrefabInstance:
     - target: {fileID: 4368188054268293236, guid: cb609fc26c5d09744b2fdf4a36f707c2,
         type: 3}
       propertyPath: allTriggers.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4368188054268293236, guid: cb609fc26c5d09744b2fdf4a36f707c2,
         type: 3}
@@ -2531,6 +2536,11 @@ PrefabInstance:
       propertyPath: allTriggers.Array.data[2]
       value: 
       objectReference: {fileID: 622727248}
+    - target: {fileID: 4368188054268293236, guid: cb609fc26c5d09744b2fdf4a36f707c2,
+        type: 3}
+      propertyPath: allTriggers.Array.data[3]
+      value: 
+      objectReference: {fileID: 2126385187}
     - target: {fileID: 4368188054268293237, guid: cb609fc26c5d09744b2fdf4a36f707c2,
         type: 3}
       propertyPath: m_RootOrder
