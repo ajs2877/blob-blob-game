@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class EndTile : MonoBehaviour
 {
+    private bool switchingStage = false;
     private int playerCount = 0;
     public int numberOfRequirePlayers = 2;
     private string nextStage = null;
@@ -58,8 +59,9 @@ public class EndTile : MonoBehaviour
             }
         }
 
-        if (playerCount == numberOfRequirePlayers || col.gameObject.name.Equals("PurpleBigBlob"))
+        if (!switchingStage && (playerCount == numberOfRequirePlayers || col.gameObject.name.Equals("PurpleBigBlob")))
         {
+            switchingStage = true;
             LoadLevel();
         }
     }
