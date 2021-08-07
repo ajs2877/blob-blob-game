@@ -946,25 +946,25 @@ MonoBehaviour:
   - sceneAsset: {fileID: 102900000, guid: 5a090a1999e85e247995141219c96ea4, type: 3}
     sceneName: BeelineToVictory
   - sceneAsset: {fileID: 102900000, guid: 57bb9a2d62816024a803dbf98d380772, type: 3}
-    sceneName: Level40
+    sceneName: MagmaCracks
   - sceneAsset: {fileID: 102900000, guid: 1c64245f7a628b549bcae76b1c0e414e, type: 3}
-    sceneName: Level41
+    sceneName: HolesInThePath
   - sceneAsset: {fileID: 102900000, guid: 6a9deaf2fa6bb554d94bc6a4d69c4be9, type: 3}
-    sceneName: Level42
+    sceneName: Biathlon
   - sceneAsset: {fileID: 102900000, guid: 646e49e6e3ad28e459371a41e04b6f89, type: 3}
-    sceneName: Level43
+    sceneName: BlockTheWind
   - sceneAsset: {fileID: 102900000, guid: 765500bcc7e10d34ca125abd967057f3, type: 3}
-    sceneName: Level44
+    sceneName: VolcanoRoom
   - sceneAsset: {fileID: 102900000, guid: 643dc8083b57aa242a2bca211cffb774, type: 3}
-    sceneName: Level45
+    sceneName: FallingPyramid
   - sceneAsset: {fileID: 102900000, guid: 250ade6e48ff4644db5fd846c57622d9, type: 3}
-    sceneName: Level46
+    sceneName: WindyCanyon
   - sceneAsset: {fileID: 102900000, guid: 4bc22f9e3a472c8429d02308e3decd90, type: 3}
-    sceneName: Level47
+    sceneName: PickASwitch
   - sceneAsset: {fileID: 102900000, guid: 433b9708f88ae894e91a97c597df5d6b, type: 3}
-    sceneName: Level48
+    sceneName: UnlockTheFreezer
   - sceneAsset: {fileID: 102900000, guid: 751bc6215ca53a648b7cb557e615a1bc, type: 3}
-    sceneName: Level49
+    sceneName: KeySliders
   stageHolder: {fileID: 1525217838}
   stageButtonPrefab: {fileID: 4663426676635569195, guid: a0838cbe0ca7a994dadd4cf249e9bf09,
     type: 3}
