@@ -15,8 +15,8 @@ public class KeyBehavior : Triggerable
     public GameObject door;
 
     private AudioSource[] sounds;
-    private AudioSource pickUpSound;
-    private AudioSource unlockDoorSound;
+    public AudioSource pickUpSound;
+    public AudioSource unlockDoorSound;
     private TrueGrid gameGrid;
 
     void Start()
@@ -55,7 +55,7 @@ public class KeyBehavior : Triggerable
         {
             if(!triggered) unlockDoorSound.Play();
             triggered = true;
-            Destroy(gameObject);
+            Destroy(gameObject, 0.25f); //Waits for the sound to play before destroying the key
         }
     }
 
