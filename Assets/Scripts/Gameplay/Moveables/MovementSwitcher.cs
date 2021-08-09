@@ -57,7 +57,7 @@ public class MovementSwitcher : MonoBehaviour
         // Check to make sure no blob was killed before allowing user controls
         if (bigBlob && blob1 && blob2)
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKeyDown(KeyCode.LeftShift) && Time.timeScale != 0)
             {
                 if (allowMerging && bigBlob && bigBlob.activeSelf)
                 {

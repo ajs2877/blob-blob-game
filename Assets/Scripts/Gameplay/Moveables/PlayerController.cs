@@ -48,7 +48,7 @@ public class PlayerController : Moveables
         }
 
         // Only allow controls when we are not moving and has no puller
-        if (isBeingControlled && !isMoving && puller == null && !isSliding)
+        if (isBeingControlled && !isMoving && puller == null && !isSliding && Time.timeScale != 0)
         {
             if (Input.GetAxisRaw(horizontalInput) == 1f)
             {
