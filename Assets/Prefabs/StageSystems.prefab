@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 2371705289081500595}
   - component: {fileID: 5726014464620395996}
   m_Layer: 0
-  m_Name: FXText
+  m_Name: AmbienceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -361,7 +361,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: FX Volume
+  m_Text: Ambience
 --- !u!1 &714522373178704718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1654,7 +1654,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Music Volume
+  m_Text: Music
 --- !u!1 &6248729229560576336
 GameObject:
   m_ObjectHideFlags: 0
