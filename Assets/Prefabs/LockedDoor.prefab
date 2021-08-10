@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -4625032661452890545, guid: 455812b5ebb106e44b6a51846776d69a,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -131,6 +131,8 @@ MonoBehaviour:
   allTriggers:
   - {fileID: 0}
   allTogglers: []
+  doorTextPrefab: {fileID: 0}
+  dotPrefab: {fileID: 0}
 --- !u!114 &-4935417039743090732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,3 +146,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 1
+  currentMovementTargetObject: {fileID: 0}

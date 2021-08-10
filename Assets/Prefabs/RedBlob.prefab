@@ -161,7 +161,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -5245047635774512457, guid: 95871cb3848ba514eab6275582d64147,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -190,6 +190,7 @@ MonoBehaviour:
   isMoving: 0
   isSliding: 0
   windPushable: 1
+  isWindPushed: 0
   prevWindTile: {fileID: 0}
   currentWindTile: {fileID: 0}
   puller: {fileID: 0}
@@ -494,6 +495,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Indicator
+      objectReference: {fileID: 0}
+    - target: {fileID: 7797548995910167778, guid: 65852d177676c09418081e2c4cb366b8,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65852d177676c09418081e2c4cb366b8, type: 3}
