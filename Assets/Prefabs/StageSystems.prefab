@@ -623,8 +623,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0002746582, y: -0.00019836426}
-  m_SizeDelta: {x: -6.199829, y: 0.62677}
+  m_AnchoredPosition: {x: 0.0002746582, y: 4.5}
+  m_SizeDelta: {x: -6.199829, y: -8.4339905}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3548513396878945120
 CanvasRenderer:
@@ -666,7 +666,18 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "CONTROLS:\n\nArrow Keys \nor ASWD Keys\n\nShift to switch blobs"
+  m_Text: 'CONTROLS:
+
+
+    AWSD / Arrow keys
+
+    to move around
+
+
+    Shift to switch
+    blobs
+
+    or to split big blobs'
 --- !u!1 &3491587162794380117
 GameObject:
   m_ObjectHideFlags: 0
@@ -1840,7 +1851,7 @@ MonoBehaviour:
   blob2: {fileID: 0}
   bigBlob: {fileID: 0}
   allowMerging: 0
-  movementText: {fileID: 6248729230419060737}
+  movementText: {fileID: 0}
 --- !u!114 &1159771873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2033,7 +2044,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6248729230483146329
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2432,7 +2443,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6248729231242775870
 RectTransform:
   m_ObjectHideFlags: 0

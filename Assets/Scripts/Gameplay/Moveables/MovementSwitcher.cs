@@ -49,7 +49,6 @@ public class MovementSwitcher : MonoBehaviour
         PlayerController playerController = controlledSingleBlob.GetComponent<PlayerController>();
         playerController.isBeingControlled = true;
         if (blob1.activeSelf && blob2 && blob2.activeSelf) playerController.indicator.GetComponent<SpriteRenderer>().enabled = true;
-        movementText.text = "Controls:\nAWSD - " + (controlledSingleBlob == blob1 ? "Blue" : "Red") + " blob\nShift to switch blobs.";
     }
 
     public void Update()
@@ -76,7 +75,7 @@ public class MovementSwitcher : MonoBehaviour
 
             if (bigBlob.GetComponent<PlayerController>().isBeingControlled)
             {
-                movementText.text = "Controls:\nAWSD - Purple blob\nShift to split up.";
+                if (movementText) movementText.text = "Big Blob Controls:\nShift to split up";
             }
         }
     }
@@ -122,7 +121,7 @@ public class MovementSwitcher : MonoBehaviour
             playerController.isBeingControlled = true; // enable new blob
             playerController.indicator.GetComponent<SpriteRenderer>().enabled = true;
 
-            movementText.text = "Controls:\nAWSD - " + (controlledSingleBlob == blob1 ? "Blue" : "Red") + " blob\nShift to switch blobs.";
+            if (movementText) movementText.text = "Controls:\nShift to switch blobs";
         }
     }
 
@@ -144,7 +143,7 @@ public class MovementSwitcher : MonoBehaviour
         blob2.GetComponent<PlayerController>().isChangingSize = true;
 
         controlledSingleBlob.GetComponent<PlayerController>().indicator.GetComponent<SpriteRenderer>().enabled = true;
-        movementText.text = "Controls:\nAWSD - " + (controlledSingleBlob == blob1 ? "Blue" : "Red") + " blob\nShift to switch blobs.";
+        if (movementText) movementText.text = "Controls:\nShift to switch blobs";
     }
 
     private GameObject GetOtherBlob()
