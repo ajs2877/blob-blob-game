@@ -1061,7 +1061,7 @@ GameObject:
   - component: {fileID: 7287529714746743414}
   - component: {fileID: 898880165788780158}
   m_Layer: 0
-  m_Name: ControlsText
+  m_Name: SettingsText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1115,29 +1115,22 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 18
+    m_FontSize: 28
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'CONTROLS:
+  m_Text: '
 
+    SETTINGS
 
-    AWSD / Arrow keys
-
-    to move around
-
-
-    Shift to switch
-    blobs
-
-    or to split big blobs'
+'
 --- !u!1 &3491587162794380117
 GameObject:
   m_ObjectHideFlags: 0
@@ -3520,7 +3513,7 @@ MonoBehaviour:
     m_FontSize: 36
     m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 0
     m_MaxSize: 300
     m_Alignment: 4
     m_AlignByGeometry: 0
