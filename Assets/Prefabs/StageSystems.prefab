@@ -109,7 +109,7 @@ RectTransform:
   m_Children:
   - {fileID: 7352540985732485543}
   m_Father: {fileID: 171740749408819790}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.6855986, y: 0.27800003}
   m_AnchorMax: {x: 0.95600003, y: 0.63900006}
@@ -511,8 +511,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 8820775841650336279}
-  - {fileID: 8760143106021908280}
   - {fileID: 3198705817571994106}
+  - {fileID: 8760143106021908280}
   - {fileID: 3990966528473182475}
   - {fileID: 2873683119113549250}
   - {fileID: 6987495630420743648}
@@ -855,7 +855,7 @@ RectTransform:
   m_GameObject: {fileID: 3061169410271997681}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 2871950184859649162}
   - {fileID: 7967221189407447714}
@@ -1048,7 +1048,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9202706115632424699}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6248729229786143961}
+        m_MethodName: SetSettingsState
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &3269463625883309260
 GameObject:
   m_ObjectHideFlags: 0
@@ -2102,6 +2113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pausedCanvas: {fileID: 1143620094829374643}
+  settingsCanvas: {fileID: 742133297640386637}
   mainCanvas: {fileID: 6248729230720555076}
 --- !u!114 &6248729229786143962
 MonoBehaviour:
@@ -3122,7 +3134,7 @@ RectTransform:
   m_GameObject: {fileID: 6521940652952132788}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4854441095621039247}
   - {fileID: 2355281691624118044}
@@ -3263,7 +3275,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 171740749408819790}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.3742107, y: 0.82000005}
   m_AnchorMax: {x: 0.62600005, y: 0.97200006}
@@ -3340,7 +3352,7 @@ RectTransform:
   m_GameObject: {fileID: 6987495630420743651}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.67945, y: 0.67945, z: 0.67945}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 6987495631644304560}
   m_Father: {fileID: 171740749408819790}
@@ -3443,7 +3455,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6987495630420743662}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6248729229786143961}
+        m_MethodName: SetSettingsState
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6987495631644304563
 GameObject:
   m_ObjectHideFlags: 0
