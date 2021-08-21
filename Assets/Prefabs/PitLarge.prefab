@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: -4995715186265494072, guid: 455812b5ebb106e44b6a51846776d69a, type: 3}
-  - {fileID: -4580211725830467084, guid: 455812b5ebb106e44b6a51846776d69a, type: 3}
+  - {fileID: 8847957622712646041, guid: 870db216b85e0ab478e74c71dd8ea387, type: 3}
+  - {fileID: 6323634190404004102, guid: 870db216b85e0ab478e74c71dd8ea387, type: 3}
   parentCollider: {fileID: 7950276845805351770}
   subPitDetector1: {fileID: 4586021330464296697}
   subPitDetector2: {fileID: 5886959532955905279}
