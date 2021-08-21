@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class CreviceTile : MonoBehaviour
 {
-    [SerializeField]
-    private Sprite[] sprites;
     private GameObject blobOccuping = null;
     private GameObject parentObject;
 
     [SerializeField]
     private AudioSource sound;
+    [SerializeField]
+    private Animator animator;
 
     void Start()
     {
@@ -33,11 +33,11 @@ public class CreviceTile : MonoBehaviour
 
             if (blobOccuping.name.Contains("Blue"))
             {
-                spriteRenderer.sprite = sprites[1];
+                animator.Play("Base Layer.creviceTileBlue");
             }
             else
             {
-                spriteRenderer.sprite = sprites[2];
+                animator.Play("Base Layer.creviceTileRed");
             }
             sound.Play();
         }
@@ -51,8 +51,7 @@ public class CreviceTile : MonoBehaviour
             blobOccuping.GetComponent<PlayerController>().isInCrevice = false;
             blobOccuping.GetComponent<PlayerController>().windPushable = true;
             blobOccuping.GetComponent<SpriteRenderer>().enabled = true;
-            SpriteRenderer spriteRenderer = parentObject.GetComponent<SpriteRenderer>();
-            spriteRenderer.sprite = sprites[0];
+            animator.Play("Base Layer.creviceTileEmpty");
 
             parentObject.GetComponent<AllowOnlyBlobs>().enabled = true;
 
