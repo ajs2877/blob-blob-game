@@ -21,6 +21,9 @@ public class LavaTile : MonoBehaviour
 
     private AudioSource sound;
 
+    [SerializeField]
+    private Animator animator;
+
     void Start()
     {
         lavaTriggerCollider = GetComponent<BoxCollider2D>();
@@ -47,6 +50,7 @@ public class LavaTile : MonoBehaviour
                 // Water blob is on. Cool off lava and shrink blob
                 if (!gameObjectTouching.name.Contains("Purple") && gameObjectTouching.GetComponent<GridObject>().size == 2)
                 {
+                    animator.enabled = false;
                     cooledDown = true;
                     spriteRenderer.sprite = sprites[1];
                     lavaTriggerCollider.enabled = false;
