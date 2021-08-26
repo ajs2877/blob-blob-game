@@ -7,15 +7,110 @@ public class WindTile : MonoBehaviour
 {
     protected TrueGrid gameGrid;
     public AudioSource sound;
+    public GameObject windPrefab;
+    private GameObject currentWind = null;
+    private SpriteRenderer currentWindSpriteRenderer = null;
+    private float distanceForWind = -1;
+    float moveSpeed = 1.75f;
+    int recheckDistanceTimer = 0;
+    float delayTimer;
 
     void Start()
     {
         gameGrid = GameObject.Find("GameController").GetComponent<TrueGrid>();
+        delayTimer = Random.value;
     }
 
-    // Maybe for showing gust of wind?
     void Update()
     {
+        recheckDistanceTimer--;
+        if (recheckDistanceTimer < 0)
+        {
+            DIRECTION direction = GetDirection(gameObject.transform.up);
+            Vector2Int tileDirection = GetOffset(direction);
+            Vector2Int currentTilePos = gameGrid.GetGridSpace(gameObject, false);
+            Vector2Int currentCheckPos = currentTilePos + tileDirection;
+
+            // Regular loop to prevent any possible issue of infinite loop with while loop
+            for (int i = 0; i < 100; i++)
+            {
+                if (!gameGrid.PositionisWithinGrid(currentCheckPos.x, currentCheckPos.y)) break;
+                List<GameObject> objectsInPath = gameGrid.GetElementsAtLocation(currentCheckPos.x, currentCheckPos.y);
+                foreach (GameObject objectInPath in objectsInPath)
+                {
+                    if (!objectInPath.CompareTag("notwindblocking"))
+                    {
+                        i = 100;
+                        break;
+                    }
+                }
+                currentCheckPos += tileDirection;
+
+                // if this fires, we have a BIG problem....
+                // It means the game kept checking forever in front of wind tile and never hit a wall.
+                Debug.Assert(i != 99);
+            }
+
+            Vector2 finalTilePos = gameGrid.GetWorldSpace(currentCheckPos);
+            distanceForWind = Mathf.Abs((finalTilePos.x - transform.position.x) + (finalTilePos.y - transform.position.y)) - 2f;
+
+            recheckDistanceTimer = 30;
+        }
+
+        if (currentWind)
+        {
+            float distanceTraveled = (currentWind.transform.position - transform.position).magnitude;
+            if (distanceTraveled > distanceForWind)
+            {
+                if(currentWindSpriteRenderer.color.a <= 0)
+                {
+                    Destroy(currentWind);
+                    currentWindSpriteRenderer = null;
+                }
+                else
+                {
+                    Color color = currentWindSpriteRenderer.color;
+                    currentWindSpriteRenderer.color = new Color(
+                        color.r,
+                        color.g,
+                        color.b,
+                        color.a - 0.0075f
+                    );
+                }
+            }
+            else
+            {
+                currentWind.transform.position = currentWind.transform.position + (gameObject.transform.up * moveSpeed * Time.deltaTime);
+
+                float halfThreshold = distanceForWind / 2;
+                float absProgress = Mathf.Abs(distanceTraveled - halfThreshold);
+                float opacity = Mathf.Pow((halfThreshold - absProgress) / halfThreshold, 0.5f);
+                Color color = currentWindSpriteRenderer.color;
+                currentWindSpriteRenderer.color = new Color(
+                    color.r,
+                    color.g,
+                    color.b,
+                    opacity
+                );
+            }
+        }
+        else if(distanceForWind > 2f && delayTimer <= 0)
+        {
+            delayTimer = Random.value;
+            currentWind = Instantiate(windPrefab, transform.position + (gameObject.transform.up * 0.5f), transform.rotation);
+            currentWindSpriteRenderer = currentWind.GetComponentInChildren<SpriteRenderer>();
+            Color color = currentWindSpriteRenderer.color;
+            currentWindSpriteRenderer.color = new Color(
+                color.r,
+                color.g,
+                color.b,
+                0
+            );
+        }
+        else
+        {
+            delayTimer -= Time.deltaTime;
+        }
     }
 
     /// <summary>
@@ -28,11 +123,11 @@ public class WindTile : MonoBehaviour
 
         foreach (WindTile windTile in windTiles)
         {
+            HashSet<GameObject> objectsOnWind = new HashSet<GameObject>();
             DIRECTION direction = GetDirection(windTile.gameObject.transform.up);
             Vector2Int tileDirection = GetOffset(direction);
             Vector2Int currentTilePos = gameGrid.GetGridSpace(windTile.gameObject, false);
             Vector2Int currentCheckPos = currentTilePos + tileDirection;
-            HashSet<GameObject> objectsOnWind = new HashSet<GameObject>();
 
             // Regular loop to prevent any possible issue of infinite loop with while loop
             for (int i = 0; i < 100; i++)
@@ -54,6 +149,10 @@ public class WindTile : MonoBehaviour
                 // It means the game kept checking forever in front of wind tile and never hit a wall.
                 Debug.Assert(i != 99);
             }
+
+            // update their wind distance
+            Vector2 finalTilePos = gameGrid.GetWorldSpace(currentCheckPos);
+            windTile.distanceForWind = Mathf.Abs((finalTilePos.x - windTile.transform.position.x) + (finalTilePos.y - windTile.transform.position.y)) - 2f;
 
             if (objectsOnWind.Contains(objectOnPathToFind))
             {
