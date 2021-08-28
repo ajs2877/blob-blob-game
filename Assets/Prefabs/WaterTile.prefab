@@ -75,6 +75,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 578800824562e5a4b90389ca82f94e04, type: 3}
   infiniteSource: 0
   parentCollider: {fileID: 5114985039387343685}
+  animator: {fileID: 7672663161819670820}
 --- !u!1 &7395329209016401159
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,6 +89,7 @@ GameObject:
   - component: {fileID: 5114985039387343685}
   - component: {fileID: 1268699064211372302}
   - component: {fileID: 3340154112655639026}
+  - component: {fileID: 7672663161819670820}
   m_Layer: 14
   m_Name: WaterTile
   m_TagString: notwindblocking
@@ -149,7 +151,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0e341b80584db4b45a8a6b067369c4b2, type: 3}
+  m_Sprite: {fileID: -777266579407996165, guid: 205458c1f1cb86c48a2c895e3ab08ea7,
+    type: 3}
   m_Color: {r: 0.56078434, g: 0.7529412, b: 0.7294118, a: 0.7529412}
   m_FlipX: 0
   m_FlipY: 0
@@ -296,3 +299,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &7672663161819670820
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7395329209016401159}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bf3b43d1b52f2b44fbcfeab23511b648, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

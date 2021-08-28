@@ -20,6 +20,8 @@ public class WaterTile : MonoBehaviour
 
     private AudioSource sound;
 
+    [SerializeField]
+    private Animator animator;
 
     void Start()
     {
@@ -51,7 +53,9 @@ public class WaterTile : MonoBehaviour
     void GrowPlayer(GameObject playerBlob)
     {
         bool grownPlayer = playerBlob.GetComponent<PlayerController>().GrowBlobIfRoom();
-        if (grownPlayer && !infiniteSource) {
+        if (grownPlayer && !infiniteSource)
+        {
+            animator.enabled = false;
             drained = true;
             spriteRenderer.sprite = sprites[1];
             parentCollider.enabled = false;
