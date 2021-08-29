@@ -3323,11 +3323,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 93228249133813734, guid: 3d8f1659bece09e4a867a02c160fabe7,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 822711445743669695, guid: 3d8f1659bece09e4a867a02c160fabe7,
         type: 3}
       propertyPath: m_Camera
@@ -3337,6 +3332,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BlobAndStageControls
+      objectReference: {fileID: 0}
+    - target: {fileID: 5290776977263678010, guid: 3d8f1659bece09e4a867a02c160fabe7,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.49743652
       objectReference: {fileID: 0}
     - target: {fileID: 6118885225104542597, guid: 3d8f1659bece09e4a867a02c160fabe7,
         type: 3}

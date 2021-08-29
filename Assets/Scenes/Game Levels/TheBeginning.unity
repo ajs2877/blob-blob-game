@@ -2320,6 +2320,16 @@ PrefabInstance:
 
         AWSD / Arrow keys'
       objectReference: {fileID: 0}
+    - target: {fileID: 93228248899501996, guid: 3d8f1659bece09e4a867a02c160fabe7,
+        type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 93228248899501996, guid: 3d8f1659bece09e4a867a02c160fabe7,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 93228249133813734, guid: 3d8f1659bece09e4a867a02c160fabe7,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -2328,22 +2338,22 @@ PrefabInstance:
     - target: {fileID: 93228249367810548, guid: 3d8f1659bece09e4a867a02c160fabe7,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 151.74858
+      value: 215.48665
       objectReference: {fileID: 0}
     - target: {fileID: 93228249367810548, guid: 3d8f1659bece09e4a867a02c160fabe7,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 72.61954
+      value: 103.121506
       objectReference: {fileID: 0}
     - target: {fileID: 93228249367810548, guid: 3d8f1659bece09e4a867a02c160fabe7,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 84.722
+      value: 115.79
       objectReference: {fileID: 0}
     - target: {fileID: 93228249367810548, guid: 3d8f1659bece09e4a867a02c160fabe7,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 36.31
+      value: 51.56
       objectReference: {fileID: 0}
     - target: {fileID: 93228249367810551, guid: 3d8f1659bece09e4a867a02c160fabe7,
         type: 3}
