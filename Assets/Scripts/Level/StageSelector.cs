@@ -22,8 +22,9 @@ public class StageSelector : MonoBehaviour
         for (int index = 0; index < scenes.Length; ++index)
         {
             GameObject newButton = Instantiate(stageButtonPrefab, stageHolder.transform.position, stageHolder.transform.rotation);
+
             // Set it into panel that holds stage buttons
-            newButton.transform.parent = stageHolder.transform;
+            newButton.transform.SetParent(stageHolder.transform, false);
 
             // Sets up all buttons based on scenes assigned
             newButton.GetComponent<StageButton>().stageName = scenes[index].SceneName;
