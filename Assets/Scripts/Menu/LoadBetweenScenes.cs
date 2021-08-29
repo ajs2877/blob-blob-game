@@ -16,5 +16,8 @@ public class LoadBetweenScenes : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        if (GameObject.FindGameObjectsWithTag("Music").Length > 1)
+            Destroy(GameObject.FindGameObjectsWithTag("Music")[1]);
     }
 }
