@@ -3333,6 +3333,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlobAndStageControls
       objectReference: {fileID: 0}
+    - target: {fileID: 5290776977263678010, guid: 3d8f1659bece09e4a867a02c160fabe7,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.49743652
+      objectReference: {fileID: 0}
     - target: {fileID: 6118885225104542597, guid: 3d8f1659bece09e4a867a02c160fabe7,
         type: 3}
       propertyPath: m_RootOrder
