@@ -2003,6 +2003,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 822711445743669695, guid: 3d8f1659bece09e4a867a02c160fabe7,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1293478074}
     - target: {fileID: 4903520967013136768, guid: 3d8f1659bece09e4a867a02c160fabe7,
         type: 3}
       propertyPath: m_Name
@@ -3180,6 +3185,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Background
+      objectReference: {fileID: 0}
+    - target: {fileID: 9064912207245589233, guid: 0dc67d52e03d7ea4caf3efaf14be7e6b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9064912207245589239, guid: 0dc67d52e03d7ea4caf3efaf14be7e6b,
         type: 3}
